@@ -1,0 +1,16 @@
+# Site settings
+title: SocialWG
+email:
+description:
+baseurl:
+url: "http://www.w3.org/Social"
+twitter: socialwebwg
+github: w3c-social
+
+# Build settings
+#permalink: pretty
+
+highlighter: pygments
+
+gems:
+  - jekyll-redirect-from
