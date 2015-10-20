@@ -4,6 +4,18 @@ layout: default
 
 # The Social API
 
+## Editor's Draft
+
+**This version:** http://w3c-social.github.io/SocialAPI/socialapi
+
+**Editor:** [Amy Guy](http://rhiaro.co.uk), University of Edinburgh
+
+**Repository:**
+
+* [Github](https://github.com/w3c-social/SocialAPI)
+* [Issues](https://github.com/w3c-social/SocialAPI/issues)
+* [Commits](https://github.com/w3c-social/SocialAPI/commits/gh-pages)
+
 ## Status of this document
 
 An overview of the current state of specs that are inputs to the WG: [ActivityPump](http://w3c-social.github.io/activitypump/), the Indieweb ecosystem (including [Micropub](http://indiewebcamp.com/Micropub) and [Webmention](http://indiewebcamp.com/Webmention)) and [SoLiD](https://github.com/solid/solid-spec); all of which are subject to ongoing development. Arranged based on [Social API Requirements](https://www.w3.org/wiki/Socialwg/Social_API/Requirements).
