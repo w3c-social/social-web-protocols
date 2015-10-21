@@ -149,10 +149,7 @@ One user may [publish](#publishing) one or more streams of content. Streams may 
 
 ```HTTP/1.1 200 OK .... Link: <http://rhiaro.co.uk/tag/socialwg>; rel="feed"```
 
-<div class="issue">
-  <div class="issue-title"><span>Issue</span></div>
-  <div>How to include additional info, eg. title/description of feed?</div>
-</div>
+Dereferencing the URL of the stream results in the contents of the stream, as well as additional metadata about the stream (such as title, description).
 
 * **h-feed**: `rel="feed"` (*See [h-feed](http://indiewebcamp.com/h-feed#rel_feed)*)
 * **ActivityPump**: contains some pre-defined ActivityStreams `Collections`, whose URIs are discoverable from the JSON returned by `GET`ing a user's profile, eg. via the `inbox`, `outbox`, `favorites` properties; but not sure what scope is for linking to arbitrary collections. (*See [ActivityPump - Discovery](http://w3c-social.github.io/activitypump/#endpoint-discovery)*)
