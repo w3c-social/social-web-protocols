@@ -45,13 +45,19 @@ This specification is divided into parts that can be implemented independantly a
 
 ## Reading
 
-Each stream MUST have a globally unique identifier (HTTP URI). Each object in a stream MUST have a globally unique identifier (HTTP URI) in the `@id` property, and MAY contain *only* this identifier, which can be dereferenced to retrieve all properties of an object.
+### Streams
 
-A `GET` on the identifier retrieves JSON[-LD] representation of the object or stream of objects, *or* an HTML representation from which the equivalent JSON representation can be parsed.
+Each stream MUST have a globally unique identifier (HTTP URI). Dereferencing the URI of the stream MUST result in the contents of the stream, as well as additional metadata about the stream (such as title, description).
+
+Each object in a stream MUST have a globally unique identifier (HTTP URI) in the `@id` property, and MAY contain *only* this identifier, which can be dereferenced to retrieve all properties of an object.
+
+### Objects
+
+A `GET` on the identifier retrieves JSON[-LD] representation of the object or stream of objects.
 
 ### Content representation
 
-Content SHOULD be represented according to [ActivityStreams](#) (JSON or JSON-LD) but MAY be structured according to an alternative syntax (eg. HTML with Microformats2 or HTML with RDFa).
+Content MUST be represented according to [ActivityStreams](#) (JSON or JSON-LD) but MAY additionally be served as an alternative syntax (eg. HTML with Microformats2 or HTML with RDFa).
 
 Content SHOULD be described using the [ActivityStreams](#) vocabulary, but MAY use other vocabularies instead.
 
@@ -69,15 +75,9 @@ Content SHOULD be described using the [ActivityStreams](#) vocabulary, but MAY u
 
 **TODO:** limit/paging
 
-<div class="issue">
-  <div class="issue-title"><span>Issue</span></div>
-  <div>Microformats uses <code>url</code> not <code>@id</code></div>
-</div>
-
 **TODO:** Example single object.
 
 **TODO:** Example stream of objects.
-
 
 ## Creating content
 
@@ -141,19 +141,6 @@ When an object is deleted, it SHOULD be replaced with a 'tombstone' containing i
 Notifications from updates and deletes are SHOULD not MUST to allow for modular implementation. ie. if I delete a post right now, I don't notify anyone, even those mentioned, or who have replied to it. It's not ideal, but the world/web doesn't break. It's linkrot, but we've managed to cope so far...
 -->
 
-## Discovery
-
-One user may [publish](#publishing) one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. The result of a `GET` on the HTTP URI of a [profile](#profiles) MAY include links to other streams, which a consumer could follow to read or subscribe to. Eg.
-
-`<link rel="feed" href="http://rhiaro.co.uk/tag/socialwg">`
-
-```HTTP/1.1 200 OK .... Link: <http://rhiaro.co.uk/tag/socialwg>; rel="feed"```
-
-Dereferencing the URL of the stream results in the contents of the stream, as well as additional metadata about the stream (such as title, description).
-
-* **h-feed**: `rel="feed"` (*See [h-feed](http://indiewebcamp.com/h-feed#rel_feed)*)
-* **ActivityPump**: contains some pre-defined ActivityStreams `Collections`, whose URIs are discoverable from the JSON returned by `GET`ing a user's profile, eg. via the `inbox`, `outbox`, `favorites` properties; but not sure what scope is for linking to arbitrary collections. (*See [ActivityPump - Discovery](http://w3c-social.github.io/activitypump/#endpoint-discovery)*)
-
 ## Subscribing
 
 An agent (client or server) may *ask* to be notified of changes to a content object (eg. edits, new replies) or stream of content (eg. objects added or removed from the stream).
@@ -185,7 +172,14 @@ A user may wish to push a notification to another user, for example because they
 
 ## Profiles
 
-The subject of a profile document can be a person, persona, organisation, bot, location, ...whatever. Each profile document MUST have a globally unique identifier (HTTP URI). Performing a `GET` on a profile document SHOULD return a JSON object containing attributes of the subject of the profile; MAY return objects the subject has created, such as an ActivityStreams `Collection`; and SHOULD return at least one link to a stream of content (see [discovery](#discovery)). The JSON representation of a profile document MAY be parsed from an HTML representation (eg. via Microformats (`h-card`) or RDFa).
+The subject of a profile document can be a person, persona, organisation, bot, location, ... the type of the subject of the profile is not required. Each profile document MUST have a globally unique identifier (HTTP URI). Performing a `GET` on a profile document MUST return a JSON object containing attributes of the subject of the profile; SHOULD return at least one link to [a stream of content](#reading) and MAY return content the subject has created. The JSON object MAY be embedded in an html `<script>` tag.
+
+One user may [publish](#publishing) one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. The result of a `GET` on the HTTP URI of a profile MAY include links to multiple streams, which a consumer could follow to read or subscribe to. Eg.
+
+`<link rel="feed" href="http://rhiaro.co.uk/tag/socialwg">`
+
+```HTTP/1.1 200 OK .... Link: <http://rhiaro.co.uk/tag/socialwg>; rel="feed"```
+
 
 ### Relationships
 
