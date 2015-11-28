@@ -43,6 +43,41 @@ This specification is divided into parts that can be implemented independantly a
 * how to [send notifications](#mentioning) about content or users (mentioning).
 * how to expose [profiles](#profiles) and [relationships](#relationships).
 
+## Profiles
+
+The subject of a profile document can be a person, persona, organisation, bot, location, ... the type of the subject of the profile is not required. Each profile document MUST have a globally unique identifier (HTTP URI). Performing a `GET` on a profile document MUST return a JSON object containing attributes of the subject of the profile; SHOULD return at least one link to [a stream of content](#reading) and MAY return content the subject has created. The JSON object MAY be embedded in an html `<script>` tag.
+
+One user may [publish](#publishing) one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. The result of a `GET` on the HTTP URI of a profile MAY include links to multiple streams, which a consumer could follow to read or subscribe to. Eg.
+
+`<link rel="feed" href="http://rhiaro.co.uk/tag/socialwg">`
+
+```HTTP/1.1 200 OK .... Link: <http://rhiaro.co.uk/tag/socialwg>; rel="feed"```
+
+
+### Relationships
+
+<div class="issue">
+  <div class="issue-title"><span>Issue</span></div>
+  <div>Unsolved...</div>
+</div>
+
+*Note: a user should not be required to publish their friends/followers, or may selectively publish them. However, if they're going to (which is useful for eg. switching readers without having to resubscribe to everyone) we should make sure there's a standard way of doing it.*
+
+*Note: I think defining a vocabulary for types of relationships is out of scope and generally not very useful.*
+
+* **ActivityPump:** When a server receives a `Follow` Activity in its `inbox`, the subject is added to a `Followers` `Collection`, which is discoverable from the subject's profile.
+
+### Authorization and access control
+
+* Bearer tokens for authentication
+* Leave obtaining the bearer token out of the spec, since there are already several RFCs for ways to obtain bearer tokens.
+
+**TODO(?):** Access control
+
+* **ActivityPump:** see [auth](http://w3c-social.github.io/activitypump/#authorization)
+* **Indieweb:** see [private posts](https://indiewebcamp.com/private_posts), [private webmention](https://indiewebcamp.com/private-webmention)
+* **SoLiD:** see [acl](https://github.com/solid/solid-spec#web-access-control)
+
 ## Reading
 
 ### Streams
@@ -78,6 +113,35 @@ Content SHOULD be described using the [ActivityStreams](#) vocabulary, but MAY u
 **TODO:** Example single object.
 
 **TODO:** Example stream of objects.
+
+
+
+## Subscribing
+
+An agent (client or server) may *ask* to be notified of changes to a content object (eg. edits, new replies) or stream of content (eg. objects added or removed from the stream).
+
+<div class="issue">
+  <div class="issue-title"><span>Issue</span></div>
+  <div>Lots of ways of doing this, what to use?</div>
+</div>
+
+Here are some options...
+
+* **ActivityPump**: The subscriber posts a `Follow` Activity (JSON object) to the target's `inbox` endpoint, and adds the target to the subscriber's `Following` Collection. The target's server adds the subscriber to the target's `Followers` Collection, and subsequently `POST`s all new activities of the target to the subscriber's `inbox` endpoint. (*See [ActivityPump](http://w3c-social.github.io/activitypump/) 7.4.2, 8 and 9.2.4*)
+* **SoLiD**: The subscriber sends the keyword `sub` followed by an empty space and then the URI of the resource, to the target's websockets URI. The target's server sends a websockets message containing the keyword `pub`, followed by an empty space and the URI of the resource that has changed, whenever there is a change. (*See [SoLiD - Live Updates](https://github.com/solid/solid-spec#live-updates)*)
+* **PubSubHubbub**: The subscriber discovers the target's hub, and sends a form-encoded `POST` request containing values for `hub.mode` ("subscribe"), `hub.topic` and `hub.callback`. When the target posts new content, the target's server sends a form-encoded `POST` to the hub with values for `hub.mode` ("publish") and `hub.url` and the hub checks the URL for new content and `POST`s updates to the subscriber's callback URL. (*See [PuSH 0.4](http://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html) and [How To Publish And Consume PuSH](http://indiewebcamp.com/How_to_publish_and_consume_PubSubHubbub)*)
+* **Salmentions**: The subscriber creates content that links to the target (eg. a reply) and sends a form-encoded `POST` containing values for `source` and `target` to the target's webmention [webmention](https://indiewebcamp.com/webmention) endpoint. The target verifies the link and includes a link back to the subscriber's source on the target content. The target sends form-encoded `POST` requests containing values for `source` and `target` to the webmention endpoint of every link in the content, including that of the subscriber, to indicate that there has been a change. (*See [webmention](https://indiewebcamp.com/webmention) and [salmentions](https://indiewebcamp.com/salmentions)*)
+
+A server may also receive notifications of changes to content it has *not subscribed* to: see [mentioning](#mentioning).
+
+## Mentioning
+
+A user may wish to push a notification to another user, for example because they have linked to (replied, liked, bookmarked, reposted, ...) their content or linked to (tagged, addressed) the user directly.
+
+* **ActivityPump:** When an Activity is posted to a user's `outbox` endpoint, the server checks for values of `object`, `target`, `inReplyTo`, `to`, `cc`, and `bcc`; discovers the `inbox` endpoint of any objects found, and `POST`s the Activity to the discovered `inbox` endpoints. Servers receiving such an Activity proceed to do the same for the target object to propagate the update further. *(See [ActivityPump 8.2](http://w3c-social.github.io/activitypump/#notification))*
+* **Webmention:** The target publishes a link to their 'webmention endpoint' via `rel="webmention"`. The source sends a form-encoded `POST` request containing values for `source` (the URL of a webpage with a link to the target) and `target` (the URL of the webpage being linked to). The target MUST validate that the source really does link to target, and proceeds to do with this information as desired. *(See [webmention](https://indiewebcamp.com/webmention))*
+
+*Note: we need to leave it open for users to refuse content they have not explicitly subscribed to, ie. nothing else should rely on implementation of Mentioning.*
 
 ## Creating content
 
@@ -140,67 +204,3 @@ When an object is deleted, it SHOULD be replaced with a 'tombstone' containing i
 <!--
 Notifications from updates and deletes are SHOULD not MUST to allow for modular implementation. ie. if I delete a post right now, I don't notify anyone, even those mentioned, or who have replied to it. It's not ideal, but the world/web doesn't break. It's linkrot, but we've managed to cope so far...
 -->
-
-## Subscribing
-
-An agent (client or server) may *ask* to be notified of changes to a content object (eg. edits, new replies) or stream of content (eg. objects added or removed from the stream).
-
-<div class="issue">
-  <div class="issue-title"><span>Issue</span></div>
-  <div>Lots of ways of doing this, what to use?</div>
-</div>
-
-Here are some options...
-
-* **ActivityPump**: The subscriber posts a `Follow` Activity (JSON object) to the target's `inbox` endpoint, and adds the target to the subscriber's `Following` Collection. The target's server adds the subscriber to the target's `Followers` Collection, and subsequently `POST`s all new activities of the target to the subscriber's `inbox` endpoint. (*See [ActivityPump](http://w3c-social.github.io/activitypump/) 7.4.2, 8 and 9.2.4*)
-* **SoLiD**: The subscriber sends the keyword `sub` followed by an empty space and then the URI of the resource, to the target's websockets URI. The target's server sends a websockets message containing the keyword `pub`, followed by an empty space and the URI of the resource that has changed, whenever there is a change. (*See [SoLiD - Live Updates](https://github.com/solid/solid-spec#live-updates)*)
-* **PubSubHubbub**: The subscriber discovers the target's hub, and sends a form-encoded `POST` request containing values for `hub.mode` ("subscribe"), `hub.topic` and `hub.callback`. When the target posts new content, the target's server sends a form-encoded `POST` to the hub with values for `hub.mode` ("publish") and `hub.url` and the hub checks the URL for new content and `POST`s updates to the subscriber's callback URL. (*See [PuSH 0.4](http://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html) and [How To Publish And Consume PuSH](http://indiewebcamp.com/How_to_publish_and_consume_PubSubHubbub)*)
-* **Salmentions**: The subscriber creates content that links to the target (eg. a reply) and sends a form-encoded `POST` containing values for `source` and `target` to the target's webmention [webmention](https://indiewebcamp.com/webmention) endpoint. The target verifies the link and includes a link back to the subscriber's source on the target content. The target sends form-encoded `POST` requests containing values for `source` and `target` to the webmention endpoint of every link in the content, including that of the subscriber, to indicate that there has been a change. (*See [webmention](https://indiewebcamp.com/webmention) and [salmentions](https://indiewebcamp.com/salmentions)*)
-
-A server may also receive notifications of changes to content it has *not subscribed* to: see [mentioning](#mentioning).
-
-## Mentioning
-
-*(was 'Notifications')*
-
-A user may wish to push a notification to another user, for example because they have linked to (replied, liked, bookmarked, reposted, ...) their content or linked to (tagged, addressed) the user directly.
-
-* **ActivityPump:** When an Activity is posted to a user's `outbox` endpoint, the server checks for values of `object`, `target`, `inReplyTo`, `to`, `cc`, and `bcc`; discovers the `inbox` endpoint of any objects found, and `POST`s the Activity to the discovered `inbox` endpoints. Servers receiving such an Activity proceed to do the same for the target object to propagate the update further. *(See [ActivityPump 8.2](http://w3c-social.github.io/activitypump/#notification))*
-* **Webmention:** The target publishes a link to their 'webmention endpoint' via `rel="webmention"`. The source sends a form-encoded `POST` request containing values for `source` (the URL of a webpage with a link to the target) and `target` (the URL of the webpage being linked to). The target MUST validate that the source really does link to target, and proceeds to do with this information as desired. *(See [webmention](https://indiewebcamp.com/webmention))*
-
-*Note: we need to leave it open for users to refuse content they have not explicitly subscribed to, ie. nothing else should rely on implementation of Mentioning.*
-
-## Profiles
-
-The subject of a profile document can be a person, persona, organisation, bot, location, ... the type of the subject of the profile is not required. Each profile document MUST have a globally unique identifier (HTTP URI). Performing a `GET` on a profile document MUST return a JSON object containing attributes of the subject of the profile; SHOULD return at least one link to [a stream of content](#reading) and MAY return content the subject has created. The JSON object MAY be embedded in an html `<script>` tag.
-
-One user may [publish](#publishing) one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. The result of a `GET` on the HTTP URI of a profile MAY include links to multiple streams, which a consumer could follow to read or subscribe to. Eg.
-
-`<link rel="feed" href="http://rhiaro.co.uk/tag/socialwg">`
-
-```HTTP/1.1 200 OK .... Link: <http://rhiaro.co.uk/tag/socialwg>; rel="feed"```
-
-
-### Relationships
-
-<div class="issue">
-  <div class="issue-title"><span>Issue</span></div>
-  <div>Unsolved...</div>
-</div>
-
-*Note: a user should not be required to publish their friends/followers, or may selectively publish them. However, if they're going to (which is useful for eg. switching readers without having to resubscribe to everyone) we should make sure there's a standard way of doing it.*
-
-*Note: I think defining a vocabulary for types of relationships is out of scope and generally not very useful.*
-
-* **ActivityPump:** When a server receives a `Follow` Activity in its `inbox`, the subject is added to a `Followers` `Collection`, which is discoverable from the subject's profile.
-
-### Authorization and access control
-
-* Bearer tokens for authentication
-* Leave obtaining the bearer token out of the spec, since there are already several RFCs for ways to obtain bearer tokens.
-
-**TODO:** Access control
-
-* **ActivityPump:** see [auth](http://w3c-social.github.io/activitypump/#authorization)
-* **Indieweb:** see [private posts](https://indiewebcamp.com/private_posts), [private webmention](https://indiewebcamp.com/private-webmention)
-* **SoLiD:** see [acl](https://github.com/solid/solid-spec#web-access-control)
