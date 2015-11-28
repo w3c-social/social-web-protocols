@@ -47,13 +47,6 @@ This specification is divided into parts that can be implemented independantly a
 
 The subject of a profile document can be a person, persona, organisation, bot, location, ... the type of the subject of the profile is not required. Each profile document MUST have a globally unique identifier (HTTP URI). Performing a `GET` on a profile document MUST return a JSON object containing attributes of the subject of the profile; SHOULD return at least one link to [a stream of content](#reading) and MAY return content the subject has created. The JSON object MAY be embedded in an html `<script>` tag.
 
-One user may [publish](#publishing) one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. The result of a `GET` on the HTTP URI of a profile MAY include links to multiple streams, which a consumer could follow to read or subscribe to. Eg.
-
-`<link rel="feed" href="http://rhiaro.co.uk/tag/socialwg">`
-
-```HTTP/1.1 200 OK .... Link: <http://rhiaro.co.uk/tag/socialwg>; rel="feed"```
-
-
 ### Relationships
 
 <div class="issue">
@@ -85,6 +78,12 @@ One user may [publish](#publishing) one or more streams of content. Streams may 
 Each stream MUST have a globally unique identifier (HTTP URI). Dereferencing the URI of the stream MUST result in the contents of the stream, as well as additional metadata about the stream (such as title, description).
 
 Each object in a stream MUST have a globally unique identifier (HTTP URI) in the `@id` property, and MAY contain *only* this identifier, which can be dereferenced to retrieve all properties of an object.
+
+One user may publish one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. The result of a `GET` on the HTTP URI of a [profile](#profiles) MAY include links to multiple streams, which a consumer could follow to read or subscribe to. Eg.
+
+`<link rel="feed" href="http://rhiaro.co.uk/tag/socialwg">`
+
+```HTTP/1.1 200 OK .... Link: <http://rhiaro.co.uk/tag/socialwg>; rel="feed"```
 
 ### Objects
 
