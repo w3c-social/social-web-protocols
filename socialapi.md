@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# The Social API
+# Social Protocols
 
 ## Editor's Draft
 
