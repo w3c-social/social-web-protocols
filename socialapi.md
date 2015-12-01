@@ -41,7 +41,7 @@ regardless of *what that content* is or *where it is stored*.
 
 This provides the core building blocks for interoperable social systems.
 
-This specification is divided into parts that can be implemented independantly as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others. Put simply, this specification tells you:
+This specification is divided into parts that can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others. Put simply, this specification tells you:
 
 * how to [expose/consume](#reading) social content (reading).
 * [what to post](#content-representation), and where to, to [create](#creating), [update](#updating) or [delete](#deleting) content.
