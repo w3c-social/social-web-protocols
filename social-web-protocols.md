@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# Social Protocols
+# Social Web Protocols
 
 ## Editor's Draft
 
