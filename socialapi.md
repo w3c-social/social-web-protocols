@@ -20,6 +20,12 @@ layout: default
 
 An overview of the current state of specs that are inputs to the WG: [ActivityPump](http://w3c-social.github.io/activitypump/), the Indieweb ecosystem (including [Micropub](http://indiewebcamp.com/Micropub) and [Webmention](http://indiewebcamp.com/Webmention)) and [SoLiD](https://github.com/solid/solid-spec); all of which are subject to ongoing development. Arranged based on [Social API Requirements](https://www.w3.org/wiki/Socialwg/Social_API/Requirements).
 
+Aforementioned specs restructured according to the structure of this document (extreme early draft status, pending feedback from spec authors/editors):
+
+* [ActivityPump restructure](https://github.com/rhiaro/activitypump/blob/restructure/index.md)
+* [Indieweb specs](https://github.com/rhiaro/Social-APIs-Brainstorming/blob/gh-pages/indiewebspecs.md)
+* [Solid restructure](https://github.com/rhiaro/solid-spec/tree/restructure/README.md)
+
 Optimistically, this has the potential to become a unified working draft. Ultimately an implementation of any subsection of this spec should be compatible with the equivalent subsection of one of the aforementioned specs. Sometimes the overlap between spec subsections is unclear (to me), which is where I've written all options out for now.
 
 ## Overview
