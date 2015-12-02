@@ -1,1 +1,1 @@
-[http://w3c-social.github.io/SocialAPI/socialapi](http://w3c-social.github.io/SocialAPI/socialapi)
+[Social Web Protocols](http://w3c-social.github.io/social-web-protocols/social-web-protocols)
