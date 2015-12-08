@@ -70,18 +70,11 @@ This specification is divided into parts that can be implemented independently a
 
 ## Profiles
 
-The subject of a profile document can be a person, persona, organisation, bot, location, ... the type of the subject of the profile is not required. Each profile document MUST have a globally unique identifier (HTTP URI). Performing a `GET` on a profile document MUST return a JSON object containing attributes of the subject of the profile; SHOULD return at least one link to [a stream of content](#reading) and MAY return content the subject has created. The JSON object MAY be embedded in an html `<script>` tag.
+The subject of a profile document can be a person, persona, organisation, bot, location, ... the type of the subject of the profile is not required. Each profile document MUST have a URL which SHOULD return attributes of the subject of the profile; SHOULD return at least one link to [a stream of content](#reading) and MAY return content the subject has created. A JSON format MUST be available; other content types MAY be returned as well.
 
 ### Relationships
 
-<div class="issue">
-  <div class="issue-title"><span>Issue</span></div>
-  <div>Unsolved...</div>
-</div>
-
-*Note: a user should not be required to publish their friends/followers, or may selectively publish them. However, if they're going to (which is useful for eg. switching readers without having to resubscribe to everyone) we should make sure there's a standard way of doing it.*
-
-*Note: I think defining a vocabulary for types of relationships is out of scope and generally not very useful.*
+Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user 'friending' another triggers a subscription request from the first user's server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStremas 2 syntax and MAY (and are likely to) use extension vocabularies as needed.
 
 * **ActivityPump:** When a server receives a `Follow` Activity in its `inbox`, the subject is added to a `Followers` `Collection`, which is discoverable from the subject's profile.
 
