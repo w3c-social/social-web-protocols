@@ -80,10 +80,7 @@ Semantics and representation of personal relationships are implementation specif
 
 ### Authorization and access control
 
-* Bearer tokens for authentication
-* Leave obtaining the bearer token out of the spec, since there are already several RFCs for ways to obtain bearer tokens.
-
-**TODO(?):** Access control
+Servers may restrict/authorize access to content however they want?
 
 * **ActivityPump:** see [auth](http://w3c-social.github.io/activitypump/#authorization)
 * **Indieweb:** see [private posts](https://indiewebcamp.com/private_posts), [private webmention](https://indiewebcamp.com/private-webmention)
