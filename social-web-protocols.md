@@ -18,15 +18,34 @@ layout: default
 
 ## Status of this document
 
-An overview of the current state of specs that are inputs to the WG: [ActivityPump](http://w3c-social.github.io/activitypump/), the Indieweb ecosystem (including [Micropub](http://indiewebcamp.com/Micropub) and [Webmention](http://indiewebcamp.com/Webmention)) and [SoLiD](https://github.com/solid/solid-spec); all of which are subject to ongoing development. Arranged based on [Social API Requirements](https://www.w3.org/wiki/Socialwg/Social_API/Requirements).
+This document was published by the [Social Web Working Group](http://www.w3.org/Social/WG) as an Editor's Draft. If you wish to make specific comments regarding this document please create [github issues](https://github.com/w3c-social/social-web-protocols/issues). More general comments, please send to public-socialweb@w3.org ([subscribe](mailto:public-socialweb-request@w3.org?subject=subscribe), [archives](http://lists.w3.org/Archives/Public/public-socialweb/)). All comments are welcome.
 
-Aforementioned specs restructured according to the structure of this document (extreme early draft status, pending feedback from spec authors/editors):
+Publication as an Editor's Draft does not imply endorsement by the W3C Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
+
+### Contents
+
+This is an overview of the current state of specs that are inputs to the WG: [ActivityPump](http://w3c-social.github.io/activitypump/), [Micropub](http://micropub.net),  [Webmention](http://webmention.net)) and [SoLiD](https://github.com/solid/solid-spec); all of which are subject to ongoing development. Arranged based on [Social API Requirements](https://www.w3.org/wiki/Socialwg/Social_API/Requirements).
+
+The WG may produce several small 'building block' specifications, or one unified document. In the former case, this document serves as a guide for implementors to demonstrate how the pieces fit together. In the latter case, optimistically, this has the potential to become the location for convergence of the alternatives. Ultimately an implementation of any subsection of this spec should be compatible with the equivalent subsection of one of the aforementioned specs. Subsections which have multiple implementation routes listed are work-in-progress.
+
+### Relationship to other WG drafts
+
+| Spec      | Status | Relationship |
+| --------- | ------ | ------------ |
+| ActivityStreams2 | WD | The expected representation of JSON data mentioned here |
+| ActivityPump | ED | Most parts correspond with a subsection here |
+| Webmention | ED | Corresponds with [Mentioning](#mentioning) |
+| Micropub  | ED | Corresponds with [Creating content](#creating-content) |
+| jf2 | ED | as AS2 where applicable |
+| Post Type Discovery | ED | No overlap |
+
+For comparison of the subsections, the aforementioned specs are restructured according to the structure of this document (work-in-progress, pending feedback from spec authors/editors!):
 
 * [ActivityPump restructure](https://github.com/rhiaro/activitypump/blob/restructure/index.md)
 * [Indieweb specs](https://github.com/rhiaro/Social-APIs-Brainstorming/blob/gh-pages/indiewebspecs.md)
 * [Solid restructure](https://github.com/rhiaro/solid-spec/tree/restructure/README.md)
 
-Optimistically, this has the potential to become a unified working draft. Ultimately an implementation of any subsection of this spec should be compatible with the equivalent subsection of one of the aforementioned specs. Sometimes the overlap between spec subsections is unclear (to me), which is where I've written all options out for now.
+
 
 ## Overview
 
