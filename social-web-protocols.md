@@ -88,27 +88,11 @@ Servers may restrict/authorize access to content however they want?
 
 ## Reading
 
-### Streams
-
-Each stream MUST have a globally unique identifier (HTTP URI). Dereferencing the URI of the stream MUST result in the contents of the stream, as well as additional metadata about the stream (such as title, description).
-
-Each object in a stream MUST have a globally unique identifier (HTTP URI) in the `@id` property, and MAY contain *only* this identifier, which can be dereferenced to retrieve all properties of an object.
-
-One user may publish one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. The result of a `GET` on the HTTP URI of a [profile](#profiles) MAY include links to multiple streams, which a consumer could follow to read or subscribe to. Eg.
-
-`<link rel="feed" href="http://rhiaro.co.uk/tag/socialwg">`
-
-```HTTP/1.1 200 OK .... Link: <http://rhiaro.co.uk/tag/socialwg>; rel="feed"```
-
-### Objects
-
-A `GET` on the identifier retrieves JSON[-LD] representation of the object or stream of objects.
-
 ### Content representation
 
-Content MUST be represented according to [ActivityStreams](#) (JSON or JSON-LD) but MAY additionally be served as an alternative syntax (eg. HTML with Microformats2 or HTML with RDFa).
+Content MUST be available as [ActivityStreams](#) JSON and MAY additionally be served as an alternative syntax. The JSON format may be accessible via a typed rel=alternate link.
 
-Content SHOULD be described using the [ActivityStreams](#) vocabulary, but MAY use other vocabularies instead.
+Content SHOULD be described using the [ActivityStreams](#) vocabulary, but MAY use other vocabularies in addition or instead.
 
 <!--
 * **ActivityPump**
@@ -122,13 +106,27 @@ Content SHOULD be described using the [ActivityStreams](#) vocabulary, but MAY u
   * **vocabulary**: Any RDF ontology
 -->
 
+### Objects
+
+All objects must have URLs which return the properties of an object in an [appropriate format](#content-representation).
+
+### Streams
+
+Each stream MUST have a URL which MUST result in the contents of the stream (according to the requesters right to access, and could be paged), and MAY include additional metadata about the stream (such as title, description).
+
+Each [object](#objects) in a stream MAY contain *only* its URL, which can be dereferenced to retrieve all properties of an object.
+
+One user may publish one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. A user [profile](#profiles) MAY include links to multiple streams, which a consumer could follow to read or subscribe to. Eg.
+
+`<link rel="feed" href="http://rhiaro.co.uk/tag/socialwg">`
+
+```HTTP/1.1 200 OK .... Link: <http://rhiaro.co.uk/tag/socialwg>; rel="feed"```
+
 **TODO:** limit/paging
 
 **TODO:** Example single object.
 
 **TODO:** Example stream of objects.
-
-
 
 ## Subscribing
 
