@@ -4,17 +4,19 @@ layout: default
 
 # Social Web Protocols
 
-## Editor's Draft
+## Editor's Draft 01 Janary 2016
 
-**This version:** http://w3c-social.github.io/SocialAPI/socialapi
+**This version:** http://w3c-social.github.io/social-web-protocols/ed
+
+**Latest published version:** http://www.w3.org/TR/social-web-protocols/
 
 **Editor:** [Amy Guy](http://rhiaro.co.uk), University of Edinburgh
 
 **Repository:**
 
-* [Github](https://github.com/w3c-social/SocialAPI)
-* [Issues](https://github.com/w3c-social/SocialAPI/issues)
-* [Commits](https://github.com/w3c-social/SocialAPI/commits/gh-pages)
+* [Github](https://github.com/w3c-social/social-web-protocols)
+* [Issues](https://github.com/w3c-social/social-web-protcols/issues)
+* [Commits](https://github.com/w3c-social/social-web-protocols/commits/gh-pages)
 
 ## Status of this document
 
@@ -122,11 +124,9 @@ One user may publish one or more streams of content. Streams may be generated au
 
 ```HTTP/1.1 200 OK .... Link: <http://rhiaro.co.uk/tag/socialwg>; rel="feed"```
 
-**TODO:** limit/paging
-
-**TODO:** Example single object.
-
-**TODO:** Example stream of objects.
+<div class="issue">
+  <div>Need examples</div>
+</div>
 
 ## Subscribing
 
@@ -163,11 +163,6 @@ A user may wish to push a notification to another user, for example because they
 * **ActivityPump**: `POST` to `"outbox": "..."` (*See [ActivityPump 7.4.1](http://w3c-social.github.io/activitypump/#outbox)*)
 * **Micropub**: `POST` to `rel="micropub"` (*See [Micropub](https://indiewebcamp.com/micropub)*)
 * **SoLiD**: `POST` to an LDP container (*See [SoLiD - Creating new resources](https://github.com/solid/solid-spec#creating-new-resources)*)
-
-<div class="issue">
-  <div class="issue-title"><span>Issue</span></div>
-  <div>Some people want things to be RESTish..</div>
-</div>
 
 <!--
 
