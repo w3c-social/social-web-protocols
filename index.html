@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
-<head><meta lang="" property="dc:language" content="en">
+<html lang="en" dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#" hola_ext_inject="disabled">
+<head><meta lang="" property="dc:language" content="en"><meta lang="" property="dc:language" content="en">
     <title>Social Web Protocols</title>
     <meta charset="utf-8">
     
@@ -152,36 +152,361 @@ aside.example div.example {
 aside.example div.example div.example-title {
     color: #999;
 }
-</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-FPWD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
-<script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
-<script class='remove'>
-      var respecConfig = {
-          specStatus: "FPWD",
-          shortName:  "social-web-protocols",
-          editors: [
-                {   name:       "Amy Guy",
-                    url:        "http://rhiaro.co.uk/",
-                    company:    "University of Edinburgh",
-                    companyURL: "http://inf.ed.ac.uk/" }
-          ],
-          previousMaturity: "FPWD",
-          previousPublishDate:  "n/a",
-          edDraftURI: "https://w3c-social.github.io/social-web-protocols/ed",
-          wg:           "Social Web Working Group",
-          wgURI:        "https://www.w3.org/Social/WG",
-          wgPublicList: "public-socialweb",
-          wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/424242/status",
-      };
-    </script>
-</head>
-<body>
-  <section id="abstract">
-    The Social Web Protocols are a collection of standards which enable various aspects of decentralised social interaction on the Web. This document describes the purposes of each, and how they fit together.
-  </section>
-  <section id="sotd"></section>
+</style><style>/* --- ISSUES/NOTES --- */
+div.issue-title, div.note-title , div.ednote-title, div.warning-title {
+    padding-right:  1em;
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.issue-title { color: #e05252; }
+div.note-title, div.ednote-title { color: #2b2; }
+div.warning-title { color: #f22; }
+div.issue-title span, div.note-title span, div.ednote-title span, div.warning-title span {
+    text-transform: uppercase;
+}
+div.note, div.issue, div.ednote, div.warning {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.note > p:first-child, .ednote > p:first-child, .issue > p:first-child, .warning > p:first-child { margin-top: 0 }
+.issue, .note, .ednote, .warning {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+}
+div.issue, div.note , div.ednote,  div.warning {
+    padding: 1em 1.2em 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+span.note, span.ednote, span.issue, span.warning { padding: .1em .5em .15em; }
 
-  <section id="overview">
-    <h2>Overview</h2>
+.issue {
+    border-color: #e05252;
+    background: #fbe9e9;
+}
+.note, .ednote {
+    border-color: #52e052;
+    background: #e9fbe9;
+}
+
+.warning {
+    border-color: #f11;
+    border-right-width: .2em;
+    border-top-width: .2em;
+    border-bottom-width: .2em;
+    border-style: solid;
+    background: #fbe9e9;
+}
+
+.warning-title:before{
+    content: "⚠"; /*U+26A0 WARNING SIGN*/
+    font-size: 3em;
+    float: left;
+    height: 100%;
+    padding-right: .3em;
+    vertical-align: top;
+    margin-top: -0.5em;
+}
+
+li.task-list-item {
+    list-style: none;
+}
+
+input.task-list-item-checkbox {
+    margin: 0 0.35em 0.25em -1.6em;
+    vertical-align: middle;
+}
+</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-FPWD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+
+
+<style>/*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+
+/* --- INLINES --- */
+em.rfc2119 { 
+    text-transform:     lowercase;
+    font-variant:       small-caps;
+    font-style:         normal;
+    color:              #900;
+}
+
+h1 acronym, h2 acronym, h3 acronym, h4 acronym, h5 acronym, h6 acronym, a acronym,
+h1 abbr, h2 abbr, h3 abbr, h4 abbr, h5 abbr, h6 abbr, a abbr {
+    border: none;
+}
+
+dfn {
+    font-weight:    bold;
+}
+
+a.internalDFN {
+    color:  inherit;
+    border-bottom:  1px solid #99c;
+    text-decoration:    none;
+}
+
+a.externalDFN {
+    color:  inherit;
+    border-bottom:  1px dotted #ccc;
+    text-decoration:    none;
+}
+
+a.bibref {
+    text-decoration:    none;
+}
+
+cite .bibref {
+    font-style: normal;
+}
+
+code {
+    color:  #C83500;
+}
+
+/* --- TOC --- */
+.toc a, .tof a {
+    text-decoration:    none;
+}
+
+a .secno, a .figno {
+    color:  #000;
+}
+
+ul.tof, ol.tof {
+    list-style: none outside none;
+}
+
+.caption {
+    margin-top: 0.5em;
+    font-style:   italic;
+}
+
+/* --- TABLE --- */
+table.simple {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    border-bottom:  3px solid #005a9c;
+}
+
+.simple th {
+    background: #005a9c;
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+}
+
+.simple th[scope="row"] {
+    background: inherit;
+    color:  inherit;
+    border-top: 1px solid #ddd;
+}
+
+.simple td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+    background: #f0f6ff;
+}
+
+/* --- DL --- */
+.section dd > p:first-child {
+    margin-top: 0;
+}
+
+.section dd > p:last-child {
+    margin-bottom: 0;
+}
+
+.section dd {
+    margin-bottom:  1em;
+}
+
+.section dl.attrs dd, .section dl.eldef dd {
+    margin-bottom:  0;
+}
+
+@media print {
+    .removeOnSave {
+        display: none;
+    }
+}
+</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--><script id="initialUserConfig" type="application/json">{
+  "specStatus": "FPWD",
+  "shortName": "social-web-protocols",
+  "editors": [
+    {
+      "name": "Amy Guy",
+      "url": "http://rhiaro.co.uk/",
+      "company": "University of Edinburgh",
+      "companyURL": "http://inf.ed.ac.uk/"
+    }
+  ],
+  "previousMaturity": "FPWD",
+  "previousPublishDate": "n/a",
+  "edDraftURI": "https://w3c-social.github.io/social-web-protocols/ed",
+  "wg": "Social Web Working Group",
+  "wgURI": "https://www.w3.org/Social/WG",
+  "wgPublicList": "public-socialweb",
+  "wgPatentURI": "http://www.w3.org/2004/01/pp-impl/424242/status"
+}</script></head>
+<body class="h-entry" role="document" id="respecDocument"><div class="head" role="contentinfo" id="respecHeader">
+  <p>
+      
+        
+            <a class="logo" href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/Icons/w3c_home" alt="W3C"></a>
+            
+            
+        
+      
+  </p>
+  <h1 class="title p-name" id="title" property="dcterms:title">Social Web Protocols</h1>
+  
+  <h2 id="w3c-first-public-working-draft-04-january-2016"><abbr title="World Wide Web Consortium">W3C</abbr> First Public Working Draft <time property="dcterms:issued" class="dt-published" datetime="2016-01-04">04 January 2016</time></h2>
+  <dl>
+    
+      <dt>This version:</dt>
+      <dd><a class="u-url" href="http://www.w3.org/TR/2016/WD-social-web-protocols-20160104/">http://www.w3.org/TR/2016/WD-social-web-protocols-20160104/</a></dd>
+      <dt>Latest published version:</dt>
+      <dd><a href="http://www.w3.org/TR/social-web-protocols/">http://www.w3.org/TR/social-web-protocols/</a></dd>
+    
+    
+      <dt>Latest editor's draft:</dt>
+      <dd><a href="https://w3c-social.github.io/social-web-protocols/ed">https://w3c-social.github.io/social-web-protocols/ed</a></dd>
+    
+    
+    
+    
+    
+    
+    
+    <dt>Editor:</dt>
+    <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Amy Guy"><a class="u-url url p-name fn" property="foaf:homepage" href="http://rhiaro.co.uk/">Amy Guy</a>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://inf.ed.ac.uk/">University of Edinburgh</a></span>
+<span property="rdf:rest" resource="rdf:nil"></span>
+</dd>
+
+    
+    
+  </dl>
+  
+  
+  
+  
+    
+      <p class="copyright">
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©
+        2016
+        
+        <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
+        (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+        <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>). 
+        
+        <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+        
+          
+            <a rel="license" href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
+          
+        
+        rules apply.
+      </p>
+    
+  
+  <hr title="Separator for header">
+</div>
+  <section id="abstract" class="introductory" property="dc:abstract"><h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2><p>
+    The Social Web Protocols are a collection of standards which enable various aspects of decentralised social interaction on the Web. This document describes the purposes of each, and how they fit together.
+  </p></section><section id="sotd" class="introductory"><h2 id="h-sotd" resource="#h-sotd"><span property="xhv:role" resource="xhv:heading">Status of This Document</span></h2>
+  
+    
+      
+        <p>
+          <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at http://www.w3.org/TR/.</em>
+        </p>
+        
+          
+          
+          
+          <p>
+            This document was published by the <a href="https://www.w3.org/Social/WG">Social Web Working Group</a> as a First Public Working Draft.
+            
+              This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation.
+            
+            
+              If you wish to make comments regarding this document, please send them to
+              <a href="mailto:public-socialweb@w3.org">public-socialweb@w3.org</a>
+              (<a href="mailto:public-socialweb-request@w3.org?subject=subscribe">subscribe</a>,
+              <a href="http://lists.w3.org/Archives/Public/public-socialweb/">archives</a>).
+            
+            
+            
+            
+            
+              
+              All comments are welcome.
+              
+            
+          </p>
+          
+          
+          
+            <p>
+              Publication as a First Public Working Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr>
+              Membership. This is a draft document and may be updated, replaced or obsoleted by other
+              documents at any time. It is inappropriate to cite this document as other than work in
+              progress.
+            </p>
+          
+          
+          
+          <p>
+            
+              This document was produced by
+              
+              a group
+               operating under the
+              <a id="sotd_patent" property="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
+              Policy</a>.
+            
+            
+            
+              
+                <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/424242/status" rel="disclosure">public list of any patent
+                disclosures</a>
+              
+              made in connection with the deliverables of
+              
+              the group; that page also includes
+              
+              instructions for disclosing a patent. An individual who has actual knowledge of a patent
+              which the individual believes contains
+              <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+              Claim(s)</a> must disclose the information in accordance with
+              <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+              6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
+            
+            
+          </p>
+          
+            <p>This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+            </p>
+          
+          
+        
+      
+    
+  
+</section><section id="toc"><h2 class="introductory" id="h-toc" resource="#h-toc"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul class="toc" role="directory"><li class="tocline"><a href="#overview" class="tocxref"><span class="secno">1. </span>Overview</a><ul class="toc"><li class="tocline"><a href="#contents" class="tocxref"><span class="secno">1.1 </span>Contents</a></li><li class="tocline"><a href="#relationship-to-other-wg-drafts" class="tocxref"><span class="secno">1.2 </span>Relationship to other WG drafts</a></li></ul></li><li class="tocline"><a href="#profiles" class="tocxref"><span class="secno">2. </span>Profiles</a><ul class="toc"><li class="tocline"><a href="#relationships" class="tocxref"><span class="secno">2.1 </span>Relationships</a></li><li class="tocline"><a href="#authorization-and-access-control" class="tocxref"><span class="secno">2.2 </span>Authorization and access control</a></li></ul></li><li class="tocline"><a href="#reading" class="tocxref"><span class="secno">3. </span>Reading</a><ul class="toc"><li class="tocline"><a href="#content-representation" class="tocxref"><span class="secno">3.1 </span>Content representation</a></li><li class="tocline"><a href="#objects" class="tocxref"><span class="secno">3.2 </span>Objects</a></li><li class="tocline"><a href="#streams" class="tocxref"><span class="secno">3.3 </span>Streams</a></li></ul></li><li class="tocline"><a href="#subscribing" class="tocxref"><span class="secno">4. </span>Subscribing</a></li><li class="tocline"><a href="#mentioning" class="tocxref"><span class="secno">5. </span>Mentioning</a></li><li class="tocline"><a href="#creating-content" class="tocxref"><span class="secno">6. </span>Creating content</a><ul class="toc"><li class="tocline"><a href="#updating" class="tocxref"><span class="secno">6.1 </span>Updating</a></li><li class="tocline"><a href="#deleting" class="tocxref"><span class="secno">6.2 </span>Deleting</a></li></ul></li></ul></section>
+  
+
+  <section id="overview" typeof="bibo:Chapter" resource="#overview" property="bibo:hasPart">
+    <!--OddPage--><h2 id="h-overview" resource="#h-overview"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>Overview</span></h2>
 
     <p>People and the content they create are the core componants of the social web; they make up the social graph. This document describes a standard way in which people can:</p>
     
@@ -206,15 +531,15 @@ aside.example div.example div.example-title {
       <li>how to expose <a href="#profiles">profiles</a> and <a href="#relationships">relationships</a>.</li>
     </ul>
     
-    <section id="contents">
-      <h3>Contents</h3>
+    <section id="contents" typeof="bibo:Chapter" resource="#contents" property="bibo:hasPart">
+      <h3 id="h-contents" resource="#h-contents"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.1 </span>Contents</span></h3>
     
       <p>This is an overview of the current state of specs that are inputs to the WG: <a href="http://w3c-social.github.io/activitypump/">ActivityPump</a>, <a href="http://micropub.net">Micropub</a>,  <a href="http://webmention.net">Webmention</a>) and <a href="https://github.com/solid/solid-spec">SoLiD</a>; all of which are subject to ongoing development. Arranged based on <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a>.</p>
       
       <p>The WG may produce several small ‘building block’ specifications, or one unified document. In the former case, this document serves as a guide for implementors to demonstrate how the pieces fit together, and could be published as a note. In the latter case, optimistically, this has the potential to become the location for convergence of the alternatives. Ultimately an implementation of any subsection of this spec should be compatible with the equivalent subsection of one of the aforementioned specs. Subsections which have multiple implementation routes listed are work-in-progress.</p>
     </section>
-    <section id="relationship-to-other-wg-drafts">
-      <h3>Relationship to other WG drafts</h3>
+    <section id="relationship-to-other-wg-drafts" typeof="bibo:Chapter" resource="#relationship-to-other-wg-drafts" property="bibo:hasPart">
+      <h3 id="h-relationship-to-other-wg-drafts" resource="#h-relationship-to-other-wg-drafts"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.2 </span>Relationship to other WG drafts</span></h3>
     
       <table>
         <thead>
@@ -268,23 +593,23 @@ aside.example div.example div.example-title {
     </section>
   </section>
 
-  <section id="profiles">
-    <h2>Profiles</h2>
+  <section id="profiles" typeof="bibo:Chapter" resource="#profiles" property="bibo:hasPart">
+    <!--OddPage--><h2 id="h-profiles" resource="#h-profiles"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>Profiles</span></h2>
 
-    <p>The subject of a profile document can be a person, persona, organisation, bot, location, … the type of the subject of the profile is not required. Each profile document MUST have a URL which SHOULD return attributes of the subject of the profile; SHOULD return at least one link to <a href="#reading">a stream of content</a> and MAY return content the subject has created. A JSON format MUST be available; other content types MAY be returned as well.</p>
+    <p>The subject of a profile document can be a person, persona, organisation, bot, location, … the type of the subject of the profile is not required. Each profile document <em class="rfc2119" title="MUST">MUST</em> have a URL which <em class="rfc2119" title="SHOULD">SHOULD</em> return attributes of the subject of the profile; <em class="rfc2119" title="SHOULD">SHOULD</em> return at least one link to <a href="#reading">a stream of content</a> and <em class="rfc2119" title="MAY">MAY</em> return content the subject has created. A JSON format <em class="rfc2119" title="MUST">MUST</em> be available; other content types <em class="rfc2119" title="MAY">MAY</em> be returned as well.</p>
     
-    <section id="relationships">
-      <h3>Relationships</h3>
+    <section id="relationships" typeof="bibo:Chapter" resource="#relationships" property="bibo:hasPart">
+      <h3 id="h-relationships" resource="#h-relationships"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1 </span>Relationships</span></h3>
     
-      <p>Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user ‘friending’ another triggers a subscription request from the first user’s server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStremas 2 syntax and MAY (and are likely to) use extension vocabularies as needed.</p>
+      <p>Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user ‘friending’ another triggers a subscription request from the first user’s server to the second. Lists of other relationships <em class="rfc2119" title="MAY">MAY</em> be discoverable from a user profile, <em class="rfc2119" title="SHOULD">SHOULD</em> be represented according to the ActivityStremas 2 syntax and <em class="rfc2119" title="MAY">MAY</em> (and are likely to) use extension vocabularies as needed.</p>
       
       <ul>
         <li><strong>ActivityPump:</strong> When a server receives a <code>Follow</code> Activity in its <code>inbox</code>, the subject is added to a <code>Followers</code> <code>Collection</code>, which is discoverable from the subject’s profile.</li>
       </ul>
     </section>
     
-    <section id="authorization-and-access-control">
-      <h3>Authorization and access control</h3>
+    <section id="authorization-and-access-control" typeof="bibo:Chapter" resource="#authorization-and-access-control" property="bibo:hasPart">
+      <h3 id="h-authorization-and-access-control" resource="#h-authorization-and-access-control"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.2 </span>Authorization and access control</span></h3>
     
       <p>Servers may restrict/authorize access to content however they want?</p>
       
@@ -295,14 +620,14 @@ aside.example div.example div.example-title {
       </ul>
     </section>
   </section>
-  <section id="reading">
-  <h2>Reading</h2>
-    <section id="content-representation">
-      <h3>Content representation</h3>
+  <section id="reading" typeof="bibo:Chapter" resource="#reading" property="bibo:hasPart">
+  <!--OddPage--><h2 id="h-reading" resource="#h-reading"><span property="xhv:role" resource="xhv:heading"><span class="secno">3. </span>Reading</span></h2>
+    <section id="content-representation" typeof="bibo:Chapter" resource="#content-representation" property="bibo:hasPart">
+      <h3 id="h-content-representation" resource="#h-content-representation"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1 </span>Content representation</span></h3>
       
-      <p>Content MUST be available as <a href="#">ActivityStreams</a> JSON and MAY additionally be served as an alternative syntax. The JSON format may be accessible via a typed rel=alternate link.</p>
+      <p>Content <em class="rfc2119" title="MUST">MUST</em> be available as <a href="#">ActivityStreams</a> JSON and <em class="rfc2119" title="MAY">MAY</em> additionally be served as an alternative syntax. The JSON format may be accessible via a typed rel=alternate link.</p>
       
-      <p>Content SHOULD be described using the <a href="#">ActivityStreams</a> vocabulary, but MAY use other vocabularies in addition or instead.</p>
+      <p>Content <em class="rfc2119" title="SHOULD">SHOULD</em> be described using the <a href="#">ActivityStreams</a> vocabulary, but <em class="rfc2119" title="MAY">MAY</em> use other vocabularies in addition or instead.</p>
       
       <!--
       * **ActivityPump**
@@ -316,37 +641,37 @@ aside.example div.example div.example-title {
         * **vocabulary**: Any RDF ontology
       -->
     </section>
-    <section id="objects">
-      <h3>Objects</h3>
+    <section id="objects" typeof="bibo:Chapter" resource="#objects" property="bibo:hasPart">
+      <h3 id="h-objects" resource="#h-objects"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2 </span>Objects</span></h3>
     
       <p>All objects must have URLs which return the properties of an object in an <a href="#content-representation">appropriate format</a>.</p>
     </section>
-    <section id="streams">
-      <h3>Streams</h3>
+    <section id="streams" typeof="bibo:Chapter" resource="#streams" property="bibo:hasPart">
+      <h3 id="h-streams" resource="#h-streams"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.3 </span>Streams</span></h3>
     
-      <p>Each stream MUST have a URL which MUST result in the contents of the stream (according to the requesters right to access, and could be paged), and MAY include additional metadata about the stream (such as title, description).</p>
+      <p>Each stream <em class="rfc2119" title="MUST">MUST</em> have a URL which <em class="rfc2119" title="MUST">MUST</em> result in the contents of the stream (according to the requesters right to access, and could be paged), and <em class="rfc2119" title="MAY">MAY</em> include additional metadata about the stream (such as title, description).</p>
       
-      <p>Each <a href="#objects">object</a> in a stream MAY contain <em>only</em> its URL, which can be dereferenced to retrieve all properties of an object.</p>
+      <p>Each <a href="#objects">object</a> in a stream <em class="rfc2119" title="MAY">MAY</em> contain <em>only</em> its URL, which can be dereferenced to retrieve all properties of an object.</p>
       
-      <p>One user may publish one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. A user <a href="#profiles">profile</a> MAY include links to multiple streams, which a consumer could follow to read or subscribe to. Eg.</p>
+      <p>One user may publish one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. A user <a href="#profiles">profile</a> <em class="rfc2119" title="MAY">MAY</em> include links to multiple streams, which a consumer could follow to read or subscribe to. Eg.</p>
       
       <p><code>&lt;link rel="feed" href="http://rhiaro.co.uk/tag/socialwg"&gt;</code></p>
       
       <p><code>HTTP/1.1 200 OK .... Link: &lt;http://rhiaro.co.uk/tag/socialwg&gt;; rel="feed"</code></p>
       
-      <div class="issue">
+      <div class="issue" id="issue-1"><div class="issue-title" aria-level="4" role="heading" id="h-issue1"><span>Issue 1</span></div><div class="">
         Need examples
-      </div>
+      </div></div>
     </section>
   </section>
-  <section id="subscribing">
-    <h2>Subscribing</h2>
+  <section id="subscribing" typeof="bibo:Chapter" resource="#subscribing" property="bibo:hasPart">
+    <!--OddPage--><h2 id="h-subscribing" resource="#h-subscribing"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>Subscribing</span></h2>
 
     <p>An agent (client or server) may <em>ask</em> to be notified of changes to a content object (eg. edits, new replies) or stream of content (eg. objects added or removed from the stream).</p>
     
-    <div class="issue">
+    <div class="issue" id="issue-2"><div class="issue-title" aria-level="3" role="heading" id="h-issue2"><span>Issue 2</span></div><div class="">
       <div>Lots of ways of doing this, what to use?</div>
-    </div>
+    </div></div>
     
     <p>Here are some options…</p>
     
@@ -360,20 +685,20 @@ aside.example div.example div.example-title {
     
     <p>A server may also receive notifications of changes to content it has <em>not subscribed</em> to: see <a href="#mentioning">mentioning</a>.</p>
   </section>
-  <section id="mentioning">
-    <h2 id="mentioning">Mentioning</h2>
+  <section id="mentioning" typeof="bibo:Chapter" resource="#mentioning" property="bibo:hasPart">
+    <!--OddPage--><h2 id="mentioning" resource="#mentioning"><span property="xhv:role" resource="xhv:heading"><span class="secno">5. </span>Mentioning</span></h2>
     
     <p>A user may wish to push a notification to another user, for example because they have linked to (replied, liked, bookmarked, reposted, …) their content or linked to (tagged, addressed) the user directly.</p>
     
     <ul>
       <li><strong>ActivityPump:</strong> When an Activity is posted to a user’s <code>outbox</code> endpoint, the server checks for values of <code>object</code>, <code>target</code>, <code>inReplyTo</code>, <code>to</code>, <code>cc</code>, and <code>bcc</code>; discovers the <code>inbox</code> endpoint of any objects found, and <code>POST</code>s the Activity to the discovered <code>inbox</code> endpoints. Servers receiving such an Activity proceed to do the same for the target object to propagate the update further. <em>(See <a href="http://w3c-social.github.io/activitypump/#notification">ActivityPump 8.2</a>)</em></li>
-      <li><strong>Webmention:</strong> The target publishes a link to their ‘webmention endpoint’ via <code>rel="webmention"</code>. The source sends a form-encoded <code>POST</code> request containing values for <code>source</code> (the URL of a webpage with a link to the target) and <code>target</code> (the URL of the webpage being linked to). The target MUST validate that the source really does link to target, and proceeds to do with this information as desired. <em>(See <a href="https://indiewebcamp.com/webmention">webmention</a>)</em></li>
+      <li><strong>Webmention:</strong> The target publishes a link to their ‘webmention endpoint’ via <code>rel="webmention"</code>. The source sends a form-encoded <code>POST</code> request containing values for <code>source</code> (the URL of a webpage with a link to the target) and <code>target</code> (the URL of the webpage being linked to). The target <em class="rfc2119" title="MUST">MUST</em> validate that the source really does link to target, and proceeds to do with this information as desired. <em>(See <a href="https://indiewebcamp.com/webmention">webmention</a>)</em></li>
     </ul>
     
     <p><em>Note: we need to leave it open for users to refuse content they have not explicitly subscribed to, ie. nothing else should rely on implementation of Mentioning.</em></p>
   </section>
-  <section id="creating-content">
-    <h2>Creating content</h2>
+  <section id="creating-content" typeof="bibo:Chapter" resource="#creating-content" property="bibo:hasPart">
+    <!--OddPage--><h2 id="h-creating-content" resource="#h-creating-content"><span property="xhv:role" resource="xhv:heading"><span class="secno">6. </span>Creating content</span></h2>
 
     <p><code>POST</code> a JSON object (see <a href="#content-representation">content representation</a>) to the appropriate endpoint.</p>
     
@@ -383,10 +708,10 @@ aside.example div.example div.example-title {
       <li><strong>SoLiD</strong>: <code>POST</code> to an LDP container (<em>See <a href="https://github.com/solid/solid-spec#creating-new-resources">SoLiD - Creating new resources</a></em>)</li>
     </ul>
 
-    <section id="updating">
-      <h3>Updating</h3>
+    <section id="updating" typeof="bibo:Chapter" resource="#updating" property="bibo:hasPart">
+      <h3 id="h-updating" resource="#h-updating"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.1 </span>Updating</span></h3>
       
-      <p>Updating an object SHOULD have the side effect of notifying those <a href="#subscribing">subscribed</a> and <a href="#mentioning">mentioned</a>.</p>
+      <p>Updating an object <em class="rfc2119" title="SHOULD">SHOULD</em> have the side effect of notifying those <a href="#subscribing">subscribed</a> and <a href="#mentioning">mentioned</a>.</p>
       
       <ul>
         <li><strong>ActivityPump:</strong> <code>POST</code> an AS2 <code>Update</code> Activity to the <code>outbox</code> endpoint.</li>
@@ -394,14 +719,14 @@ aside.example div.example div.example-title {
         <li><strong>SoLiD:</strong> <code>PUT</code> or <code>PATCH</code> the resource being updated.</li>
       </ul>
     </section>
-    <section id="deleting">
-      <h3>Deleting</h3>
+    <section id="deleting" typeof="bibo:Chapter" resource="#deleting" property="bibo:hasPart">
+      <h3 id="h-deleting" resource="#h-deleting"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.2 </span>Deleting</span></h3>
       
-      <p>Deleting an object SHOULD have the side effect of notifying those <a href="#subscribing">subscribed</a> and <a href="#mentioning">mentioned</a>.</p>
+      <p>Deleting an object <em class="rfc2119" title="SHOULD">SHOULD</em> have the side effect of notifying those <a href="#subscribing">subscribed</a> and <a href="#mentioning">mentioned</a>.</p>
       
-      <p>When an object is deleted, it SHOULD be replaced with a ‘tombstone’ containing its unique identifier, deleted (or last updated) date, and optionally replacement content (eg. “this post was removed”). Its URI SHOULD return a 410.</p>
+      <p>When an object is deleted, it <em class="rfc2119" title="SHOULD">SHOULD</em> be replaced with a ‘tombstone’ containing its unique identifier, deleted (or last updated) date, and optionally replacement content (eg. “this post was removed”). Its URI <em class="rfc2119" title="SHOULD">SHOULD</em> return a 410.</p>
       
-      <p><em>Note: using SHOULD not MUST to allow for silently deleting objects</em></p>
+      <p><em>Note: using <em class="rfc2119" title="SHOULD">SHOULD</em> not <em class="rfc2119" title="MUST">MUST</em> to allow for silently deleting objects</em></p>
       
       <ul>
         <li><strong>ActivityPump:</strong> <code>POST</code> an AS2 <code>Delete</code> Activity to the <code>outbox</code> endpoint.</li>
@@ -415,5 +740,6 @@ aside.example div.example div.example-title {
     </section>
   </section>
 
-  </body>
-</html>
+  
+
+</body></html>
