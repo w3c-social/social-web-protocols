@@ -4,7 +4,7 @@ layout: default
 
 # Social Web Protocols
 
-## Editor's Draft 01 Janary 2016
+## Editor's Draft 01 January 2016
 
 **This version:** http://w3c-social.github.io/social-web-protocols/ed
 
@@ -26,7 +26,7 @@ Publication as an Editor's Draft does not imply endorsement by the W3C Membershi
 
 ### Contents
 
-This is an overview of the current state of specs that are inputs to the WG: [ActivityPump](http://w3c-social.github.io/activitypump/), [Micropub](http://micropub.net),  [Webmention](http://webmention.net)) and [SoLiD](https://github.com/solid/solid-spec); all of which are subject to ongoing development. Arranged based on [Social API Requirements](https://www.w3.org/wiki/Socialwg/Social_API/Requirements).
+This is an overview of the current state of specs that are inputs to the WG: [ActivityPump](http://w3c-social.github.io/activitypump/), [Micropub](http://micropub.net), [Webmention](http://webmention.net) and [Solid](https://github.com/solid/solid); all of which are subject to ongoing development. Arranged based on [Social API Requirements](https://www.w3.org/wiki/Socialwg/Social_API/Requirements).
 
 The WG may produce several small 'building block' specifications, or one unified document. In the former case, this document serves as a guide for implementors to demonstrate how the pieces fit together. In the latter case, optimistically, this has the potential to become the location for convergence of the alternatives. Ultimately an implementation of any subsection of this spec should be compatible with the equivalent subsection of one of the aforementioned specs. Subsections which have multiple implementation routes listed are work-in-progress.
 
@@ -45,13 +45,11 @@ For comparison of the subsections, the aforementioned specs are restructured acc
 
 * [ActivityPump restructure](https://github.com/rhiaro/activitypump/blob/restructure/index.md)
 * [Indieweb specs](https://github.com/rhiaro/Social-APIs-Brainstorming/blob/gh-pages/indiewebspecs.md)
-* [Solid restructure](https://github.com/rhiaro/solid-spec/tree/restructure/README.md)
-
-
+* [Solid specs](https://github.com/solid/solid-spec)
 
 ## Overview
 
-People and the content they create are the core componants of the social web; they make up the social graph. This document describes a standard way in which people can:
+People and the content they create are the core components of the social web; they make up the social graph. This document describes a standard way in which people can:
 
 * connect with other people and subscribe to their content;
 * create, update and delete social content;
@@ -76,7 +74,7 @@ The subject of a profile document can be a person, persona, organisation, bot, l
 
 ### Relationships
 
-Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user 'friending' another triggers a subscription request from the first user's server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStremas 2 syntax and MAY (and are likely to) use extension vocabularies as needed.
+Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user 'friending' another triggers a subscription request from the first user's server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStreams 2 syntax and MAY (and are likely to) use extension vocabularies as needed.
 
 * **ActivityPump:** When a server receives a `Follow` Activity in its `inbox`, the subject is added to a `Followers` `Collection`, which is discoverable from the subject's profile.
 
@@ -86,7 +84,7 @@ Servers may restrict/authorize access to content however they want?
 
 * **ActivityPump:** see [auth](http://w3c-social.github.io/activitypump/#authorization)
 * **Indieweb:** see [private posts](https://indiewebcamp.com/private_posts), [private webmention](https://indiewebcamp.com/private-webmention)
-* **SoLiD:** see [acl](https://github.com/solid/solid-spec#web-access-control)
+* **Solid:** see [acl](https://github.com/solid/solid-spec#web-access-control)
 
 ## Reading
 
@@ -103,7 +101,7 @@ Content SHOULD be described using the [ActivityStreams](#) vocabulary, but MAY u
 * **Micropub**
   * **syntax**: form-encoded or JSON
   * **vocabulary**: Microformats
-* **SoLiD**
+* **Solid**
   * **syntax**: RDF (any)
   * **vocabulary**: Any RDF ontology
 -->
@@ -141,7 +139,7 @@ Here are some options...
 
 * **Web Push Protocol**: The subscriber follows the `urn:ietf:params:push` link relation to the target's Push Service, and then [Subscribes for Push Messages](https://tools.ietf.org/html/draft-ietf-webpush-protocol-02#section-4)
 * **ActivityPump**: The subscriber posts a `Follow` Activity (JSON object) to the target's `inbox` endpoint, and adds the target to the subscriber's `Following` Collection. The target's server adds the subscriber to the target's `Followers` Collection, and subsequently `POST`s all new activities of the target to the subscriber's `inbox` endpoint. (*See [ActivityPump](http://w3c-social.github.io/activitypump/) 7.4.2, 8 and 9.2.4*)
-* **SoLiD**: The subscriber sends the keyword `sub` followed by an empty space and then the URI of the resource, to the target's websockets URI. The target's server sends a websockets message containing the keyword `pub`, followed by an empty space and the URI of the resource that has changed, whenever there is a change. (*See [SoLiD - Live Updates](https://github.com/solid/solid-spec#live-updates)*)
+* **Solid**: The subscriber sends the keyword `sub` followed by an empty space and then the URI of the resource, to the target's websockets URI. The target's server sends a websockets message containing the keyword `pub`, followed by an empty space and the URI of the resource that has changed, whenever there is a change. (*See [Solid - Subscribing](https://github.com/solid/solid-spec#subscribing)*)
 * **PubSubHubbub**: The subscriber discovers the target's hub, and sends a form-encoded `POST` request containing values for `hub.mode` ("subscribe"), `hub.topic` and `hub.callback`. When the target posts new content, the target's server sends a form-encoded `POST` to the hub with values for `hub.mode` ("publish") and `hub.url` and the hub checks the URL for new content and `POST`s updates to the subscriber's callback URL. (*See [PuSH 0.4](http://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html) and [How To Publish And Consume PuSH](http://indiewebcamp.com/How_to_publish_and_consume_PubSubHubbub)*)
 * **Salmentions**: The subscriber creates content that links to the target (eg. a reply) and sends a form-encoded `POST` containing values for `source` and `target` to the target's webmention [webmention](https://indiewebcamp.com/webmention) endpoint. The target verifies the link and includes a link back to the subscriber's source on the target content. The target sends form-encoded `POST` requests containing values for `source` and `target` to the webmention endpoint of every link in the content, including that of the subscriber, to indicate that there has been a change. (*See [webmention](https://indiewebcamp.com/webmention) and [salmentions](https://indiewebcamp.com/salmentions)*)
 
@@ -162,7 +160,7 @@ A user may wish to push a notification to another user, for example because they
 
 * **ActivityPump**: `POST` to `"outbox": "..."` (*See [ActivityPump 7.4.1](http://w3c-social.github.io/activitypump/#outbox)*)
 * **Micropub**: `POST` to `rel="micropub"` (*See [Micropub](https://indiewebcamp.com/micropub)*)
-* **SoLiD**: `POST` to an LDP container (*See [SoLiD - Creating new resources](https://github.com/solid/solid-spec#creating-new-resources)*)
+* **Solid**: `POST` to an LDP container (*See [Solid - Creating content](https://github.com/solid/solid-spec#creating-content)*)
 
 <!--
 
@@ -195,7 +193,7 @@ Updating an object SHOULD have the side effect of notifying those [subscribed](#
 
 * **ActivityPump:** `POST` an AS2 `Update` Activity to the `outbox` endpoint.
 * **Micropub:** `POST` an `mp-edit` action to `rel="micropub"` endpoint.
-* **SoLiD:** `PUT` or `PATCH` the resource being updated.
+* **Solid:** `PUT` or `PATCH` the resource being updated.
 
 ### Deleting
 
@@ -207,7 +205,7 @@ When an object is deleted, it SHOULD be replaced with a 'tombstone' containing i
 
 * **ActivityPump:** `POST` an AS2 `Delete` Activity to the `outbox` endpoint.
 * **Micropub:** `POST` an `mp-delete` action to `rel="micropub"` endpoint.
-* **SoLiD:** `DELETE` on the resource being deleted.
+* **Solid:** `DELETE` on the resource being deleted.
 
 <!--
 Notifications from updates and deletes are SHOULD not MUST to allow for modular implementation. ie. if I delete a post right now, I don't notify anyone, even those mentioned, or who have replied to it. It's not ideal, but the world/web doesn't break. It's linkrot, but we've managed to cope so far...
