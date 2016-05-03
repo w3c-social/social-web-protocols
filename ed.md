@@ -58,8 +58,8 @@ work-in-progress.
 | --------- | ------ | ------------ |
 | ActivityStreams2 | WD | The expected representation of JSON data mentioned here |
 | ActivityPub | ED | Most parts correspond with a subsection here |
-| Webmention | ED | Corresponds with [Mentioning](#mentioning) |
-| Micropub  | ED | Corresponds with [Creating content](#creating-content) |
+| Webmention | WD | Corresponds with [Mentioning](#mentioning) |
+| Micropub  | WD | Corresponds with [Creating content](#creating-content) |
 | jf2 | ED | as AS2 where applicable |
 | Post Type Discovery | ED | No overlap |
 
