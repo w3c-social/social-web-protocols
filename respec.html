@@ -196,6 +196,20 @@ aside.example div.example div.example-title {
               authors: ["J. Snell", "M. Atkins", "W. Norris", "C. Messina", "M. Wilkinson", "R. Dolin"],
               status: "Unofficial",
               publisher: "http://activitystrea.ms"
+            },
+            "Solid": {
+              title: "Solid",
+              href: "https://github.com/solid/solid-spec",
+              authors: ["Andrei Sambra"],
+              status: "ED",
+              publisher: "http://solid.mit.edu"
+            },
+            "Salmentions": {
+              title: "Salmentions",
+              href: "http://indiewebcamp.com/Salmention",
+              authors: ["Ben Roberts, Tantek Çelik"],
+              status: "Living specification",
+              publisher: "IndieWebCamp"
             }
           }
       };
@@ -382,21 +396,54 @@ aside.example div.example div.example-title {
   <section id="subscribing">
     <h2>Subscribing</h2>
 
-    <p>An agent (client or server) may <em>ask</em> to be notified of changes to a content object (eg. edits, new replies) or stream of content (eg. objects added or removed from the stream).</p>
+    <p>An agent (client or server) may <em>ask</em> to be notified of changes to a content object (eg. edits, new replies) or stream of content (eg. objects added or removed from a particular stream).</p>
     
-    <div class="issue">
-      <div>Lots of ways of doing this, what to use?</div>
-    </div>
+    <p class="issue">Working group has yet to discuss this in depth, subject to significant change.</p>
+
+    <p><strong>[[Activitypub]]</strong> servers distribute the activities of an actor by sending POST requests containing the activities as JSON payloads to the <code>inbox</code> of all actors in an actor's <code>Followers</code> collection. For subscription requests, special behaviour is defined for servers when an [[ActivityStreams2]] <code>Follow</code> activity is appears in an actor's <code>outbox</code> or <code>inbox</code>.</p> 
+
+    <ul>
+      <li>For <code>outbox</code> (an outgoing subscription request): The activity is <a href="#delivery">delivered</a> as usual to the <code>object</code>'s <code>inbox</code>, and additionally the <code>object</code> is added to the actor's <code>Following</code> Collection.</li>
+      <li>For <code>inbox</code> (an incoming subscription request): The recipient's (the <code>object</code> of the <code>Follow</code> activity) server adds the <code>actor</code> of the <code>Follow</code> activity to the recipient's <code>Followers</code> collection, which subsequently all new activities of the recipient are delivered to.</li>
+    </ul>
+    <p>It works when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
+
+    <ul>
+      <li>The objects and streams being subscribed to are described with [[ActivityStreams2]].</li>
+      <li>You need to send or receive the whole requested resource over the wire (ie. a 'fat ping').</li>
+      <li>You need to send or receive JSON payloads only.</li>
+      <li>Subscriptions requests and fulfillment are handled serverside.</li>
+      <li>The publisher is aware of who has subscribed; this is a <em>push</em> mechanism.</li>
+    </ul>
+
+    <p><strong>[[Solid]]</strong> uses websockets to allow clientside applications to subscribe to changes in objects ([[LDP]] Resources) and streams ([[LDP]] Containers). The websocket endpoint is advertised in the <code>Updates-Via</code> HTTP Link Header. The subscriber sends the keyword <code>sub</code> followed by an empty space and then the URI of the resource, to the target’s websockets URI. The target’s server sends a websockets message containing the keyword <code>pub</code>, followed by an empty space and the URI of the resource that has changed, whenever there is a change. It works when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
+ 
+    <ul>
+      <li>You live updates over websockets.</li>
+      <li>You can send and receive on the URL of the requested resource over the wire (ie. a 'thin ping').</li>
+      <li>Subscriptions are requested clientside and fulfilled serverside.</li>
+      <li>The publisher is aware of who has subscribed; this is a <em>push</em> mechanism.</li>
+    </ul>
+
+    <p><strong>[[Webmention]]</strong> can be deployed as a subscription mechanism through the [[Salmentions]] extension. Documents contain links to the sources of received webmentions along with the content. Every time the document is updated, including when new incoming webmentions are added, the server (re-)sends webmentions to every link. Thus, all documents which originally sent a webmention receive a webmention back, enabling them to parse the document for changes, and detect new replies in a thread, as well as changes to the original document. It works when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
+
+    <ul>
+      <li>The subscriber has a document which links to another document, and has sent a [[Webmention]] about it.</li>
+      <li>The publisher displays links to the sources of received webmentions with their content.</li> 
+      <li>The subscriber wants to be notified of further changes to a document linked to.</li>
+      <li>The subscriber has implemented [[Webmention]] receiving.</li>
+      <li>The publisher is aware of who has subscribed; this is a <em>push</em> mechanism.</li>
+    </ul>
     
-    <p>Here are some options…</p>
+    <p>Other options yet to be debated...</p>
     
     <ul>
       <li><strong>Web Push Protocol</strong>: The subscriber follows the <code>urn:ietf:params:push</code> link relation to the target’s Push Service, and then <a href="https://tools.ietf.org/html/draft-ietf-webpush-protocol-02#section-4">Subscribes for Push Messages</a></li>
-      <li><strong>ActivityPump</strong>: The subscriber posts a <code>Follow</code> Activity (JSON object) to the target’s <code>inbox</code> endpoint, and adds the target to the subscriber’s <code>Following</code> Collection. The target’s server adds the subscriber to the target’s <code>Followers</code> Collection, and subsequently <code>POST</code>s all new activities of the target to the subscriber’s <code>inbox</code> endpoint. (<em>See <a href="http://w3c-social.github.io/activitypump/">ActivityPump</a> 7.4.2, 8 and 9.2.4</em>)</li>
-      <li><strong>SoLiD</strong>: The subscriber sends the keyword <code>sub</code> followed by an empty space and then the URI of the resource, to the target’s websockets URI. The target’s server sends a websockets message containing the keyword <code>pub</code>, followed by an empty space and the URI of the resource that has changed, whenever there is a change. (<em>See <a href="https://github.com/solid/solid-spec#live-updates">SoLiD - Live Updates</a></em>)</li>
       <li><strong>PubSubHubbub</strong>: The subscriber discovers the target’s hub, and sends a form-encoded <code>POST</code> request containing values for <code>hub.mode</code> (“subscribe”), <code>hub.topic</code> and <code>hub.callback</code>. When the target posts new content, the target’s server sends a form-encoded <code>POST</code> to the hub with values for <code>hub.mode</code> (“publish”) and <code>hub.url</code> and the hub checks the URL for new content and <code>POST</code>s updates to the subscriber’s callback URL. (<em>See <a href="http://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html">PuSH 0.4</a> and <a href="http://indiewebcamp.com/How_to_publish_and_consume_PubSubHubbub">How To Publish And Consume PuSH</a></em>)</li>
-      <li><strong>Salmentions</strong>: The subscriber creates content that links to the target (eg. a reply) and sends a form-encoded <code>POST</code> containing values for <code>source</code> and <code>target</code> to the target’s webmention <a href="https://indiewebcamp.com/webmention">webmention</a> endpoint. The target verifies the link and includes a link back to the subscriber’s source on the target content. The target sends form-encoded <code>POST</code> requests containing values for <code>source</code> and <code>target</code> to the webmention endpoint of every link in the content, including that of the subscriber, to indicate that there has been a change. (<em>See <a href="https://indiewebcamp.com/webmention">webmention</a> and <a href="https://indiewebcamp.com/salmentions">salmentions</a></em>)</li>
+      <li>Pull, ie. just reading an [[ActivityStreams2]] feed.</li>
     </ul>
+
+    <p class="note">Nothing should rely on implementation of a subscription mechanism.</p>
     
     <p>A server may also receive notifications of changes to content it has <em>not subscribed</em> to: see <a href="#delivery">delivery</a>.</p>
   </section>
