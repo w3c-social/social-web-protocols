@@ -171,6 +171,26 @@ aside.example div.example div.example-title {
           wgURI:        "https://www.w3.org/Social/WG",
           wgPublicList: "public-socialweb",
           wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/424242/status",
+          localBiblio:  {
+            "Webmention": {
+              title:    "Webmention",
+              href:     "http://w3.org/TR/webmention",
+              authors:  [
+                "Aaron Parecki"
+              ],
+              status:   "CR",
+              publisher:  "W3C"
+            },
+            "ActivityStreams2": {
+              title: "ActivityStreams 2.0",
+              href: "http://w3.org/TR/activitystreams",
+              authors: [
+                "James Snell", "Evan Prodromou"
+              ],
+              status: "WD",
+              publisher: "W3C"
+            }
+          }
       };
     </script>
 </head>
@@ -196,105 +216,108 @@ aside.example div.example div.example-title {
     
     <p>This provides the core building blocks for interoperable social systems.</p>
     
-    <p>This specification is divided into parts that can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others. Put simply, this specification tells you:</p>
+    <p>These specifications can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others. Put simply, this specification tells you, according the recommendations of the Social Web Working Group:</p>
     
     <ul>
       <li>how to <a href="#reading">expose/consume</a> social content (reading).</li>
       <li><a href="#content-representation">what to post</a>, and where to, to <a href="#creating">create</a>, <a href="#updating">update</a> or <a href="#deleting">delete</a> content.</li>
       <li>how to <a href="#subscribing">ask for notifications</a> about content (subscribing).</li>
-      <li>how to <a href="#mentioning">send notifications</a> about content or users (mentioning).</li>
+      <li>how to <a href="#delivery">deliver notifications</a> about content or users (delivery).</li>
       <li>how to expose <a href="#profiles">profiles</a> and <a href="#relationships">relationships</a>.</li>
     </ul>
     
     <section id="contents">
       <h3>Contents</h3>
     
-      <p>This is an overview of the current state of specs that are inputs to the WG: <a href="http://w3c-social.github.io/activitypump/">ActivityPump</a>, <a href="http://micropub.net">Micropub</a>,  <a href="http://webmention.net">Webmention</a>) and <a href="https://github.com/solid/solid-spec">SoLiD</a>; all of which are subject to ongoing development. Arranged based on <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a>.</p>
+      <p>This is an overview of the current state of specifications of the Social Web Working Group: <a href="http://w3.org/TR/activitystreams">ActiivtyStreams</a>, <a href="http://w3c-social.github.io/activitypub/">Activitypub</a>, <a href="http://micropub.net">Micropub</a> and <a href="http://webmention.net">Webmention</a>. This document also describes Social Web Working Group specifications in context of W3C recommendations outside of the Social Web Working Group where relevant. As many of these specs are under ongoing development, this document is subject to change alongside them.</p>
+
+      <p>You might also want to take a look at the Working Group's <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a> to understand the division of concerns.</p>
       
-      <p>The WG may produce several small ‘building block’ specifications, or one unified document. In the former case, this document serves as a guide for implementors to demonstrate how the pieces fit together, and could be published as a note. In the latter case, optimistically, this has the potential to become the location for convergence of the alternatives. Ultimately an implementation of any subsection of this spec should be compatible with the equivalent subsection of one of the aforementioned specs. Subsections which have multiple implementation routes listed are work-in-progress.</p>
+      <p>This document is on track to become a Working Group Note to provide guidence on how and when to implement the various specifications produced.</p>
+
     </section>
-    <section id="relationship-to-other-wg-drafts">
-      <h3>Relationship to other WG drafts</h3>
+    <section id="swwg-drafts">
+      <h3>Social Web Working Group Drafts</h3>
     
       <table>
         <thead>
           <tr>
             <th>Spec</th>
             <th>Status</th>
-            <th>Relationship</th>
+            <th>Description</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>ActivityStreams2</td>
+            <td>ActivityStreams 2.0</td>
             <td>WD</td>
-            <td>The expected representation of JSON data mentioned here</td>
+            <td>The syntax and vocabulary for representing social data in JSON and RDF.</td>
           </tr>
           <tr>
-            <td>ActivityPump</td>
-            <td>ED</td>
-            <td>Most parts correspond with a subsection here</td>
+            <td>Activitypub</td>
+            <td>WD</td>
+            <td>JSON-based APIs for <a href="#reading">reading</a>, <a href="#creating">creating</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</td>
           </tr>
           <tr>
             <td>Webmention</td>
-            <td>ED</td>
-            <td>Corresponds with <a href="#mentioning">Mentioning</a></td>
+            <td>CR</td>
+            <td>Minimal form-encoded API for <a href="#delivery">delivery</a>.</td>
           </tr>
           <tr>
             <td>Micropub</td>
-            <td>ED</td>
-            <td>Corresponds with <a href="#creating-content">Creating content</a></td>
-          </tr>
-          <tr>
-            <td>jf2</td>
-            <td>ED</td>
-            <td>as AS2 where applicable</td>
-          </tr>
-          <tr>
-            <td>Post Type Discovery</td>
-            <td>ED</td>
-            <td>No overlap</td>
+            <td>WD</td>
+            <td>Minimal form-encoded API for <a href="#creating">creating</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</td>
           </tr>
         </tbody>
       </table>
     
-      <p>For comparison of the subsections, the aforementioned specs are restructured according to the structure of this document (work-in-progress, pending feedback from spec authors/editors!):</p>
       
-      <ul>
-        <li><a href="https://github.com/rhiaro/activitypump/blob/restructure/index.md">ActivityPump restructure</a></li>
-        <li><a href="https://github.com/rhiaro/Social-APIs-Brainstorming/blob/gh-pages/indiewebspecs.md">Indieweb specs</a></li>
-        <li><a href="https://github.com/rhiaro/solid-spec/tree/restructure/README.md">Solid restructure</a></li>
-      </ul>
+    </section>
+
+    <section id="Other specs">
+      <h3>Other specifications</h3>
+    
+      <table>
+        <thead>
+          <tr>
+            <th>Spec</th>
+            <th>Status</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Annotations Protocol</td>
+            <td>CR (Annotations WG)</td>
+            <td>A protocol for reading and writing annotations on the Web.</td>
+          </tr>
+          <tr>
+            <td>Linked Data Platform</td>
+            <td>REC (LDP WG)</td>
+            <td>A protocol for reading and writing Linked Data.</td>
+          </tr>
+          <tr>
+            <td>Solid</td>
+            <td>ED</td>
+            <td>Extension to LDP for use in social applications</td>
+          </tr>
+           <tr>
+            <td>jf2</td>
+            <td>ED</td>
+            <td>A complimentary social vocabulary to AS2 for object-centric (as opposed to activity-centric) data.</td>
+          </tr>
+          <tr>
+            <td>Post Type Discovery</td>
+            <td>ED</td>
+            <td>A protocol to bridge object-centric and activity-centric vocabularies.</td>
+          </tr>
+        </tbody>
+      </table>
+    
+      
     </section>
   </section>
 
-  <section id="profiles">
-    <h2>Profiles</h2>
-
-    <p>The subject of a profile document can be a person, persona, organisation, bot, location, … the type of the subject of the profile is not required. Each profile document MUST have a URL which SHOULD return attributes of the subject of the profile; SHOULD return at least one link to <a href="#reading">a stream of content</a> and MAY return content the subject has created. A JSON format MUST be available; other content types MAY be returned as well.</p>
-    
-    <section id="relationships">
-      <h3>Relationships</h3>
-    
-      <p>Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user ‘friending’ another triggers a subscription request from the first user’s server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStremas 2 syntax and MAY (and are likely to) use extension vocabularies as needed.</p>
-      
-      <ul>
-        <li><strong>ActivityPump:</strong> When a server receives a <code>Follow</code> Activity in its <code>inbox</code>, the subject is added to a <code>Followers</code> <code>Collection</code>, which is discoverable from the subject’s profile.</li>
-      </ul>
-    </section>
-    
-    <section id="authorization-and-access-control">
-      <h3>Authorization and access control</h3>
-    
-      <p>Servers may restrict/authorize access to content however they want?</p>
-      
-      <ul>
-        <li><strong>ActivityPump:</strong> see <a href="http://w3c-social.github.io/activitypump/#authorization">auth</a></li>
-        <li><strong>Indieweb:</strong> see <a href="https://indiewebcamp.com/private_posts">private posts</a>, <a href="https://indiewebcamp.com/private-webmention">private webmention</a></li>
-        <li><strong>SoLiD:</strong> see <a href="https://github.com/solid/solid-spec#web-access-control">acl</a></li>
-      </ul>
-    </section>
-  </section>
   <section id="reading">
   <h2>Reading</h2>
     <section id="content-representation">
@@ -360,17 +383,46 @@ aside.example div.example div.example-title {
     
     <p>A server may also receive notifications of changes to content it has <em>not subscribed</em> to: see <a href="#mentioning">mentioning</a>.</p>
   </section>
-  <section id="mentioning">
-    <h2 id="mentioning">Mentioning</h2>
+  <section id="delivery">
+    <h2>Delivery</h2>
     
-    <p>A user may wish to push a notification to another user, for example because they have linked to (replied, liked, bookmarked, reposted, …) their content or linked to (tagged, addressed) the user directly.</p>
-    
+    <p>A user or application may wish to push a notification to another user, for example because they have linked to (replied, liked, bookmarked, reposted, …) their content or linked to (tagged, addressed) the user directly, or to make the recipient aware of a change in state of some document or resource on the Web.</p>
+
+    <p><strong>[[Webmention]]</strong> provides a simple API for sending and receiving notifications when a relationship is created between two documents. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
+
     <ul>
-      <li><strong>ActivityPump:</strong> When an Activity is posted to a user’s <code>outbox</code> endpoint, the server checks for values of <code>object</code>, <code>target</code>, <code>inReplyTo</code>, <code>to</code>, <code>cc</code>, and <code>bcc</code>; discovers the <code>inbox</code> endpoint of any objects found, and <code>POST</code>s the Activity to the discovered <code>inbox</code> endpoints. Servers receiving such an Activity proceed to do the same for the target object to propagate the update further. <em>(See <a href="http://w3c-social.github.io/activitypump/#notification">ActivityPump 8.2</a>)</em></li>
-      <li><strong>Webmention:</strong> The target publishes a link to their ‘webmention endpoint’ via <code>rel="webmention"</code>. The source sends a form-encoded <code>POST</code> request containing values for <code>source</code> (the URL of a webpage with a link to the target) and <code>target</code> (the URL of the webpage being linked to). The target MUST validate that the source really does link to target, and proceeds to do with this information as desired. <em>(See <a href="https://indiewebcamp.com/webmention">webmention</a>)</em></li>
+      <li>You have a document (source) which links to another document (target).</li>
+      <li>The owner of the target has access to view the source (so that their webmention endpoint can parse the source and check the claimed link exists).</li>
+      <li>The only data you need to send over the wire are the URLs of the source and target documents (ie. a 'thin ping').</li>
     </ul>
+
+    <p>Discovery of the [[Webmention]] endpoint (a script which can process incoming webmentions) is through a link relation (<code>rel="webmention"</code>), either in the HTTP Header or body of the target. This endpoint does not need to be on the same domain as the target, so webmention receiving can be delegated to a third party.</p>
+
+    <p>[[Webmention]] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. This means a webmention can be triggered from a simple web form or from the commandline with <code>curl</code>. Integration with existing applications is straightforward through translating this form-encoded data into JSON, RDF (<a href="http://www.w3.org/ns/webmention#">namespace</a>), or another preferred syntax at the recievers end if necessary. There are no constraints on the syntax of the source and target documents.</p>
+
+    <p>[[Webmention]] can be extended by adding additional parameters to the POST request; applications must have prior agreement in order to understand them, and there is potential for collision of extension terms.</p>
     
-    <p><em>Note: we need to leave it open for users to refuse content they have not explicitly subscribed to, ie. nothing else should rely on implementation of Mentioning.</em></p>
+    <p><strong>[[Activitypub]]</strong> provides a JSON-based API for sending and receiving [[ActivityStreams2]] activities as notifications. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
+
+    <ul>
+      <li>You describe the notification with [[ActivityStreams2]].</li>
+      <li>You need to send or receive the whole notification over the wire (ie. a 'fat ping').</li>
+      <li>You need to send or receive JSON payloads only.</li>
+      <li>You need to add additional properties to your notifications unambiguously with JSON-LD.</li>
+      <li>You need to send the same notification to multiple users from one activity.</li>
+    </ul>
+
+    <p>The endpoint which processes incoming notifications is a user's [[Activitypub]] <code>outbox</code>, discoverable from the target user's profile. The recipient user may be addressed directly (through <code>object</code>, <code>target</code>, <code>to</code>, <code>cc</code>, and/or <code>bcc</code>), and/or inferred as the owner of another resource which is addressed (through <code>object</code>, <code>target</code> and/or <code>inReplyTo</code>).</p>
+
+    <p>An [[Activitypub]] server delivers the entire activity to all discovered endpoints as a JSON payload of an HTTP POST request.</p>
+
+    <p>An [[Activitypub]] server receiving such an activity must verify the notification is accurate (by fetching the source, or some prior trust arrangement with the sender, eg. through an authentication token or digital signature).</p>
+
+    <p>[[Activitypub]] delivery can be extended through the [[ActivityStreams2]] extension mechanism, with JSON-LD.</p>
+
+    <p class="issue">Add Solid Notifications for pure RDF usage.</p>
+
+    <p class="note"><em>Note: we need to leave it open for users to refuse content they have not explicitly subscribed to, ie. nothing else should rely on implementation of Delivery.</em></p>
   </section>
   <section id="creating-content">
     <h2>Creating content</h2>
@@ -412,6 +464,35 @@ aside.example div.example div.example-title {
       <!--
       Notifications from updates and deletes are SHOULD not MUST to allow for modular implementation. ie. if I delete a post right now, I don't notify anyone, even those mentioned, or who have replied to it. It's not ideal, but the world/web doesn't break. It's linkrot, but we've managed to cope so far...
       -->
+    </section>
+    </section>
+     <section id="profiles">
+    <h2>Profiles</h2>
+
+    <p class="issue">Stub, needs expansion</p>
+
+    <p>The subject of a profile document can be a person, persona, organisation, bot, location, … the type of the subject of the profile is not required. Each profile document MUST have a URL which SHOULD return attributes of the subject of the profile; SHOULD return at least one link to <a href="#reading">a stream of content</a> and MAY return content the subject has created. A JSON format MUST be available; other content types MAY be returned as well.</p>
+    
+    <section id="relationships">
+      <h3>Relationships</h3>
+    
+      <p>Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user ‘friending’ another triggers a subscription request from the first user’s server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStremas 2 syntax and MAY (and are likely to) use extension vocabularies as needed.</p>
+      
+      <ul>
+        <li><strong>Activitypub:</strong> When a server receives a <code>Follow</code> Activity in its <code>inbox</code>, the subject is added to a <code>Followers</code> <code>Collection</code>, which is discoverable from the subject’s profile.</li>
+      </ul>
+    </section>
+    
+    <section id="authorization-and-access-control">
+      <h3>Authorization and access control</h3>
+    
+      <p>Servers may restrict/authorize access to content however they want?</p>
+      
+      <ul>
+        <li><strong>ActivityPump:</strong> see <a href="http://w3c-social.github.io/activitypump/#authorization">auth</a></li>
+        <li><strong>Indieweb:</strong> see <a href="https://indiewebcamp.com/private_posts">private posts</a>, <a href="https://indiewebcamp.com/private-webmention">private webmention</a></li>
+        <li><strong>SoLiD:</strong> see <a href="https://github.com/solid/solid-spec#web-access-control">acl</a></li>
+      </ul>
     </section>
   </section>
 
