@@ -410,6 +410,7 @@ aside.example div.example div.example-title {
 
     <ul>
       <li>The objects and streams being subscribed to are described with [[ActivityStreams2]].</li>
+      <li>The subscriber wants to request updates from a specific actor.</li>
       <li>You need to send or receive the whole requested resource over the wire (ie. a 'fat ping').</li>
       <li>You need to send or receive JSON payloads only.</li>
       <li>Subscriptions requests and fulfillment are handled serverside.</li>
@@ -428,7 +429,8 @@ aside.example div.example div.example-title {
     <p><strong>[[Webmention]]</strong> can be deployed as a subscription mechanism through the [[Salmentions]] extension. Documents contain links to the sources of received webmentions along with the content. Every time the document is updated, including when new incoming webmentions are added, the server (re-)sends webmentions to every link. Thus, all documents which originally sent a webmention receive a webmention back, enabling them to parse the document for changes, and detect new replies in a thread, as well as changes to the original document. It works when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
 
     <ul>
-      <li>The subscriber has a document which links to another document, and has sent a [[Webmention]] about it.</li>
+      <li>The subscriber wants to subscribe to a specific thread or object.</li>
+      <li>The subscriber has a document which links to that thread or object, and has sent a [[Webmention]] about it.</li>
       <li>The publisher displays links to the sources of received webmentions with their content.</li> 
       <li>The subscriber wants to be notified of further changes to a document linked to.</li>
       <li>The subscriber has implemented [[Webmention]] receiving.</li>
