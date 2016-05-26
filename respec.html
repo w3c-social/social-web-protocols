@@ -393,10 +393,53 @@ aside.example div.example div.example-title {
 
     </section>
   </section>
+
+  <section id="creating-content">
+    <h2>Creating content</h2>
+
+    <p><code>POST</code> a JSON object (see <a href="#content-representation">content representation</a>) to the appropriate endpoint.</p>
+    
+    <ul>
+      <li><strong>ActivityPump</strong>: <code>POST</code> to <code>"outbox": "..."</code> (<em>See <a href="http://w3c-social.github.io/activitypump/#outbox">ActivityPump 7.4.1</a></em>)</li>
+      <li><strong>Micropub</strong>: <code>POST</code> to <code>rel="micropub"</code> (<em>See <a href="https://indiewebcamp.com/micropub">Micropub</a></em>)</li>
+      <li><strong>SoLiD</strong>: <code>POST</code> to an LDP container (<em>See <a href="https://github.com/solid/solid-spec#creating-new-resources">SoLiD - Creating new resources</a></em>)</li>
+    </ul>
+
+    <section id="updating">
+      <h3>Updating</h3>
+      
+      <p>Updating an object SHOULD have the side effect of notifying those <a href="#subscribing">subscribed</a> and <a href="#mentioning">mentioned</a>.</p>
+      
+      <ul>
+        <li><strong>ActivityPump:</strong> <code>POST</code> an AS2 <code>Update</code> Activity to the <code>outbox</code> endpoint.</li>
+        <li><strong>Micropub:</strong> <code>POST</code> an <code>mp-edit</code> action to <code>rel="micropub"</code> endpoint.</li>
+        <li><strong>SoLiD:</strong> <code>PUT</code> or <code>PATCH</code> the resource being updated.</li>
+      </ul>
+    </section>
+    <section id="deleting">
+      <h3>Deleting</h3>
+      
+      <p>Deleting an object SHOULD have the side effect of notifying those <a href="#subscribing">subscribed</a> and <a href="#mentioning">mentioned</a>.</p>
+      
+      <p>When an object is deleted, it SHOULD be replaced with a ‘tombstone’ containing its unique identifier, deleted (or last updated) date, and optionally replacement content (eg. “this post was removed”). Its URI SHOULD return a 410.</p>
+      
+      <p><em>Note: using SHOULD not MUST to allow for silently deleting objects</em></p>
+      
+      <ul>
+        <li><strong>ActivityPump:</strong> <code>POST</code> an AS2 <code>Delete</code> Activity to the <code>outbox</code> endpoint.</li>
+        <li><strong>Micropub:</strong> <code>POST</code> an <code>mp-delete</code> action to <code>rel="micropub"</code> endpoint.</li>
+        <li><strong>SoLiD:</strong> <code>DELETE</code> on the resource being deleted.</li>
+      </ul>
+  
+      <!--
+      Notifications from updates and deletes are SHOULD not MUST to allow for modular implementation. ie. if I delete a post right now, I don't notify anyone, even those mentioned, or who have replied to it. It's not ideal, but the world/web doesn't break. It's linkrot, but we've managed to cope so far...
+      -->
+  </section>
+</section>
   <section id="subscribing">
     <h2>Subscribing</h2>
 
-    <p>An agent (client or server) may <em>ask</em> to be notified of changes to a content object (eg. edits, new replies) or stream of content (eg. objects added or removed from a particular stream).</p>
+    <p>An agent (client or server) may <em>ask</em> to be notified of changes to a content object (eg. edits, new replies) or stream of content (eg. objects added or removed from a particular stream). This is <em>subscribing</em>. A server may also receive notifications of changes to content it has <em>not subscribed</em> to: see <a href="#delivery">delivery</a>.</p>
     
     <p class="issue">Working group has yet to discuss this in depth, subject to significant change.</p>
 
@@ -447,7 +490,6 @@ aside.example div.example div.example-title {
 
     <p class="note">Nothing should rely on implementation of a subscription mechanism.</p>
     
-    <p>A server may also receive notifications of changes to content it has <em>not subscribed</em> to: see <a href="#delivery">delivery</a>.</p>
   </section>
   <section id="delivery">
     <h2>Delivery</h2>
@@ -490,77 +532,36 @@ aside.example div.example div.example-title {
 
     <p class="note"><em>Note: we need to leave it open for users to refuse content they have not explicitly subscribed to, ie. nothing else should rely on implementation of Delivery.</em></p>
   </section>
-  <section id="creating-content">
-    <h2>Creating content</h2>
-
-    <p><code>POST</code> a JSON object (see <a href="#content-representation">content representation</a>) to the appropriate endpoint.</p>
-    
-    <ul>
-      <li><strong>ActivityPump</strong>: <code>POST</code> to <code>"outbox": "..."</code> (<em>See <a href="http://w3c-social.github.io/activitypump/#outbox">ActivityPump 7.4.1</a></em>)</li>
-      <li><strong>Micropub</strong>: <code>POST</code> to <code>rel="micropub"</code> (<em>See <a href="https://indiewebcamp.com/micropub">Micropub</a></em>)</li>
-      <li><strong>SoLiD</strong>: <code>POST</code> to an LDP container (<em>See <a href="https://github.com/solid/solid-spec#creating-new-resources">SoLiD - Creating new resources</a></em>)</li>
-    </ul>
-
-    <section id="updating">
-      <h3>Updating</h3>
-      
-      <p>Updating an object SHOULD have the side effect of notifying those <a href="#subscribing">subscribed</a> and <a href="#mentioning">mentioned</a>.</p>
-      
-      <ul>
-        <li><strong>ActivityPump:</strong> <code>POST</code> an AS2 <code>Update</code> Activity to the <code>outbox</code> endpoint.</li>
-        <li><strong>Micropub:</strong> <code>POST</code> an <code>mp-edit</code> action to <code>rel="micropub"</code> endpoint.</li>
-        <li><strong>SoLiD:</strong> <code>PUT</code> or <code>PATCH</code> the resource being updated.</li>
-      </ul>
-    </section>
-    <section id="deleting">
-      <h3>Deleting</h3>
-      
-      <p>Deleting an object SHOULD have the side effect of notifying those <a href="#subscribing">subscribed</a> and <a href="#mentioning">mentioned</a>.</p>
-      
-      <p>When an object is deleted, it SHOULD be replaced with a ‘tombstone’ containing its unique identifier, deleted (or last updated) date, and optionally replacement content (eg. “this post was removed”). Its URI SHOULD return a 410.</p>
-      
-      <p><em>Note: using SHOULD not MUST to allow for silently deleting objects</em></p>
-      
-      <ul>
-        <li><strong>ActivityPump:</strong> <code>POST</code> an AS2 <code>Delete</code> Activity to the <code>outbox</code> endpoint.</li>
-        <li><strong>Micropub:</strong> <code>POST</code> an <code>mp-delete</code> action to <code>rel="micropub"</code> endpoint.</li>
-        <li><strong>SoLiD:</strong> <code>DELETE</code> on the resource being deleted.</li>
-      </ul>
-  
-      <!--
-      Notifications from updates and deletes are SHOULD not MUST to allow for modular implementation. ie. if I delete a post right now, I don't notify anyone, even those mentioned, or who have replied to it. It's not ideal, but the world/web doesn't break. It's linkrot, but we've managed to cope so far...
-      -->
-    </section>
-    </section>
-     <section id="profiles">
-    <h2>Profiles</h2>
-
-    <p class="issue">Stub, needs expansion</p>
-
-    <p>The subject of a profile document can be a person, persona, organisation, bot, location, … the type of the subject of the profile is not required. Each profile document MUST have a URL which SHOULD return attributes of the subject of the profile; SHOULD return at least one link to <a href="#reading">a stream of content</a> and MAY return content the subject has created. A JSON format MUST be available; other content types MAY be returned as well.</p>
-    
-    <section id="relationships">
-      <h3>Relationships</h3>
-    
-      <p>Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user ‘friending’ another triggers a subscription request from the first user’s server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStremas 2 syntax and MAY (and are likely to) use extension vocabularies as needed.</p>
-      
-      <ul>
-        <li><strong>Activitypub:</strong> When a server receives a <code>Follow</code> Activity in its <code>inbox</code>, the subject is added to a <code>Followers</code> <code>Collection</code>, which is discoverable from the subject’s profile.</li>
-      </ul>
-    </section>
-    
-    <section id="authorization-and-access-control">
-      <h3>Authorization and access control</h3>
-    
-      <p>Servers may restrict/authorize access to content however they want?</p>
-      
-      <ul>
-        <li><strong>ActivityPump:</strong> see <a href="http://w3c-social.github.io/activitypump/#authorization">auth</a></li>
-        <li><strong>Indieweb:</strong> see <a href="https://indiewebcamp.com/private_posts">private posts</a>, <a href="https://indiewebcamp.com/private-webmention">private webmention</a></li>
-        <li><strong>SoLiD:</strong> see <a href="https://github.com/solid/solid-spec#web-access-control">acl</a></li>
-      </ul>
-    </section>
   </section>
+  <section id="profiles">
+      <h2>Profiles</h2>
+
+      <p class="issue">Stub, needs expansion</p>
+
+      <p>The subject of a profile document can be a person, persona, organisation, bot, location, … the type of the subject of the profile is not required. Each profile document MUST have a URL which SHOULD return attributes of the subject of the profile; SHOULD return at least one link to <a href="#reading">a stream of content</a> and MAY return content the subject has created. A JSON format MUST be available; other content types MAY be returned as well.</p>
+      
+      <section id="relationships">
+        <h3>Relationships</h3>
+      
+        <p>Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user ‘friending’ another triggers a subscription request from the first user’s server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStremas 2 syntax and MAY (and are likely to) use extension vocabularies as needed.</p>
+        
+        <ul>
+          <li><strong>Activitypub:</strong> When a server receives a <code>Follow</code> Activity in its <code>inbox</code>, the subject is added to a <code>Followers</code> <code>Collection</code>, which is discoverable from the subject’s profile.</li>
+        </ul>
+      </section>
+      
+      <section id="authorization-and-access-control">
+        <h3>Authorization and access control</h3>
+      
+        <p>Servers may restrict/authorize access to content however they want?</p>
+        
+        <ul>
+          <li><strong>ActivityPump:</strong> see <a href="http://w3c-social.github.io/activitypump/#authorization">auth</a></li>
+          <li><strong>Indieweb:</strong> see <a href="https://indiewebcamp.com/private_posts">private posts</a>, <a href="https://indiewebcamp.com/private-webmention">private webmention</a></li>
+          <li><strong>SoLiD:</strong> see <a href="https://github.com/solid/solid-spec#web-access-control">acl</a></li>
+        </ul>
+      </section>
+    </section>
 
   </body>
 </html>
