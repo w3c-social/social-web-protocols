@@ -454,7 +454,7 @@ aside.example div.example div.example-title {
     
     <p>A user or application may wish to push a notification to another user, for example because they have linked to (replied, liked, bookmarked, reposted, …) their content or linked to (tagged, addressed) the user directly, or to make the recipient aware of a change in state of some document or resource on the Web.</p>
 
-    <p><strong>[[Webmention]]</strong> provides a simple API for sending and receiving notifications when a relationship is created between two documents. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
+    <p><strong>[[Webmention]]</strong> provides an API for sending and receiving notifications when a relationship is created between two documents. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
 
     <ul>
       <li>You have a document (source) which links to another document (target).</li>
@@ -464,7 +464,7 @@ aside.example div.example div.example-title {
 
     <p>Discovery of the [[Webmention]] endpoint (a script which can process incoming webmentions) is through a link relation (<code>rel="webmention"</code>), either in the HTTP Header or body of the target. This endpoint does not need to be on the same domain as the target, so webmention receiving can be delegated to a third party.</p>
 
-    <p>[[Webmention]] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. This means a webmention can be triggered from a simple web form or from the commandline with <code>curl</code>. Integration with existing applications is straightforward through translating this form-encoded data into JSON, RDF (<a href="http://www.w3.org/ns/webmention#">namespace</a>), or another preferred syntax at the recievers end if necessary. There are no constraints on the syntax of the source and target documents.</p>
+    <p>[[Webmention]] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. This means a webmention can be triggered from a web form or from the commandline with <code>curl</code>. Integration with existing applications is straightforward through translating this form-encoded data into JSON, RDF (<a href="http://www.w3.org/ns/webmention#">namespace</a>), or another preferred syntax at the recievers end if necessary. There are no constraints on the syntax of the source and target documents.</p>
 
     <p>[[Webmention]] can be extended by adding additional parameters to the POST request; applications must have prior agreement in order to understand them, and there is potential for collision of extension terms.</p>
     
@@ -478,7 +478,7 @@ aside.example div.example div.example-title {
       <li>You need to send the same notification to multiple users from one activity.</li>
     </ul>
 
-    <p>The endpoint which processes incoming notifications is a user's [[Activitypub]] <code>outbox</code>, discoverable from the target user's profile. The recipient user may be addressed directly (through <code>object</code>, <code>target</code>, <code>to</code>, <code>cc</code>, and/or <code>bcc</code>), and/or inferred as the owner of another resource which is addressed (through <code>object</code>, <code>target</code> and/or <code>inReplyTo</code>).</p>
+    <p>The endpoint which processes incoming notifications is a user's [[Activitypub]] <code>inbox</code>, discoverable from the target user's profile. The recipient user may be addressed directly (through <code>object</code>, <code>target</code>, <code>to</code>, <code>cc</code>, and/or <code>bcc</code>), and/or inferred as the owner of another resource which is addressed (through <code>object</code>, <code>target</code> and/or <code>inReplyTo</code>).</p>
 
     <p>An [[Activitypub]] server delivers the entire activity to all discovered endpoints as a JSON payload of an HTTP POST request.</p>
 
