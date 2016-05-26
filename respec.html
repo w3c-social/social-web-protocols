@@ -152,6 +152,17 @@ aside.example div.example {
 aside.example div.example div.example-title {
     color: #999;
 }
+
+table.th90 th {
+  height: 140px;
+  white-space: nowrap;
+  transform: 
+    rotate(-90deg);
+  max-width: 4em;
+}
+table.th90 th, table.th90 td {
+  text-align: center;
+}
 </style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-FPWD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
 <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
 <script class='remove'>
@@ -237,7 +248,7 @@ aside.example div.example div.example-title {
     
     <p>This provides the core building blocks for interoperable social systems.</p>
     
-    <p>These specifications can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others. Put simply, this specification tells you, according the recommendations of the Social Web Working Group:</p>
+    <p>Each of these specifications can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others. Put simply, this document tells you, according the recommendations of the Social Web Working Group:</p>
     
     <ul>
       <li>how to <a href="#reading">expose/consume</a> social content (reading).</li>
@@ -254,7 +265,7 @@ aside.example div.example div.example-title {
 
       <p>You might also want to take a look at the Working Group's <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a> to understand the division of concerns.</p>
       
-      <p>This document is on track to become a Working Group Note to provide guidence on how and when to implement the various specifications produced.</p>
+      <p>This document is on track to become a Working Group Note to provide guidance on how and when to implement the various specifications produced.</p>
 
     </section>
     <section id="swwg-drafts">
@@ -291,11 +302,10 @@ aside.example div.example div.example-title {
           </tr>
         </tbody>
       </table>
-    
       
     </section>
 
-    <section id="Other specs">
+    <section id="other-specs">
       <h3>Other specifications</h3>
     
       <table>
@@ -339,7 +349,97 @@ aside.example div.example div.example-title {
         </tbody>
       </table>
     
-      
+    </section>
+
+    <section id="requirements">
+      <h3>Requirements</h3>
+      <p>The high level requirements according to the <a href="">Social Web Working Group charter</a> and the <a href="">Social API Requirements</a>.</p>
+      <table class="th90">
+        <tr>
+          <th></th>
+          <th><a href="#content-representation">Vocabulary</a></th>
+          <th><a href="#content-representation">Syntax</a></th>
+          <th><a href="#reading">Read</a></th>
+          <th><a href="#creating-content">Create</a></th>
+          <th><a href="#updating">Update</a></th>
+          <th><a href="#deleting">Delete</a></th>
+          <th><a href="#subscribing">Subscription</a></th>
+          <th><a href="#delivery">Delivery</a></th>
+          <th><a href="#profiles">Profiles</a></th>
+        </tr>
+        <tr>
+          <td style="text-align:left;">ActivityPub</td>
+          <td></td>
+          <td></td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;">ActivityStreams 2.0</td>
+          <td>X</td>
+          <td>X</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <!--<tr>
+          <td style="text-align:left;">jf2</td>
+          <td>X</td>
+          <td>X</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>-->
+        <tr>
+          <td style="text-align:left;" style="text-align:left;">Micropub</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <!--<tr>
+          <td style="text-align:left;">Post-type discovery<br></td>
+          <td></td>
+          <td></td>
+          <td>X</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>-->
+        <tr>
+          <td style="text-align:left;">Webmention</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>X</td>
+          <td></td>
+        </tr>
+      </table>
     </section>
   </section>
 
