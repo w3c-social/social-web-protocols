@@ -455,49 +455,67 @@ table.th90 th, table.th90 td {
       
       <p class="issue">Activitypub discovery mechanism for this to be specified, likely link relations per <a href="https://github.com/w3c-social/activitypub/issues/50">issue 50</a>.</p>
 
+      <p>[[Activitypub]] specifies special behaviour for activities with types <code>Add</code> and <code>Remove</code>. When a server receives such an activity in the <code>outbox</code>, and the <code>target</code> is a Collection, it MUST add the <code>object</code> to the <code>target</code> (for <code>Add</code>) or remove the <code>object</code> from the <code>target</code> (for <code>Remove</code>).
+
     </section>
   </section>
 
   <section id="creating-content">
     <h2>Creating content</h2>
 
-    <p><code>POST</code> a JSON object (see <a href="#content-representation">content representation</a>) to the appropriate endpoint.</p>
-    
+    <p>Content generated through a client (such as a web form, mobile app, smart device) is created when it is sent to a server for processing, where it is typically stored and usually published (either publicly or to a restricted audience). Clients and servers may independently support creating, updating and deleting; there are no dependencies between them. Authentication and authorization for creating content is left out of scope.</p>
+
+    <p><strong>[[Activitypub]]</strong> clients discover the <code>outbox</code> of the authenticated user from their JSON profile, then make an HTTP POST request with an appropriate [[ActivityStreams2]] Activity as a JSON payload. [[Activitypub]] requires use of the [[ActivityStreams2]] vocabulary and syntax, which may be extended with JSON-LD. The URL of the created resource is generated at the discretion of the server. This is an appropriate protocol to use when:</p>
+
     <ul>
-      <li><strong>ActivityPump</strong>: <code>POST</code> to <code>"outbox": "..."</code> (<em>See <a href="http://w3c-social.github.io/activitypump/#outbox">ActivityPump 7.4.1</a></em>)</li>
-      <li><strong>Micropub</strong>: <code>POST</code> to <code>rel="micropub"</code> (<em>See <a href="https://indiewebcamp.com/micropub">Micropub</a></em>)</li>
-      <li><strong>SoLiD</strong>: <code>POST</code> to an LDP container (<em>See <a href="https://github.com/solid/solid-spec#creating-new-resources">SoLiD - Creating new resources</a></em>)</li>
+      <li>You want to send/receive a JSON or JSON-LD payload.</li>
+      <li>Your data is described with [[ActivityStreams2]] (optionally extensible via JSON-LD).</li>
+    </ul>
+
+    <p><strong>[[Micropub]]</strong> clients discover the Micropub endpoint from the current user's homepage (likely entered by the user as part of authentication) from a <code>rel="micropub"</code> link, then make a <code>x-www-form-urlencoded</code> POST request containing the key-value pairs for the attributes of the object being created. The URL of the created resource is generated at the discretion of the server. Micropub requires use of the Microformats 2 [[h-entry]] vocabulary, as well as a set of reserved attributes as commands to the server; any additional key names sent outside of this vocabulary may be ignored by the server.</p>
+
+    <p>[[Micropub]] requests may alternatively be sent as a JSON payload, the syntax of which is derived from the Microformats 2 parsing algorithm. This is an appropriate protocol to use when:</p>
+
+    <ul>
+      <li>You want to send/receive a form-encoded or JSON payload.</li>
+      <li>Your data is described with the [[h-entry]] syntax and vocabulary.</li>
+      <li>You can rely on out-of-band agreements between clients and servers for vocabulary extensibility.</li>
+    </ul>
+
+    <p><strong>[[LDP]]</strong> servers are written to by sending an HTTP POST request to a <code>Container</code> (any resource on the server which returns <code>Link: &lt;http://www.w3.org/ns/ldp#Container&gt;; rel="type"</code>), containing an RDF payload with attributes of the object being created. An identifier for the created resource is generated at the discretion of the server, and the URL created by appending the identifier to the URL of the <code>Container</code> that was posted to. [[Solid]] and [[AnnotationsProtocol]] both use slightly altered [[LDP]] to create content; [[Solid]] restricts use to only Basic Containers, while the [[AnnotationsProtocol]] specifies the [[AnnotationsVocab]] and primary syntax as JSON-LD. This is an appropriate protocol to use when:</p>
+
+    <ul>
+      <li>Your data is represented as RDF.</li>
+      <li>Clients and servers are vocabulary agnostic.</li>
+      <li>You prefer a more RESTful API.</li>
     </ul>
 
     <section id="updating">
       <h3>Updating</h3>
       
-      <p>Updating an object SHOULD have the side effect of notifying those <a href="#subscribing">subscribed</a> and <a href="#mentioning">mentioned</a>.</p>
+      <p>Updating content is when a client sends changes to attributes (additions, removals, replacements) to an existing object. If a server has implemented a <a href="#delivery">delivery</a> or <a href="#subscribing">subscription</a> mechanism, when an object is updated, the update MUST be propagated to the original recipients using the same mechanism.</p>
+
+      <p><strong>[[Activitypub]]</strong> clients replace the complete object by sending an HTTP POST request containing an [[ActivityStreams2]] <code>Update</code> activity to the <code>outbox</code> of the authenticated user, where the <code>object</code> is a nested object, including an <code>id</code>, which serves as the replacement.</p>
+
+      <p class="issue">ActivityPub currently only supports updates of a whole object at once. <a href="https://github.com/w3c-social/activitypub/issues/85">Issue 85 for partial updates</a>.</p>
+
+      <p><strong>[[Micropub]]</strong> clients perform updates, as either form-encoded or JSON POST requests, using the <code>mp-action=update</code> parameter, as well as a <code>replace</code>, <code>add</code> or <code>delete</code> property containing the updates to make, to the Micropub endpoint (discovery described in <a href="#creating-content">creating</a>). <code>replace</code> replaces all values of the specified property. If the property does not exist already, it is created. <code>add</code> adds new values to the specified property without changing the existing ones. If the property does not exist already, it is created. <code>delete</code> removes the specified property; you can also remove properties by value by specifying the value.</p>
+
+      <p><strong>[[LDP]]</strong> clients perform replacement-style updates by sending an HTTP PUT request to the URL of the object to be updated. Partial-style updates are performed with an HTTP PATCH request.</p>
       
-      <ul>
-        <li><strong>ActivityPump:</strong> <code>POST</code> an AS2 <code>Update</code> Activity to the <code>outbox</code> endpoint.</li>
-        <li><strong>Micropub:</strong> <code>POST</code> an <code>mp-edit</code> action to <code>rel="micropub"</code> endpoint.</li>
-        <li><strong>SoLiD:</strong> <code>PUT</code> or <code>PATCH</code> the resource being updated.</li>
-      </ul>
+
     </section>
     <section id="deleting">
       <h3>Deleting</h3>
       
-      <p>Deleting an object SHOULD have the side effect of notifying those <a href="#subscribing">subscribed</a> and <a href="#mentioning">mentioned</a>.</p>
+      <p>Deleting content is when a client sends a request to delete an existing object. If a server has implemented a <a href="#delivery">delivery</a> or <a href="#subscribing">subscription</a> mechanism, when an object is deleted, the deletion MUST be propagated to the original recipients using the same mechanism.</p>
+
+      <p><strong>[[Activitypub]]</strong> clients delete an object by sending an HTTP POST request containing an [[ActivityStreams2]] <code>Delete</code> activity to the <code>outbox</code> of the authenticated user. Servers MUST <em>replace</em> the <code>object</code> of this activity with a tombstone, and return a <code>410 Gone</code> status code from its URL.</p>
+
+      <p><strong>[[Micropub]]</strong> delete requests are two key-value pairs, in form-encoded or JSON: `mp-action`: `delete` and `url`: `url-to-be-deleted`, sent to the Micropub endpoint (discovery described in <a href="#creating-content">creating</a>).</p>
+
+      <p><strong>[[LDP]]</strong> deletes are performed by sending an HTTP DELETE request to the URL of the object to be deleted.</p>
       
-      <p>When an object is deleted, it SHOULD be replaced with a ‘tombstone’ containing its unique identifier, deleted (or last updated) date, and optionally replacement content (eg. “this post was removed”). Its URI SHOULD return a 410.</p>
-      
-      <p><em>Note: using SHOULD not MUST to allow for silently deleting objects</em></p>
-      
-      <ul>
-        <li><strong>ActivityPump:</strong> <code>POST</code> an AS2 <code>Delete</code> Activity to the <code>outbox</code> endpoint.</li>
-        <li><strong>Micropub:</strong> <code>POST</code> an <code>mp-delete</code> action to <code>rel="micropub"</code> endpoint.</li>
-        <li><strong>SoLiD:</strong> <code>DELETE</code> on the resource being deleted.</li>
-      </ul>
-  
-      <!--
-      Notifications from updates and deletes are SHOULD not MUST to allow for modular implementation. ie. if I delete a post right now, I don't notify anyone, even those mentioned, or who have replied to it. It's not ideal, but the world/web doesn't break. It's linkrot, but we've managed to cope so far...
-      -->
   </section>
 </section>
   <section id="subscribing">
