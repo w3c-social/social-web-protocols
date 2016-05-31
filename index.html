@@ -609,7 +609,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         "Webmention":
         {
           "title": "Webmention",
-          "href": "http://w3.org/TR/webmention",
+          "href": "http://www.w3.org/TR/webmention",
           "authors": [
             "Aaron Parecki"
           ],
@@ -619,7 +619,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         "ActivityStreams2":
         {
           "title": "ActivityStreams 2.0",
-          "href": "http://w3.org/TR/activitystreams",
+          "href": "http://www.w3.org/TR/activitystreams",
           "authors": [
             "James Snell",
             "Evan Prodromou"
@@ -652,6 +652,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           "status": "ED",
           "publisher": "http://solid.mit.edu"
         },
+        "h-entry":
+        {
+          "title": "h-entry",
+          "href": "http://microformats.org/wiki/h-entry",
+          "authors": [
+            "Tantek Çelik"
+          ],
+          "status": "Living Specification",
+          "publisher": "microformats.org"
+        },
         "Salmentions":
         {
           "title": "Salmentions",
@@ -661,6 +671,28 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           ],
           "status": "Living specification",
           "publisher": "IndieWebCamp"
+        },
+        "AnnotationProtocol":
+        {
+          "title": "Web Annotation Protocol",
+          "href": "https://www.w3.org/TR/annotation-protocol/",
+          "authors": [
+            "Rob Sanderson"
+          ],
+          "status": "WD",
+          "publisher": "W3C"
+        },
+        "AnnotationVocab":
+        {
+          "title": "Web Annotation Vocabulary",
+          "href": "https://www.w3.org/TR/annotation-vocab/",
+          "authors": [
+            "Robert Sanderson",
+            "Paolo Ciccarese",
+            "Benjamin Young"
+          ],
+          "status": "WD",
+          "publisher": "W3C"
         }
       }
     }
@@ -806,7 +838,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <section property="bibo:hasPart" resource="#contents" typeof="bibo:Chapter" id="contents">
       <h3 resource="#h-contents" id="h-contents"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.1 </span>Contents</span></h3>
 
-      <p>This is an overview of the current state of specifications of the Social Web Working Group: <a href="http://w3.org/TR/activitystreams">ActivityStreams</a>, <a href="http://w3c-social.github.io/activitypub/">Activitypub</a>, <a href="http://micropub.net">Micropub</a> and <a href="http://webmention.net">Webmention</a>. This document also describes Social Web Working Group specifications in context of <abbr title="World Wide Web Consortium">W3C</abbr> recommendations and relevant drafts from other communities outside of the Social Web Working Group. As many of these specs are under ongoing development, this document is subject to change alongside them.</p>
+      <p>This is an overview of the current state of specifications of the Social Web Working Group: <a href="http://www.w3.org/TR/activitystreams-core">ActivityStreams Core</a> and <a href="http://www.w3.org/TR/activitystreams-vocabulary">vocabulary</a>, <a href="http://w3c-social.github.io/activitypub/">Activitypub</a>, <a href="http://micropub.net">Micropub</a> and <a href="http://webmention.net">Webmention</a>. This document also describes Social Web Working Group specifications in context of <abbr title="World Wide Web Consortium">W3C</abbr> recommendations and relevant drafts from other communities outside of the Social Web Working Group. As many of these specs are under ongoing development, this document is subject to change alongside them.</p>
 
       <p>You might also want to take a look at the Working Group's <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a> to understand the division of concerns.</p>
 
@@ -819,16 +851,19 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <dl>
 
-        <dt>ActivityPub [<a href="http://w3.org/TR/activitypub">SWWG WD</a>]</dt>
+        <dt>ActivityPub [<a href="http://www.w3.org/TR/activitypub">SWWG WD</a>]</dt>
         <dd>JSON-based APIs for <a href="#reading">reading</a>, <a href="#creating">creating</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</dd>
 
-        <dt>ActivityStreams 2.0 (AS2) [<a href="http://w3.org/TR/activitystreams-core">SWWG WD Core</a>, <a href="http://w3.org/TR/activitystreams-vocabulary">SWWG WD Vocab</a>]</dt>
+        <dt>ActivityStreams 2.0 (AS2) [<a href="http://www.w3.org/TR/activitystreams-core">SWWG WD Core</a>, <a href="http://www.w3.org/TR/activitystreams-vocabulary">SWWG WD Vocab</a>]</dt>
         <dd>The syntax and vocabulary for representing social data in JSON and RDF.</dd>
 
-        <dt>Micropub [<a href="http://w3.org/TR/micropub">SWWG WD</a>]</dt>
+        <dt>JF2 [<a href="http://dissolve.github.io/jf2/">SWWG WD (Note)</a>]</dt>
+        <dd>A complementary social vocabulary to AS2 for object-centric (as opposed to activity-centric) data.</dd>
+
+        <dt>Micropub [<a href="http://www.w3.org/TR/micropub">SWWG WD</a>]</dt>
         <dd>Minimal form-encoded API for <a href="#creating">creating</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</dd>
 
-        <dt>Webmention [<a href="http://w3.org/TR/webmention">SWWG CR</a>]</dt>
+        <dt>Webmention [<a href="http://www.w3.org/TR/webmention">SWWG CR</a>]</dt>
         <dd>Minimal form-encoded API for <a href="#delivery">delivery</a>.</dd>
       </dl>
 
@@ -842,11 +877,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <dt>ActivityStreams 1.0 [<a href="http://activitystrea.ms/specs/json/1.0/">External</a>]</dt>
         <dd>The predecessor to [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>].</dd>
 
-        <dt>Annotations Protocol [<a href="https://www.w3.org/TR/annotation-protocol/">AnnoWG WD</a>]</dt>
+        <dt>Annotation Protocol [<a href="https://www.w3.org/TR/annotation-protocol/">WAWG WD</a>]</dt>
         <dd>Transport mechanisms for creating and managing annotations on the Web.</dd>
-
-        <dt>jf2 [<a href="http://dissolve.github.io/jf2/">ED</a>] (External with SWWG representation)</dt>
-        <dd>A complementary social vocabulary to AS2 for object-centric (as opposed to activity-centric) data.</dd>
 
         <dt>Linked Data Platform [<a href="https://www.w3.org/TR/ldp/">LDP REC</a>]</dt>
         <dd>A protocol for reading and writing Linked Data.</dd>
@@ -968,7 +1000,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>Content <em title="MUST" class="rfc2119">MUST</em> be described using the [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] vocabulary, and <em title="MAY" class="rfc2119">MAY</em> use other vocabularies in addition or instead, per the [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] extension mechanism.</p>
 
-      <p>[<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] builds upon [<cite><a href="#bib-AS1" class="bibref">AS1</a></cite>] and is not fully backwards compatible; <a href="http://w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [<cite><a href="#bib-AS1" class="bibref">AS1</a></cite>], you should transition to [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>].
+      <p>[<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] builds upon [<cite><a href="#bib-AS1" class="bibref">AS1</a></cite>] and is not fully backwards compatible; <a href="http://www.w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [<cite><a href="#bib-AS1" class="bibref">AS1</a></cite>], you should transition to [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>].
 
       </p>
       <p><strong>[<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>]</strong> exposes all content as [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] JSON.</p>
@@ -1039,7 +1071,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <li>You can rely on out-of-band agreements between clients and servers for vocabulary extensibility.</li>
     </ul>
 
-    <p><strong>[<cite><a href="#bib-LDP" class="bibref">LDP</a></cite>]</strong> servers are written to by sending an HTTP POST request to a <code>Container</code> (any resource on the server which returns <code>Link: &lt;http://www.w3.org/ns/ldp#Container&gt;; rel="type"</code>), containing an RDF payload with attributes of the object being created. An identifier for the created resource is generated at the discretion of the server. The URL is created by appending the identifier to the URL of the <code>Container</code> that was posted to. [<cite><a href="#bib-Solid" class="bibref">Solid</a></cite>] and [<cite><a href="#bib-AnnotationsProtocol" class="bibref">AnnotationsProtocol</a></cite>] both use slightly altered [<cite><a href="#bib-LDP" class="bibref">LDP</a></cite>] to create content; [<cite><a href="#bib-Solid" class="bibref">Solid</a></cite>] restricts use to only Basic Containers, while the [<cite><a href="#bib-AnnotationsProtocol" class="bibref">AnnotationsProtocol</a></cite>] specifies the [<cite><a href="#bib-AnnotationsVocab" class="bibref">AnnotationsVocab</a></cite>] and primary syntax as JSON-LD. This is an appropriate protocol to use when:</p>
+    <p><strong>[<cite><a href="#bib-LDP" class="bibref">LDP</a></cite>]</strong> servers are written to by sending an HTTP POST request to a <code>Container</code> (any resource on the server which returns <code>Link: &lt;http://www.w3.org/ns/ldp#Container&gt;; rel="type"</code>), containing an RDF payload with attributes of the object being created. An identifier for the created resource is generated at the discretion of the server. The URL is created by appending the identifier to the URL of the <code>Container</code> that was posted to. [<cite><a href="#bib-Solid" class="bibref">Solid</a></cite>] and [<cite><a href="#bib-AnnotationProtocol" class="bibref">AnnotationProtocol</a></cite>] both use slightly altered [<cite><a href="#bib-LDP" class="bibref">LDP</a></cite>] to create content; [<cite><a href="#bib-Solid" class="bibref">Solid</a></cite>] restricts use to only Basic Containers, while the [<cite><a href="#bib-AnnotationProtocol" class="bibref">AnnotationProtocol</a></cite>] specifies the [<cite><a href="#bib-AnnotationVocab" class="bibref">AnnotationVocab</a></cite>] and primary syntax as JSON-LD. This is an appropriate protocol to use when:</p>
 
     <ul>
       <li>Your data is represented as RDF.</li>
@@ -1219,9 +1251,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>Servers may restrict/authorize access to content however they want?</p>
 
       <ul>
-        <li><strong>ActivityPump:</strong> see <a href="http://w3c-social.github.io/activitypump/#authorization">auth</a></li>
+        <li><strong>ActivityPub:</strong> see <a href="http://w3c-social.github.io/activitypub/#authorization">auth</a></li>
         <li><strong>Indieweb:</strong> see <a href="https://indiewebcamp.com/private_posts">private posts</a>, <a href="https://indiewebcamp.com/private-webmention">private webmention</a></li>
-        <li><strong>SoLiD:</strong> see <a href="https://github.com/solid/solid-spec#web-access-control">acl</a></li>
+        <li><strong>Solid:</strong> see <a href="https://github.com/solid/solid-spec#web-access-control">acl</a></li>
       </ul>
     </section>
   </section>
@@ -1237,13 +1269,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <dl resource="" class="bibliography"><dt id="bib-AS1">[AS1]</dt>
         <dd>J. Snell; M. Atkins; W. Norris; C. Messina; M. Wilkinson; R. Dolin. http://activitystrea.ms. <a property="dc:references" href="http://activitystrea.ms/specs/json/1.0/"><cite>JSON Activity Streams 1.0.</cite></a>. Unofficial. URL: <a property="dc:references" href="http://activitystrea.ms/specs/json/1.0/">http://activitystrea.ms/specs/json/1.0/</a>
         </dd><dt id="bib-ActivityStreams2">[ActivityStreams2]</dt>
-        <dd>James Snell; Evan Prodromou. W3C. <a property="dc:references" href="http://w3.org/TR/activitystreams"><cite>ActivityStreams 2.0</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="http://w3.org/TR/activitystreams">http://w3.org/TR/activitystreams</a>
+        <dd>James Snell; Evan Prodromou. W3C. <a property="dc:references" href="http://www.w3.org/TR/activitystreams"><cite>ActivityStreams 2.0</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="http://www.w3.org/TR/activitystreams">http://www.w3.org/TR/activitystreams</a>
         </dd><dt id="bib-Activitypub">[Activitypub]</dt>
         <dd>Christopher Webber; Jessica Tallon; Owen Shepherd. W3C. <a property="dc:references" href="http://www.w3.org/TR/activitypub/"><cite>ActivityPub</cite></a>. 28 January 2016. W3C Working Draft. URL: <a property="dc:references" href="http://www.w3.org/TR/activitypub/">http://www.w3.org/TR/activitypub/</a>
-        </dd><dt id="bib-AnnotationsProtocol">[AnnotationsProtocol]</dt>
-        <dd><em style="color: #f00">Reference not found.</em>
-        </dd><dt id="bib-AnnotationsVocab">[AnnotationsVocab]</dt>
-        <dd><em style="color: #f00">Reference not found.</em>
+        </dd><dt id="bib-AnnotationProtocol">[AnnotationProtocol]</dt>
+        <dd>Rob Sanderson. W3C. <a property="dc:references" href="https://www.w3.org/TR/annotation-protocol/"><cite>Web Annotation Protocol</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/annotation-protocol/">https://www.w3.org/TR/annotation-protocol/</a>
+        </dd><dt id="bib-AnnotationVocab">[AnnotationVocab]</dt>
+        <dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a property="dc:references" href="https://www.w3.org/TR/annotation-vocab/"><cite>Web Annotation Vocabulary</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/annotation-vocab/">https://www.w3.org/TR/annotation-vocab/</a>
         </dd><dt id="bib-LDP">[LDP]</dt>
         <dd>Steve Speicher; John Arwe; Ashok Malhotra. W3C. <a property="dc:references" href="http://www.w3.org/TR/ldp/"><cite>Linked Data Platform 1.0</cite></a>. 26 February 2015. W3C Recommendation. URL: <a property="dc:references" href="http://www.w3.org/TR/ldp/">http://www.w3.org/TR/ldp/</a>
         </dd><dt id="bib-Micropub">[Micropub]</dt>
@@ -1253,9 +1285,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </dd><dt id="bib-Solid">[Solid]</dt>
         <dd>Andrei Sambra. http://solid.mit.edu. <a property="dc:references" href="https://github.com/solid/solid-spec"><cite>Solid</cite></a>. W3C Editor's Draft. URL: <a property="dc:references" href="https://github.com/solid/solid-spec">https://github.com/solid/solid-spec</a>
         </dd><dt id="bib-Webmention">[Webmention]</dt>
-        <dd>Aaron Parecki. W3C. <a property="dc:references" href="http://w3.org/TR/webmention"><cite>Webmention</cite></a>. W3C Candidate Recommendation. URL: <a property="dc:references" href="http://w3.org/TR/webmention">http://w3.org/TR/webmention</a>
+        <dd>Aaron Parecki. W3C. <a property="dc:references" href="http://www.w3.org/TR/webmention"><cite>Webmention</cite></a>. W3C Candidate Recommendation. URL: <a property="dc:references" href="http://www.w3.org/TR/webmention">http://www.w3.org/TR/webmention</a>
         </dd><dt id="bib-h-entry">[h-entry]</dt>
-        <dd><em style="color: #f00">Reference not found.</em>
+        <dd>Tantek Çelik. microformats.org. <a property="dc:references" href="http://microformats.org/wiki/h-entry"><cite>h-entry</cite></a>. Living Specification. URL: <a property="dc:references" href="http://microformats.org/wiki/h-entry">http://microformats.org/wiki/h-entry</a>
         </dd>
       </dl>
     </section>
