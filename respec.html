@@ -235,7 +235,7 @@ table.th90 th, table.th90 td {
   <section id="overview">
     <h2>Overview</h2>
 
-    <p>People and the content they create are the core componants of the social web; they make up the social graph. This document describes a standard way in which people can:</p>
+    <p>People and the content they create are the core components of the social web; they make up the social graph. This document describes a standard way in which people can:</p>
     
     <ul>
       <li>connect with other people and subscribe to their content;</li>
@@ -246,13 +246,13 @@ table.th90 th, table.th90 td {
     
     <p>regardless of <em>what that content</em> is or <em>where it is stored</em>.</p>
     
-    <p>This provides the core building blocks for interoperable social systems.</p>
+    <p>These components are core building blocks for interoperable social systems.</p>
     
     <p>Each of these specifications can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others. Put simply, this document tells you, according the recommendations of the Social Web Working Group:</p>
     
     <ul>
       <li>how to <a href="#reading">expose/consume</a> social content (reading).</li>
-      <li><a href="#content-representation">what to post</a>, and where to, to <a href="#creating">create</a>, <a href="#updating">update</a> or <a href="#deleting">delete</a> content.</li>
+      <li><a href="#content-representation">what to post</a>, and where to, in order to <a href="#creating">create</a>, <a href="#updating">update</a> or <a href="#deleting">delete</a> content.</li>
       <li>how to <a href="#subscribing">ask for notifications</a> about content (subscribing).</li>
       <li>how to <a href="#delivery">deliver notifications</a> about content or users (delivery).</li>
       <li>how to expose <a href="#profiles">profiles</a> and <a href="#relationships">relationships</a>.</li>
@@ -261,7 +261,7 @@ table.th90 th, table.th90 td {
     <section id="contents">
       <h3>Contents</h3>
     
-      <p>This is an overview of the current state of specifications of the Social Web Working Group: <a href="http://w3.org/TR/activitystreams">ActiivtyStreams</a>, <a href="http://w3c-social.github.io/activitypub/">Activitypub</a>, <a href="http://micropub.net">Micropub</a> and <a href="http://webmention.net">Webmention</a>. This document also describes Social Web Working Group specifications in context of W3C recommendations and related drafts from other communities outside of the Social Web Working Group where relevant. As many of these specs are under ongoing development, this document is subject to change alongside them.</p>
+      <p>This is an overview of the current state of specifications of the Social Web Working Group: <a href="http://w3.org/TR/activitystreams">ActivityStreams</a>, <a href="http://w3c-social.github.io/activitypub/">Activitypub</a>, <a href="http://micropub.net">Micropub</a> and <a href="http://webmention.net">Webmention</a>. This document also describes Social Web Working Group specifications in context of W3C recommendations and relevant drafts from other communities outside of the Social Web Working Group. As many of these specs are under ongoing development, this document is subject to change alongside them.</p>
 
       <p>You might also want to take a look at the Working Group's <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a> to understand the division of concerns.</p>
       
@@ -276,7 +276,7 @@ table.th90 th, table.th90 td {
         <dt>ActivityPub [<a href="http://w3.org/TR/activitypub">SWWG WD</a>]</dt>
         <dd>JSON-based APIs for <a href="#reading">reading</a>, <a href="#creating">creating</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</dd>
 
-        <dt>ActivityStreams 2.0 [<a href="http://w3.org/TR/activitystreams-core">SWWG WD Core</a>, <a href="http://w3.org/TR/activitystreams-vocabulary">SWWG WD Vocab</a>]</dt>
+        <dt>ActivityStreams 2.0 (AS2) [<a href="http://w3.org/TR/activitystreams-core">SWWG WD Core</a>, <a href="http://w3.org/TR/activitystreams-vocabulary">SWWG WD Vocab</a>]</dt>
         <dd>The syntax and vocabulary for representing social data in JSON and RDF.</dd>
 
         <dt>Micropub [<a href="http://w3.org/TR/micropub">SWWG WD</a>]</dt>
@@ -300,7 +300,7 @@ table.th90 th, table.th90 td {
         <dd>Transport mechanisms for creating and managing annotations on the Web.</dd>
 
         <dt>jf2 [<a href="http://dissolve.github.io/jf2/">ED</a>] (External with SWWG representation)</dt>
-        <dd>A complimentary social vocabulary to AS2 for object-centric (as opposed to activity-centric) data.</dd>
+        <dd>A complementary social vocabulary to AS2 for object-centric (as opposed to activity-centric) data.</dd>
 
         <dt>Linked Data Platform [<a href="https://www.w3.org/TR/ldp/">LDP REC</a>]</dt>
         <dd>A protocol for reading and writing Linked Data.</dd>
@@ -455,7 +455,7 @@ table.th90 th, table.th90 td {
       
       <p class="issue">Activitypub discovery mechanism for this to be specified, likely link relations per <a href="https://github.com/w3c-social/activitypub/issues/50">issue 50</a>.</p>
 
-      <p>[[Activitypub]] specifies special behaviour for activities with types <code>Add</code> and <code>Remove</code>. When a server receives such an activity in the <code>outbox</code>, and the <code>target</code> is a Collection, it MUST add the <code>object</code> to the <code>target</code> (for <code>Add</code>) or remove the <code>object</code> from the <code>target</code> (for <code>Remove</code>).
+      <p>[[Activitypub]] specifies special behavior for activities with types <code>Add</code> and <code>Remove</code>. When a server receives such an activity in the <code>outbox</code>, and the <code>target</code> is a Collection, it MUST add the <code>object</code> to the <code>target</code> (for <code>Add</code>) or remove the <code>object</code> from the <code>target</code> (for <code>Remove</code>).
 
     </section>
   </section>
@@ -465,14 +465,14 @@ table.th90 th, table.th90 td {
 
     <p>Content generated through a client (such as a web form, mobile app, smart device) is created when it is sent to a server for processing, where it is typically stored and usually published (either publicly or to a restricted audience). Clients and servers may independently support creating, updating and deleting; there are no dependencies between them. Authentication and authorization for creating content is left out of scope.</p>
 
-    <p><strong>[[Activitypub]]</strong> clients discover the <code>outbox</code> of the authenticated user from their JSON profile, then make an HTTP POST request with an appropriate [[ActivityStreams2]] Activity as a JSON payload. [[Activitypub]] requires use of the [[ActivityStreams2]] vocabulary and syntax, which may be extended with JSON-LD. The URL of the created resource is generated at the discretion of the server. This is an appropriate protocol to use when:</p>
+    <p><strong>[[Activitypub]]</strong> clients discover the <code>outbox</code> of the authenticated user from their JSON profile, then make an HTTP POST request with an appropriate [[ActivityStreams2]] activity as a JSON payload. [[Activitypub]] requires use of the [[ActivityStreams2]] vocabulary and syntax, which may be extended with JSON-LD. The URL of the created resource is generated at the discretion of the server. This is an appropriate protocol to use when:</p>
 
     <ul>
       <li>You want to send/receive a JSON or JSON-LD payload.</li>
       <li>Your data is described with [[ActivityStreams2]] (optionally extensible via JSON-LD).</li>
     </ul>
 
-    <p><strong>[[Micropub]]</strong> clients discover the Micropub endpoint from the current user's homepage (likely entered by the user as part of authentication) from a <code>rel="micropub"</code> link, then make a <code>x-www-form-urlencoded</code> POST request containing the key-value pairs for the attributes of the object being created. The URL of the created resource is generated at the discretion of the server. Micropub requires use of the Microformats 2 [[h-entry]] vocabulary, as well as a set of reserved attributes as commands to the server; any additional key names sent outside of this vocabulary may be ignored by the server.</p>
+    <p><strong>[[Micropub]]</strong> clients discover the Micropub endpoint from the current user's homepage (likely entered by the user as part of authentication) from a <code>rel="micropub"</code> link, then make a <code>x-www-form-urlencoded</code> POST request containing the key-value pairs for the attributes of the object being created. The URL of the created resource is generated at the discretion of the server. Micropub requires use of the Microformats 2 [[h-entry]] vocabulary, as well as a set of reserved attributes as commands to the server. Any additional key names sent outside of this vocabulary may be ignored by the server.</p>
 
     <p>[[Micropub]] requests may alternatively be sent as a JSON payload, the syntax of which is derived from the Microformats 2 parsing algorithm. This is an appropriate protocol to use when:</p>
 
@@ -482,7 +482,7 @@ table.th90 th, table.th90 td {
       <li>You can rely on out-of-band agreements between clients and servers for vocabulary extensibility.</li>
     </ul>
 
-    <p><strong>[[LDP]]</strong> servers are written to by sending an HTTP POST request to a <code>Container</code> (any resource on the server which returns <code>Link: &lt;http://www.w3.org/ns/ldp#Container&gt;; rel="type"</code>), containing an RDF payload with attributes of the object being created. An identifier for the created resource is generated at the discretion of the server, and the URL created by appending the identifier to the URL of the <code>Container</code> that was posted to. [[Solid]] and [[AnnotationsProtocol]] both use slightly altered [[LDP]] to create content; [[Solid]] restricts use to only Basic Containers, while the [[AnnotationsProtocol]] specifies the [[AnnotationsVocab]] and primary syntax as JSON-LD. This is an appropriate protocol to use when:</p>
+    <p><strong>[[LDP]]</strong> servers are written to by sending an HTTP POST request to a <code>Container</code> (any resource on the server which returns <code>Link: &lt;http://www.w3.org/ns/ldp#Container&gt;; rel="type"</code>), containing an RDF payload with attributes of the object being created. An identifier for the created resource is generated at the discretion of the server. The URL is created by appending the identifier to the URL of the <code>Container</code> that was posted to. [[Solid]] and [[AnnotationsProtocol]] both use slightly altered [[LDP]] to create content; [[Solid]] restricts use to only Basic Containers, while the [[AnnotationsProtocol]] specifies the [[AnnotationsVocab]] and primary syntax as JSON-LD. This is an appropriate protocol to use when:</p>
 
     <ul>
       <li>Your data is represented as RDF.</li>
@@ -493,7 +493,7 @@ table.th90 th, table.th90 td {
     <section id="updating">
       <h3>Updating</h3>
       
-      <p>Updating content is when a client sends changes to attributes (additions, removals, replacements) to an existing object. If a server has implemented a <a href="#delivery">delivery</a> or <a href="#subscribing">subscription</a> mechanism, when an object is updated, the update MUST be propagated to the original recipients using the same mechanism.</p>
+      <p>Content is updated when a client sends changes to attributes (additions, removals, replacements) to an existing object. If a server has implemented a <a href="#delivery">delivery</a> or <a href="#subscribing">subscription</a> mechanism, when an object is updated, the update MUST be propagated to the original recipients using the same mechanism.</p>
 
       <p><strong>[[Activitypub]]</strong> clients replace the complete object by sending an HTTP POST request containing an [[ActivityStreams2]] <code>Update</code> activity to the <code>outbox</code> of the authenticated user, where the <code>object</code> is a nested object, including an <code>id</code>, which serves as the replacement.</p>
 
@@ -508,7 +508,7 @@ table.th90 th, table.th90 td {
     <section id="deleting">
       <h3>Deleting</h3>
       
-      <p>Deleting content is when a client sends a request to delete an existing object. If a server has implemented a <a href="#delivery">delivery</a> or <a href="#subscribing">subscription</a> mechanism, when an object is deleted, the deletion MUST be propagated to the original recipients using the same mechanism.</p>
+      <p>ontent is deleted when a client sends a request to delete an existing object. If a server has implemented a <a href="#delivery">delivery</a> or <a href="#subscribing">subscription</a> mechanism, when an object is deleted, the deletion MUST be propagated to the original recipients using the same mechanism.</p>
 
       <p><strong>[[Activitypub]]</strong> clients delete an object by sending an HTTP POST request containing an [[ActivityStreams2]] <code>Delete</code> activity to the <code>outbox</code> of the authenticated user. Servers MUST <em>replace</em> the <code>object</code> of this activity with a tombstone, and return a <code>410 Gone</code> status code from its URL.</p>
 
@@ -525,11 +525,11 @@ table.th90 th, table.th90 td {
     
     <p class="issue">Working group has yet to discuss this in depth, subject to significant change.</p>
 
-    <p><strong>[[Activitypub]]</strong> servers distribute the activities of an actor by sending POST requests containing the activities as JSON payloads to the <code>inbox</code> of all actors in an actor's <code>Followers</code> collection. For subscription requests, special behaviour is defined for servers when an [[ActivityStreams2]] <code>Follow</code> activity is appears in an actor's <code>outbox</code> or <code>inbox</code>.</p> 
+    <p><strong>[[Activitypub]]</strong> servers distribute the activities of an actor by sending POST requests containing the activities as JSON payloads to the <code>inbox</code> of all actors in an actor's <code>Followers</code> collection. For subscription requests, special behavior is defined for servers when an [[ActivityStreams2]] <code>Follow</code> activity is appears in an actor's <code>outbox</code> or <code>inbox</code>.</p> 
 
     <ul>
-      <li>For <code>outbox</code> (an outgoing subscription request): The activity is <a href="#delivery">delivered</a> as usual to the <code>object</code>'s <code>inbox</code>, and additionally the <code>object</code> is added to the actor's <code>Following</code> Collection.</li>
-      <li>For <code>inbox</code> (an incoming subscription request): The recipient's (the <code>object</code> of the <code>Follow</code> activity) server adds the <code>actor</code> of the <code>Follow</code> activity to the recipient's <code>Followers</code> collection, which subsequently all new activities of the recipient are delivered to.</li>
+      <li>For <code>outbox</code> (an outgoing subscription request): The activity is <a href="#delivery">delivered</a> as usual to the <code>object</code>'s <code>inbox</code>, and additionally the <code>object</code> is added to the actor's <code>Following</code> collection.</li>
+      <li>For <code>inbox</code> (an incoming subscription request): The recipient's (the <code>object</code> of the <code>Follow</code> activity) server adds the <code>actor</code> of the <code>Follow</code> activity to the recipient's <code>Followers</code> collection, to which all new activities of the recipient are subsequently delivered.</li>
     </ul>
     <p>It works when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
 
@@ -538,16 +538,16 @@ table.th90 th, table.th90 td {
       <li>The subscriber wants to request updates from a specific actor (rather than objects, streams or threads, see <a href="https://github.com/w3c-social/activitypub/issues/80">issue 80</a>.</li>
       <li>You need to send or receive the whole requested resource over the wire (ie. a 'fat ping').</li>
       <li>You need to send or receive JSON payloads only.</li>
-      <li>Subscriptions requests and fulfillment are handled serverside.</li>
+      <li>Subscriptions requests and fulfillment are handled server-side.</li>
       <li>The publisher is aware of who has subscribed; this is a <em>push</em> mechanism.</li>
     </ul>
 
-    <p><strong>[[Solid]]</strong> uses websockets to allow clientside applications to subscribe to changes in objects ([[LDP]] Resources) and streams ([[LDP]] Containers). The websocket endpoint is advertised in the <code>Updates-Via</code> HTTP Link Header. The subscriber sends the keyword <code>sub</code> followed by an empty space and then the URI of the resource, to the target’s websockets URI. The target’s server sends a websockets message containing the keyword <code>pub</code>, followed by an empty space and the URI of the resource that has changed, whenever there is a change. It works when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
+    <p><strong>[[Solid]]</strong> uses websockets to allow client-side applications to subscribe to changes in objects ([[LDP]] Resources) and streams ([[LDP]] Containers). The websocket endpoint is advertised in the <code>Updates-Via</code> HTTP Link Header. The subscriber sends the keyword <code>sub</code> followed by an empty space and then the URI of the resource, to the target’s websockets URI. The target’s server sends a websockets message containing the keyword <code>pub</code>, followed by an empty space and the URI of the resource that has changed, whenever there is a change. It works when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
  
     <ul>
-      <li>You live updates over websockets.</li>
+      <li>You send live updates over websockets.</li>
       <li>You can send and receive on the URL of the requested resource over the wire (ie. a 'thin ping').</li>
-      <li>Subscriptions are requested clientside and fulfilled serverside.</li>
+      <li>Subscriptions are requested client-side and fulfilled server-side.</li>
       <li>The publisher is aware of who has subscribed; this is a <em>push</em> mechanism.</li>
     </ul>
 
@@ -557,7 +557,7 @@ table.th90 th, table.th90 td {
       <li>The subscriber wants to subscribe to a specific thread or object.</li>
       <li>The subscriber has a document which links to that thread or object, and has sent a [[Webmention]] about it.</li>
       <li>The publisher displays links to the sources of received webmentions with their content.</li> 
-      <li>The subscriber wants to be notified of further changes to a document linked to.</li>
+      <li>The subscriber has linked to a document and wants to be notified of further changes.</li>
       <li>The subscriber has implemented [[Webmention]] receiving.</li>
       <li>The publisher is aware of who has subscribed; this is a <em>push</em> mechanism.</li>
     </ul>
