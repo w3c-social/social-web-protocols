@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#" typeof="bibo:Document w3p:WD" dir="ltr">
+<html lang="en" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#" typeof="bibo:Document " dir="ltr">
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -17,98 +17,74 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       padding: 0.5em;
       color: #333;
       background: #f8f8f8;
-      -webkit-text-size-adjust: none;
     }
     
     .hljs-comment,
-    .diff .hljs-header {
+    .hljs-quote {
       color: #998;
       font-style: italic;
     }
     
     .hljs-keyword,
-    .css .rule .hljs-keyword,
-    .hljs-winutils,
-    .nginx .hljs-title,
-    .hljs-subst,
-    .hljs-request,
-    .hljs-status {
+    .hljs-selector-tag,
+    .hljs-subst {
       color: #333;
       font-weight: bold;
     }
     
     .hljs-number,
-    .hljs-hexcolor,
-    .ruby .hljs-constant {
+    .hljs-literal,
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-tag .hljs-attr {
       color: #008080;
     }
     
     .hljs-string,
-    .hljs-tag .hljs-value,
-    .hljs-doctag,
-    .tex .hljs-formula {
+    .hljs-doctag {
       color: #d14;
     }
     
     .hljs-title,
-    .hljs-id,
-    .scss .hljs-preprocessor {
+    .hljs-section,
+    .hljs-selector-id {
       color: #900;
       font-weight: bold;
     }
     
-    .hljs-list .hljs-keyword,
     .hljs-subst {
       font-weight: normal;
     }
     
-    .hljs-class .hljs-title,
     .hljs-type,
-    .vhdl .hljs-literal,
-    .tex .hljs-command {
+    .hljs-class .hljs-title {
       color: #458;
       font-weight: bold;
     }
     
     .hljs-tag,
-    .hljs-tag .hljs-title,
-    .hljs-rule .hljs-property,
-    .django .hljs-tag .hljs-keyword {
+    .hljs-name,
+    .hljs-attribute {
       color: #000080;
       font-weight: normal;
     }
     
-    .hljs-attribute,
-    .hljs-variable,
-    .lisp .hljs-body,
-    .hljs-name {
-      color: #008080;
-    }
-    
-    .hljs-regexp {
+    .hljs-regexp,
+    .hljs-link {
       color: #009926;
     }
     
     .hljs-symbol,
-    .ruby .hljs-symbol .hljs-string,
-    .lisp .hljs-keyword,
-    .clojure .hljs-keyword,
-    .scheme .hljs-keyword,
-    .tex .hljs-special,
-    .hljs-prompt {
+    .hljs-bullet {
       color: #990073;
     }
     
-    .hljs-built_in {
+    .hljs-built_in,
+    .hljs-builtin-name {
       color: #0086b3;
     }
     
-    .hljs-preprocessor,
-    .hljs-pragma,
-    .hljs-pi,
-    .hljs-doctype,
-    .hljs-shebang,
-    .hljs-cdata {
+    .hljs-meta {
       color: #999;
       font-weight: bold;
     }
@@ -121,12 +97,123 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       background: #dfd;
     }
     
-    .diff .hljs-change {
-      background: #0086b3;
+    .hljs-emphasis {
+      font-style: italic;
     }
     
-    .hljs-chunk {
-      color: #aaa;
+    .hljs-strong {
+      font-weight: bold;
+    }
+  </style>
+  <style>
+    /* --- ISSUES/NOTES --- */
+    
+    div.issue-title,
+    div.note-title,
+    div.ednote-title,
+    div.warning-title {
+      padding-right: 1em;
+      min-width: 7.5em;
+      color: #b9ab2d;
+    }
+    
+    div.issue-title {
+      color: #e05252;
+    }
+    
+    div.note-title,
+    div.ednote-title {
+      color: #2b2;
+    }
+    
+    div.warning-title {
+      color: #f22;
+    }
+    
+    div.issue-title span,
+    div.note-title span,
+    div.ednote-title span,
+    div.warning-title span {
+      text-transform: uppercase;
+    }
+    
+    div.note,
+    div.issue,
+    div.ednote,
+    div.warning {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+    
+    .note> p:first-child,
+    .ednote> p:first-child,
+    .issue> p:first-child,
+    .warning> p:first-child {
+      margin-top: 0
+    }
+    
+    .issue,
+    .note,
+    .ednote,
+    .warning {
+      padding: .5em;
+      border-left-width: .5em;
+      border-left-style: solid;
+    }
+    
+    div.issue,
+    div.note,
+    div.ednote,
+    div.warning {
+      padding: 1em 1.2em 0.5em;
+      margin: 1em 0;
+      position: relative;
+      clear: both;
+    }
+    
+    span.note,
+    span.ednote,
+    span.issue,
+    span.warning {
+      padding: .1em .5em .15em;
+    }
+    
+    .issue {
+      border-color: #e05252;
+      background: #fbe9e9;
+    }
+    
+    .note,
+    .ednote {
+      border-color: #52e052;
+      background: #e9fbe9;
+    }
+    
+    .warning {
+      border-color: #f11;
+      border-width: .2em;
+      border-style: solid;
+      background: #fbe9e9;
+    }
+    
+    .warning-title:before {
+      content: "⚠";
+      /*U+26A0 WARNING SIGN*/
+      font-size: 3em;
+      float: left;
+      height: 100%;
+      padding-right: .3em;
+      vertical-align: top;
+      margin-top: -0.5em;
+    }
+    
+    li.task-list-item {
+      list-style: none;
+    }
+    
+    input.task-list-item-checkbox {
+      margin: 0 0.35em 0.25em -1.6em;
+      vertical-align: middle;
     }
   </style>
   <style id="respec-mainstyle">
@@ -244,11 +331,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     }
     /* --- DL --- */
     
-    .section dd > p:first-child {
+    .section dd> p:first-child {
       margin-top: 0;
     }
     
-    .section dd > p:last-child {
+    .section dd> p:last-child {
       margin-bottom: 0;
     }
     
@@ -386,11 +473,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     }
     /* --- DL --- */
     
-    .section dd > p:first-child {
+    .section dd> p:first-child {
       margin-top: 0;
     }
     
-    .section dd > p:last-child {
+    .section dd> p:last-child {
       margin-bottom: 0;
     }
     
@@ -469,126 +556,15 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       text-align: center;
     }
   </style>
-  <style>
-    /* --- ISSUES/NOTES --- */
-    
-    div.issue-title,
-    div.note-title,
-    div.ednote-title,
-    div.warning-title {
-      padding-right: 1em;
-      min-width: 7.5em;
-      color: #b9ab2d;
-    }
-    
-    div.issue-title {
-      color: #e05252;
-    }
-    
-    div.note-title,
-    div.ednote-title {
-      color: #2b2;
-    }
-    
-    div.warning-title {
-      color: #f22;
-    }
-    
-    div.issue-title span,
-    div.note-title span,
-    div.ednote-title span,
-    div.warning-title span {
-      text-transform: uppercase;
-    }
-    
-    div.note,
-    div.issue,
-    div.ednote,
-    div.warning {
-      margin-top: 1em;
-      margin-bottom: 1em;
-    }
-    
-    .note > p:first-child,
-    .ednote > p:first-child,
-    .issue > p:first-child,
-    .warning > p:first-child {
-      margin-top: 0
-    }
-    
-    .issue,
-    .note,
-    .ednote,
-    .warning {
-      padding: .5em;
-      border-left-width: .5em;
-      border-left-style: solid;
-    }
-    
-    div.issue,
-    div.note,
-    div.ednote,
-    div.warning {
-      padding: 1em 1.2em 0.5em;
-      margin: 1em 0;
-      position: relative;
-      clear: both;
-    }
-    
-    span.note,
-    span.ednote,
-    span.issue,
-    span.warning {
-      padding: .1em .5em .15em;
-    }
-    
-    .issue {
-      border-color: #e05252;
-      background: #fbe9e9;
-    }
-    
-    .note,
-    .ednote {
-      border-color: #52e052;
-      background: #e9fbe9;
-    }
-    
-    .warning {
-      border-color: #f11;
-      border-width: .2em;
-      border-style: solid;
-      background: #fbe9e9;
-    }
-    
-    .warning-title:before {
-      content: "⚠";
-      /*U+26A0 WARNING SIGN*/
-      font-size: 3em;
-      float: left;
-      height: 100%;
-      padding-right: .3em;
-      vertical-align: top;
-      margin-top: -0.5em;
-    }
-    
-    li.task-list-item {
-      list-style: none;
-    }
-    
-    input.task-list-item-checkbox {
-      margin: 0 0.35em 0.25em -1.6em;
-      vertical-align: middle;
-    }
-  </style>
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD">
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
 
 
-  <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-WD" rel="stylesheet">
+  <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
   <script type="application/json" id="initialUserConfig">
     {
-      "specStatus": "WD",
+      "specStatus": "ED",
       "shortName": "social-web-protocols",
       "editors": [
       {
@@ -599,13 +575,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         "mailto": "amy@rhiaro.co.uk",
         "w3cid": "69000"
       }],
-      "previousMaturity": "FPWD",
-      "previousPublishDate": "2016-01-12",
+      "previousMaturity": "WD",
+      "previousPublishDate": "2016-06-03",
       "edDraftURI": "https://w3c-social.github.io/social-web-protocols",
       "wg": "Social Web Working Group",
       "wgURI": "https://www.w3.org/Social/WG",
       "wgPublicList": "public-socialweb",
-      "wgPatentURI": "http://www.w3.org/2004/01/pp-impl/72531/status",
+      "wgPatentURI": "http://www.w3.org/2004/01/pp-impl/424242/status",
       "localBiblio":
       {
         "Webmention":
@@ -706,16 +682,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <a class="logo" href="http://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" height="48" width="72"></a>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Social Web Protocols</h1>
-    <h2 id="w3c-working-draft-03-june-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Working Draft <time property="dcterms:issued" class="dt-published" datetime="2016-06-03">03 June 2016</time></h2>
+    <h2 id="w3c-editor-s-draft-18-july-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-07-18">18 July 2016</time></h2>
     <dl>
       <dt>This version:</dt>
-      <dd><a class="u-url" href="http://www.w3.org/TR/2016/WD-social-web-protocols-20160603/">http://www.w3.org/TR/2016/WD-social-web-protocols-20160603/</a></dd>
+      <dd><a class="u-url" href="https://w3c-social.github.io/social-web-protocols">https://w3c-social.github.io/social-web-protocols</a></dd>
       <dt>Latest published version:</dt>
       <dd><a href="http://www.w3.org/TR/social-web-protocols/">http://www.w3.org/TR/social-web-protocols/</a></dd>
       <dt>Latest editor's draft:</dt>
       <dd><a href="https://w3c-social.github.io/social-web-protocols">https://w3c-social.github.io/social-web-protocols</a></dd>
-      <dt>Previous version:</dt>
-      <dd><a href="http://www.w3.org/TR/2016/WD-social-web-protocols-20160112/">http://www.w3.org/TR/2016/WD-social-web-protocols-20160112/</a></dd>
       <dt>Editor:</dt>
       <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0" data-editor-id="69000"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Amy Guy"><a class="u-url url p-name fn" property="foaf:homepage" href="http://rhiaro.co.uk/">Amy Guy</a>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://inf.ed.ac.uk/">University of Edinburgh</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:amy@rhiaro.co.uk">amy@rhiaro.co.uk</a></span></span>
         <span property="rdf:rest" resource="rdf:nil"></span>
@@ -749,18 +723,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </p>
 
     <p>
-      This document was published by the <a href="https://www.w3.org/Social/WG">Social Web Working Group</a> as a Working Draft. This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation. If you wish to make comments regarding this document, please send them to
+      This document was published by the <a href="https://www.w3.org/Social/WG">Social Web Working Group</a> as an Editor's Draft. If you wish to make comments regarding this document, please send them to
       <a href="mailto:public-socialweb@w3.org">public-socialweb@w3.org</a> (<a href="mailto:public-socialweb-request@w3.org?subject=subscribe">subscribe</a>,
       <a href="http://lists.w3.org/Archives/Public/public-socialweb/">archives</a>). All comments are welcome.
     </p>
     <p>
-      Publication as a Working Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
+      Publication as an Editor's Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
     </p>
     <p>
       This document was produced by a group operating under the
       <a id="sotd_patent" property="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
               Policy</a>.
-      <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/72531/status" rel="disclosure">public list of any patent
+      <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/424242/status" rel="disclosure">public list of any patent
                 disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains
       <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
               Claim(s)</a> must disclose the information in accordance with
@@ -821,7 +795,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <ul>
       <li>connect with other people and subscribe to their content;</li>
       <li>create, update and delete social content;</li>
-      <li>interact with other people’s content;</li>
+      <li>interact with other peoples' content;</li>
       <li>be notified when other people interact with their content;</li>
     </ul>
 
@@ -829,7 +803,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p>These components are core building blocks for interoperable social systems.</p>
 
-    <p>Each of these specifications can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others. Put simply, this document tells you, according the recommendations of the Social Web Working Group:</p>
+    <p>Each of these components can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others. Put simply, this document tells you, according the recommendations of the Social Web Working Group:</p>
 
     <ul>
       <li>how to <a href="#reading">expose/consume</a> social content (reading).</li>
@@ -842,11 +816,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <section property="bibo:hasPart" resource="#contents" typeof="bibo:Chapter" id="contents">
       <h3 resource="#h-contents" id="h-contents"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.1 </span>Contents</span></h3>
 
-      <p>This is an overview of the current state of specifications of the Social Web Working Group: <a href="http://www.w3.org/TR/activitystreams-core">ActivityStreams Core</a> and <a href="http://www.w3.org/TR/activitystreams-vocabulary">vocabulary</a>, <a href="http://w3c-social.github.io/activitypub/">Activitypub</a>, <a href="http://micropub.net">Micropub</a> and <a href="http://webmention.net">Webmention</a>. This document also describes Social Web Working Group specifications in context of <abbr title="World Wide Web Consortium">W3C</abbr> recommendations and relevant drafts from other communities outside of the Social Web Working Group. As many of these specs are under ongoing development, this document is subject to change alongside them.</p>
+      <p>This is an overview of the current state of specifications of the Social Web Working Group. This document also describes Social Web Working Group specifications in context of <abbr title="World Wide Web Consortium">W3C</abbr> recommendations and relevant drafts from other communities outside of the Social Web Working Group. As many of these specs are under ongoing development, this document is subject to change alongside them.</p>
 
       <p>You might also want to take a look at the Working Group's <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a> to understand the division of concerns.</p>
 
-      <p>This document is on track to become a Working Group Note to provide guidance on how and when to implement the various specifications produced.</p>
+      <p>Due to the diversity of viable technical approaches proposed within the Working Group, several specifications on the recommendation track provide overlapping functionality through differing mechanisms. Thus this document exists to provide informative guidance on how and when to implement the various specifications, as well as normative instructions to implement bridges between recommendations with overlapping functionality. This is currently a recommendation-track document, but may finally be published as a Note.</p>
 
     </section>
 
@@ -859,16 +833,22 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <dd>JSON-based APIs for <a href="#reading">reading</a>, <a href="#creating-content">creating</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</dd>
 
         <dt>ActivityStreams 2.0 (AS2) [<a href="http://www.w3.org/TR/activitystreams-core">SWWG WD Core</a>, <a href="http://www.w3.org/TR/activitystreams-vocabulary">SWWG WD Vocab</a>]</dt>
-        <dd>The syntax and vocabulary for representing social data in JSON and RDF.</dd>
+        <dd>The syntax and vocabulary for <a href="#reading">representing</a> social activities, actors, objects, and collections in JSON and RDF.</dd>
 
         <dt>JF2 [<a href="http://dissolve.github.io/jf2/">SWWG WD (Note)</a>]</dt>
-        <dd>A complementary social vocabulary to AS2 for object-centric (as opposed to activity-centric) data.</dd>
+        <dd>A JSON serialization for <a href="#reading">representing</a> objects and feeds of social data.</dd>
+
+        <dt>Linked Data Notifications [<a href="https://linkedresearch.org/ldn/">SWWG ED</a>]</dt>
+        <dd>An RDF-based protocol for <a href="#delivery">delivery</a>.</dd>
 
         <dt>Micropub [<a href="http://www.w3.org/TR/micropub">SWWG WD</a>]</dt>
-        <dd>Minimal form-encoded API for <a href="#creating-content">creating</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</dd>
+        <dd>A form-encoding-based API for <a href="#creating-content">creating</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</dd>
+
+        <dt>Post Type Discovery [<a href="https://tantek.github.io/post-type-discovery/">ED</a>]</dt>
+        <dd>A protocol to bridge implicitly typed posts and explicitly typed posts.</dd>
 
         <dt>Webmention [<a href="http://www.w3.org/TR/webmention">SWWG CR</a>]</dt>
-        <dd>Minimal form-encoded API for <a href="#delivery">delivery</a>.</dd>
+        <dd>A form-encoding-based protocol for <a href="#delivery">delivery</a>.</dd>
       </dl>
 
     </section>
@@ -887,9 +867,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <dt>Linked Data Platform [<a href="https://www.w3.org/TR/ldp/">LDP REC</a>]</dt>
         <dd>A protocol for reading and writing Linked Data.</dd>
 
-        <dt>Post Type Discovery [<a href="https://www.w3.org/wiki/Post-type-discovery">ED</a>] (External with SWWG representation)</dt>
-        <dd>A protocol to bridge object-centric and activity-centric vocabularies.</dd>
-
         <dt>Solid [<a href="http://github.com/solid/solid-spec">ED</a>] (External with SWWG representation)</dt>
         <dd>Extensions to LDP for use in social applications</dd>
 
@@ -899,7 +876,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <section property="bibo:hasPart" resource="#requirements" typeof="bibo:Chapter" id="requirements">
       <h3 resource="#h-requirements" id="h-requirements"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.4 </span>Requirements</span></h3>
-      <p>The high level requirements according to the <a href="https://www.w3.org/2013/socialweb/social-wg-charter.html">Social Web Working Group charter</a> and the <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a>.</p>
+      <p>This table shows the high level requirements according to the <a href="https://www.w3.org/2013/socialweb/social-wg-charter.html">Social Web Working Group charter</a> and the <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a>, and how the specifications of the Working Group overlap with respect to each.</p>
       <table class="th90">
         <tbody>
           <tr>
@@ -938,18 +915,30 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
             <td></td>
             <td></td>
           </tr>
-          <!--<tr>
-          <td style="text-align:left;">jf2</td>
-          <td>X</td>
-          <td>X</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>-->
+          <tr>
+            <td style="text-align:left;">jf2</td>
+            <td>X</td>
+            <td>X</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td style="text-align:left;">Linked Data Notifications</td>
+            <td></td>
+            <td></td>
+            <td>X</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>X</td>
+            <td></td>
+          </tr>
           <tr>
             <td style="text-align:left;">Micropub</td>
             <td></td>
@@ -962,18 +951,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
             <td></td>
             <td></td>
           </tr>
-          <!--<tr>
-          <td style="text-align:left;">Post-type discovery<br></td>
-          <td></td>
-          <td></td>
-          <td>X</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>-->
+          <tr>
+            <td style="text-align:left;">Post-type discovery<br></td>
+            <td></td>
+            <td></td>
+            <td>X</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
           <tr>
             <td style="text-align:left;">Webmention</td>
             <td></td>
@@ -1000,14 +989,45 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <section property="bibo:hasPart" resource="#content-representation" typeof="bibo:Chapter" id="content-representation">
       <h3 resource="#h-content-representation" id="h-content-representation"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1 </span>Content representation</span></h3>
 
-      <p>Content <em title="MUST" class="rfc2119">MUST</em> be available as [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] JSON and <em title="MAY" class="rfc2119">MAY</em> additionally be served as an alternative syntax. If a URL does not return [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] JSON, consumers <em title="SHOULD" class="rfc2119">SHOULD</em> look for the JSON format via a <code>rel="alternate" type="application/activity+json"</code> link (which could be to a different domain, for third-party services which dynamically generate [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] JSON on behalf of the publisher). [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] content <em title="MUST" class="rfc2119">MUST</em> be served with the Content-Type <code>application/activity+json</code> or, if necessary for JSON-LD extended implementations, <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>.</p>
+      <p><strong>[<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>]</strong> content <em title="MUST" class="rfc2119">MUST</em> be served with the Content-Type <code>application/activity+json</code> or, if necessary for JSON-LD extended implementations, <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>. Content <em title="MUST" class="rfc2119">MUST</em> be described using the [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] vocabulary, and <em title="MAY" class="rfc2119">MAY</em> use other vocabularies in addition or instead, per the [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] extension mechanism.</p>
 
-      <p>Content <em title="MUST" class="rfc2119">MUST</em> be described using the [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] vocabulary, and <em title="MAY" class="rfc2119">MAY</em> use other vocabularies in addition or instead, per the [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] extension mechanism.</p>
-
-      <p>[<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] builds upon [<cite><a href="#bib-AS1" class="bibref">AS1</a></cite>] and is not fully backwards compatible; <a href="http://www.w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [<cite><a href="#bib-AS1" class="bibref">AS1</a></cite>], you should transition to [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>].
+      <p>Note: [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] builds upon [<cite><a href="#bib-AS1" class="bibref">AS1</a></cite>] and is not fully backwards compatible; <a href="http://www.w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [<cite><a href="#bib-AS1" class="bibref">AS1</a></cite>], you should transition to [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>].
 
       </p>
-      <p><strong>[<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>]</strong> exposes all content as [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] JSON.</p>
+      <p><strong>[<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>]</strong> servers and clients expose and consume [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] JSON with the content type <code>application/activity+json</code>.</p>
+
+      <p><strong>[<cite><a href="#bib-Micropub" class="bibref">Micropub</a></cite>]</strong> update clients <em title="MUST" class="rfc2119">MUST</em> consume content as JSON in the parsed mf2 syntax.</p>
+
+      <p><strong>[<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>]</strong> consumers <em title="MUST" class="rfc2119">MUST</em> consume content in any vocabulary as JSON-LD, and <em title="MAY" class="rfc2119">MAY</em> request other RDF syntaxes. Receivers <em title="MUST" class="rfc2119">MUST</em> make content available as JSON-LD, and <em title="MAY" class="rfc2119">MAY</em> offer other RDF syntaxes.</p>
+
+      <!--<p>In order to support [[Activitypub]] clients, content MUST be available as [[ActivityStreams2]] JSON. If you are unable to return [[ActivityStreams2]] for an object or stream directly, you MUST provide it via a <code>rel="alternate" type="application/activity+json"</code> link (which could be to a different domain, for third-party services which dynamically generate [[ActivityStreams2]] JSON on behalf of the publisher). </p>-->
+
+      <p>ActivityPub servers wishing to interoperate with LDN consumers <em title="MUST" class="rfc2119">MUST</em>:</p>
+      <ul>
+        <li>serve content with the content-type <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code> when requested.</li>
+        <li>include along with the Inbox <code>Collection</code> every item in the Inbox related with the <code>ldp:contains</code> property.</li>
+      </ul>
+
+      <p>ActivityPub clients wishing to read from LDN Inboxes <em title="MUST" class="rfc2119">MUST</em>:</p>
+      <ul>
+        <li>request content with the content-type <code>application/ld+json</code>. Running it through JSON-LD compacting should help.</li>
+        <li>look for items in the Inbox via the <code>ldp:contains</code> property (rather than AS2 <code>items</code>).</li>
+      </ul>
+
+      <p>LDN receivers wishing to interoperate with ActivityPub clients <em title="MUST" class="rfc2119">MUST</em>:</p>
+      <ul>
+        <li>serve content with the content-type <code>application/activity+json</code> when requested, and <em title="MUST" class="rfc2119">MUST</em> use compacted JSON-LD.</li>
+        <li>serve Inbox contents as an AS2 <code>Collection</code> (where each notification is related to the inbox with the AS2 <code>items</code> property).</li>
+      </ul>
+
+      <p>LDN consumers wishing to read from ActivityPub servers <em title="MUST" class="rfc2119">MUST</em>:</p>
+      <ul>
+        <li>request content with the content-type <code>application/activity+json</code>, apply the default AS2 context if necessary, and treat it as JSON-LD.</li>
+        <li>look for items in the Inbox via the AS2 <code>items</code> property (rather than <code>ldp:contains</code>).</li>
+      </ul>
+
+      <p><strong>[<cite><a href="#bib-jf2" class="bibref">jf2</a></cite>]</strong> ...</p>
+
 
     </section>
 
@@ -1275,15 +1295,17 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </dd><dt id="bib-ActivityStreams2">[ActivityStreams2]</dt>
         <dd>James Snell; Evan Prodromou. W3C. <a property="dc:references" href="http://www.w3.org/TR/activitystreams"><cite>ActivityStreams 2.0</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="http://www.w3.org/TR/activitystreams">http://www.w3.org/TR/activitystreams</a>
         </dd><dt id="bib-Activitypub">[Activitypub]</dt>
-        <dd>Christopher Webber; Jessica Tallon; Owen Shepherd. W3C. <a property="dc:references" href="http://www.w3.org/TR/activitypub/"><cite>ActivityPub</cite></a>. 28 January 2016. W3C Working Draft. URL: <a property="dc:references" href="http://www.w3.org/TR/activitypub/">http://www.w3.org/TR/activitypub/</a>
+        <dd>Christopher Webber; Jessica Tallon; Owen Shepherd. W3C. <a property="dc:references" href="https://www.w3.org/TR/activitypub/"><cite>ActivityPub</cite></a>. 14 June 2016. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/activitypub/">https://www.w3.org/TR/activitypub/</a>
         </dd><dt id="bib-AnnotationProtocol">[AnnotationProtocol]</dt>
         <dd>Rob Sanderson. W3C. <a property="dc:references" href="https://www.w3.org/TR/annotation-protocol/"><cite>Web Annotation Protocol</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/annotation-protocol/">https://www.w3.org/TR/annotation-protocol/</a>
         </dd><dt id="bib-AnnotationVocab">[AnnotationVocab]</dt>
         <dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a property="dc:references" href="https://www.w3.org/TR/annotation-vocab/"><cite>Web Annotation Vocabulary</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/annotation-vocab/">https://www.w3.org/TR/annotation-vocab/</a>
+        </dd><dt id="bib-LDN">[LDN]</dt>
+        <dd><em style="color: #f00">Reference not found.</em>
         </dd><dt id="bib-LDP">[LDP]</dt>
-        <dd>Steve Speicher; John Arwe; Ashok Malhotra. W3C. <a property="dc:references" href="http://www.w3.org/TR/ldp/"><cite>Linked Data Platform 1.0</cite></a>. 26 February 2015. W3C Recommendation. URL: <a property="dc:references" href="http://www.w3.org/TR/ldp/">http://www.w3.org/TR/ldp/</a>
+        <dd>Steve Speicher; John Arwe; Ashok Malhotra. W3C. <a property="dc:references" href="https://www.w3.org/TR/ldp/"><cite>Linked Data Platform 1.0</cite></a>. 26 February 2015. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/ldp/">https://www.w3.org/TR/ldp/</a>
         </dd><dt id="bib-Micropub">[Micropub]</dt>
-        <dd>Aaron Parecki. W3C. <a property="dc:references" href="http://www.w3.org/TR/micropub/"><cite>Micropub</cite></a>. 4 May 2016. W3C Working Draft. URL: <a property="dc:references" href="http://www.w3.org/TR/micropub/">http://www.w3.org/TR/micropub/</a>
+        <dd>Aaron Parecki. W3C. <a property="dc:references" href="https://www.w3.org/TR/micropub/"><cite>Micropub</cite></a>. 13 July 2016. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/micropub/">https://www.w3.org/TR/micropub/</a>
         </dd><dt id="bib-Salmentions">[Salmentions]</dt>
         <dd>Ben Roberts, Tantek Çelik. IndieWebCamp. <a property="dc:references" href="http://indiewebcamp.com/Salmention"><cite>Salmentions</cite></a>. Living specification. URL: <a property="dc:references" href="http://indiewebcamp.com/Salmention">http://indiewebcamp.com/Salmention</a>
         </dd><dt id="bib-Solid">[Solid]</dt>
@@ -1292,11 +1314,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <dd>Aaron Parecki. W3C. <a property="dc:references" href="http://www.w3.org/TR/webmention"><cite>Webmention</cite></a>. W3C Candidate Recommendation. URL: <a property="dc:references" href="http://www.w3.org/TR/webmention">http://www.w3.org/TR/webmention</a>
         </dd><dt id="bib-h-entry">[h-entry]</dt>
         <dd>Tantek Çelik. microformats.org. <a property="dc:references" href="http://microformats.org/wiki/h-entry"><cite>h-entry</cite></a>. Living Specification. URL: <a property="dc:references" href="http://microformats.org/wiki/h-entry">http://microformats.org/wiki/h-entry</a>
+        </dd><dt id="bib-jf2">[jf2]</dt>
+        <dd><em style="color: #f00">Reference not found.</em>
         </dd>
       </dl>
     </section>
   </section>
   <p role="navigation" id="back-to-top"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p>
-  <script src="https://www.w3.org/scripts/TR/2016/fixup.js" defer="" async=""></script>
+  <script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
 </body>
 </html>

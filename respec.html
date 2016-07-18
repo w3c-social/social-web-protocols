@@ -454,14 +454,45 @@ table.th90 th, table.th90 td {
 
     <section id="content-representation">
       <h3>Content representation</h3>
-      
-      <p>Content MUST be available as [[ActivityStreams2]] JSON and MAY additionally be served as an alternative syntax. If a URL does not return [[ActivityStreams2]] JSON, consumers SHOULD look for the JSON format via a <code>rel="alternate" type="application/activity+json"</code> link (which could be to a different domain, for third-party services which dynamically generate [[ActivityStreams2]] JSON on behalf of the publisher). [[ActivityStreams2]] content MUST be served with the Content-Type <code>application/activity+json</code> or, if necessary for JSON-LD extended implementations, <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>.</p>
-      
-      <p>Content MUST be described using the [[ActivityStreams2]] vocabulary, and MAY use other vocabularies in addition or instead, per the [[ActivityStreams2]] extension mechanism.</p>
 
-      <p>[[ActivityStreams2]] builds upon [[AS1]] and is not fully backwards compatible; <a href="http://www.w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [[AS1]], you should transition to [[ActivityStreams2]].
+      <p><strong>[[ActivityStreams2]]</strong> content MUST be served with the Content-Type <code>application/activity+json</code> or, if necessary for JSON-LD extended implementations, <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>. Content MUST be described using the [[ActivityStreams2]] vocabulary, and MAY use other vocabularies in addition or instead, per the [[ActivityStreams2]] extension mechanism.</p>
 
-      <p><strong>[[Activitypub]]</strong> exposes all content as [[ActivityStreams2]] JSON.</p>
+      <p>Note: [[ActivityStreams2]] builds upon [[AS1]] and is not fully backwards compatible; <a href="http://www.w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [[AS1]], you should transition to [[ActivityStreams2]].
+
+      <p><strong>[[Activitypub]]</strong> servers and clients expose and consume [[ActivityStreams2]] JSON with the content type <code>application/activity+json</code>.</p>
+
+      <p><strong>[[Micropub]]</strong> update clients MUST consume content as JSON in the parsed mf2 syntax.</p>
+
+      <p><strong>[[LDN]]</strong> consumers MUST consume content in any vocabulary as JSON-LD, and MAY request other RDF syntaxes. Receivers MUST make content available as JSON-LD, and MAY offer other RDF syntaxes.</p>
+      
+      <!--<p>In order to support [[Activitypub]] clients, content MUST be available as [[ActivityStreams2]] JSON. If you are unable to return [[ActivityStreams2]] for an object or stream directly, you MUST provide it via a <code>rel="alternate" type="application/activity+json"</code> link (which could be to a different domain, for third-party services which dynamically generate [[ActivityStreams2]] JSON on behalf of the publisher). </p>-->
+      
+      <p>ActivityPub servers wishing to interoperate with LDN consumers MUST:</p>
+      <ul>
+        <li>serve content with the content-type <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code> when requested.</li>
+        <li>include along with the Inbox <code>Collection</code> every item in the Inbox related with the <code>ldp:contains</code> property.</li>
+      </ul>
+
+      <p>ActivityPub clients wishing to read from LDN Inboxes MUST:</p>
+      <ul>
+        <li>request content with the content-type <code>application/ld+json</code>. Running it through JSON-LD compacting should help.</li>
+        <li>look for items in the Inbox via the <code>ldp:contains</code> property (rather than AS2 <code>items</code>).</li>
+      </ul>
+
+      <p>LDN receivers wishing to interoperate with ActivityPub clients MUST:</p>
+      <ul>
+        <li>serve content with the content-type <code>application/activity+json</code> when requested, and MUST use compacted JSON-LD.</li>
+        <li>serve Inbox contents as an AS2 <code>Collection</code> (where each notification is related to the inbox with the AS2 <code>items</code> property).</li>
+      </ul>
+
+      <p>LDN consumers wishing to read from ActivityPub servers MUST:</p>
+      <ul>
+        <li>request content with the content-type <code>application/activity+json</code>, apply the default AS2 context if necessary, and treat it as JSON-LD.</li>
+        <li>look for items in the Inbox via the AS2 <code>items</code> property (rather than <code>ldp:contains</code>).</li>
+      </ul>
+
+      <p><strong>[[jf2]]</strong> ...</p>
+
 
     </section>
     <section id="objects">
