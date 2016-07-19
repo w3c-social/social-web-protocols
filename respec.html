@@ -246,6 +246,13 @@ table.th90 th, table.th90 td {
               authors: ["Robert Sanderson", "Paolo Ciccarese", "Benjamin Young"],
               status: "WD",
               publisher: "W3C"
+            },
+            "LDN": {
+              title: "Linked Data Notifications",
+              href: "https://www.w3.org/tr/ldn/",
+              authors: ["Sarven Capadisli", "Amy Guy"],
+              status: "FPWD",
+              publisher: "W3C"
             }
           }
       };
@@ -647,43 +654,96 @@ table.th90 th, table.th90 td {
   <section id="delivery">
     <h2>Delivery</h2>
     
-    <p>A user or application may wish to push a notification to another user, for example because they have linked to (replied, liked, bookmarked, reposted, …) their content or linked to (tagged, addressed) the user directly, or to make the recipient aware of a change in state of some document or resource on the Web.</p>
-
-    <p><strong>[[Webmention]]</strong> provides an API for sending and receiving notifications when a relationship is created between two documents. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
-
-    <ul>
-      <li>You have a document (source) which links to another document (target).</li>
-      <li>The owner of the target has access to view the source (so that their webmention endpoint can parse the source and check the claimed link exists).</li>
-      <li>The only data you need to send over the wire are the URLs of the source and target documents (ie. a 'thin ping').</li>
-    </ul>
-
-    <p>Discovery of the [[Webmention]] endpoint (a script which can process incoming webmentions) is through a link relation (<code>rel="webmention"</code>), either in the HTTP Header or body of the target. This endpoint does not need to be on the same domain as the target, so webmention receiving can be delegated to a third party.</p>
-
-    <p>[[Webmention]] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. This means a webmention can be triggered from a web form or from the commandline with <code>curl</code>. Integration with existing applications is straightforward through translating this form-encoded data into JSON, RDF (<a href="http://www.w3.org/ns/webmention#">namespace</a>), or another preferred syntax at the recievers end if necessary. There are no constraints on the syntax of the source and target documents.</p>
-
-    <p>[[Webmention]] can be extended by adding additional parameters to the POST request; applications must have prior agreement in order to understand them, and there is potential for collision of extension terms.</p>
-    
-    <p><strong>[[Activitypub]]</strong> provides a JSON-based API for sending and receiving [[ActivityStreams2]] activities as notifications. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
-
-    <ul>
-      <li>You describe the notification with [[ActivityStreams2]].</li>
-      <li>You need to send or receive the whole notification over the wire (ie. a 'fat ping').</li>
-      <li>You need to send or receive JSON payloads only.</li>
-      <li>You need to add additional properties to your notifications unambiguously with JSON-LD.</li>
-      <li>You need to send the same notification to multiple users from one activity.</li>
-    </ul>
-
-    <p>The endpoint which processes incoming notifications is a user's [[Activitypub]] <code>inbox</code>, discoverable from the target user's profile. The recipient user may be addressed directly (through <code>object</code>, <code>target</code>, <code>to</code>, <code>cc</code>, and/or <code>bcc</code>), and/or inferred as the owner of another resource which is addressed (through <code>object</code>, <code>target</code> and/or <code>inReplyTo</code>).</p>
-
-    <p>An [[Activitypub]] server delivers the entire activity to all discovered endpoints as a JSON payload of an HTTP POST request.</p>
-
-    <p>An [[Activitypub]] server receiving such an activity must verify the notification is accurate (by fetching the source, or some prior trust arrangement with the sender, eg. through an authentication token or digital signature).</p>
-
-    <p>[[Activitypub]] delivery can be extended through the [[ActivityStreams2]] extension mechanism, with JSON-LD.</p>
-
-    <p class="issue">Add Solid Notifications for pure RDF usage.</p>
+    <p>A user or application may wish to push a notification to another user, for example to send a message or some new information; because they have linked to (replied, liked, bookmarked, reposted, etc) their content; because they have linked to (tagged, addressed) the user directly; to make the recipient aware of a change in state of some document or resource on the Web.</p>
 
     <p class="note"><em>Note: we need to leave it open for users to refuse content they have not explicitly subscribed to, ie. nothing else should rely on implementation of Delivery.</em></p>
+
+    <section id="delivery-webmention">
+      <h3>Webmention</h3>
+      <p><strong>[[Webmention]]</strong> provides an API for sending and receiving notifications when a relationship is created between two documents. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
+
+      <ul>
+        <li>You have a document (source) which links to another document (target).</li>
+        <li>The owner of the target has access to view the source (so that their webmention endpoint can parse the source and check the claimed link exists).</li>
+        <li>The only data you need to send over the wire are the URLs of the source and target documents (ie. a 'thin ping').</li>
+      </ul>
+
+      <p>Discovery of the [[Webmention]] endpoint (a script which can process incoming webmentions) is through a link relation (<code>rel="webmention"</code>), either in the HTTP Header or body of the target. This endpoint does not need to be on the same domain as the target, so webmention receiving can be delegated to a third party.</p>
+
+      <p>[[Webmention]] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. This means a webmention can be triggered from a web form or from the commandline with <code>curl</code>. Integration with existing applications is straightforward through translating this form-encoded data into JSON, RDF (<a href="http://www.w3.org/ns/webmention#">namespace</a>), or another preferred syntax at the recievers end if necessary. There are no constraints on the syntax of the source and target documents.</p>
+
+      <p>[[Webmention]] can be extended by adding additional parameters to the POST request; applications must have prior agreement in order to understand them, and there is potential for collision of extension terms.</p>
+    </section>
+
+    <section id="delivery-ldn">
+      <h5>LDN</h5>
+    </section>
+
+    <section id="delivery-activitypub">
+      <h5>ActivityPub</h5>
+      <p><strong>[[Activitypub]]</strong> provides a JSON-based API for sending and receiving [[ActivityStreams2]] activities as notifications. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
+
+      <ul>
+        <li>You describe the notification with [[ActivityStreams2]].</li>
+        <li>You need to send or receive the whole notification over the wire (ie. a 'fat ping').</li>
+        <li>You need to send or receive JSON payloads only.</li>
+        <li>You need to add additional properties to your notifications unambiguously with JSON-LD.</li>
+        <li>You need to send the same notification to multiple users from one activity.</li>
+      </ul>
+
+      <p>The endpoint which processes incoming notifications is a user's [[Activitypub]] <code>inbox</code>, discoverable from the target user's profile. The recipient user may be addressed directly (through <code>object</code>, <code>target</code>, <code>to</code>, <code>cc</code>, and/or <code>bcc</code>), and/or inferred as the owner of another resource which is addressed (through <code>object</code>, <code>target</code> and/or <code>inReplyTo</code>).</p>
+
+      <p>An [[Activitypub]] server delivers the entire activity to all discovered endpoints as a JSON payload of an HTTP POST request.</p>
+
+      <p>An [[Activitypub]] server receiving such an activity must verify the notification is accurate (by fetching the source, or some prior trust arrangement with the sender, eg. through an authentication token or digital signature).</p>
+
+      <p>[[Activitypub]] delivery can be extended through the [[ActivityStreams2]] extension mechanism, with JSON-LD.</p>
+
+    </section>
+
+    <section id="delivery-interop">
+      <h2>Delivery interop</h2>
+
+      <p>Webmention receivers wishing to also accept LDN POSTs at their Webmention endpoint MUST:</p>
+      <ul>
+        <li>Advertise the webmention endpoint via <code>rel="http://www.w3.org/ns/ldp#inbox"</code> in addition to <code>rel="webmention"</code> (in the Link header, HTML body or JSON body of a target).</li>
+        <li>Accept POST requests with the content-type <code>application/ld+json</code>. Expect the body of the request to be:
+        <pre class="example">
+{
+  "@context": "http://www.w3.org/ns/webmention#",
+  "source": { "@id": "https://waterpigs.example/post-by-barnaby" },
+  "target": { "@id": "https://aaronpk.example/post-by-aaron" }
+}
+        </pre>
+        Use the <code>source->@id</code> and <code>target->@id</code> values as the <code>source</code> and <code>target</code> of the Webmention, and proceed with verification.</li>
+        <li class="issue">What if a sender doesn't send compacted JSON-LD, or sends something with vocabularies instead of/additional to Webmention?</li>
+        <li>If returning a <code>201 Created</code>, it MUST return a <code>Location</code> header with a URL from which the contents of the request posted can be retrieved. <code>202 Accepted</code> is still fine.</li>
+        <li>Note than when verifying the source, there's a good chance you can request/parse it as RDF.</li>
+      </ul>
+
+      <p>LDN receivers wishing to also accept Webmentions to their Inbox MUST:</p>
+      <ul>
+        <li>Advertise the Inbox via <code>rel="webmention"</code> in addition to <code>rel="http://www.w3.org/ns/ldp#inbox"</code> (in the Link header, HTML body or JSON body of a target).</li>
+        <li>Accept POST requests with a content type <code>application/x-www-form-urlencoded</code>. Convert these requests from:
+        <pre class="example">
+source=https://waterpigs.example/post-by-barnaby&amp;
+target=https://aaronpk.example/post-by-aaron
+        </pre>
+        to:
+        <pre class="example">
+{
+  "@context": "http://www.w3.org/ns/webmention#",
+  "source": { "@id": "https://waterpigs.example/post-by-barnaby" },
+  "target": { "@id": "https://aaronpk.example/post-by-aaron" }
+}
+        </pre>
+        and proceed per [[LDN]]; receivers MAY add other triples at their discretion.</li>
+        <li>Receivers MUST return a <code>201 Created</code> with a <code>Location</code> header or <code>202 Accepted</code>.</li>
+        <li>Receivers MUST verify the request by retrieving the source document and checking a link to the target document is present. If the Webmention is not verified, recievers MUST NOT keep it.</li>
+      </ul>
+    </section>
+
+    
   </section>
   </section>
   <section id="profiles">
