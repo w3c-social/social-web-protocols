@@ -1286,7 +1286,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p><strong>[<cite><a href="#bib-Webmention" class="bibref">Webmention</a></cite>]</strong> provides an API for sending and receiving notifications when a relationship is created between two documents. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
 
       <ul>
-        <li>You have a document (source) which links to another document (target).</li>
+        <li>You have a document (source) which contains the URL of another document (target).</li>
         <li>The owner of the target has access to view the source (so that their webmention endpoint can parse the source and check the claimed link exists).</li>
         <li>The only data you need to send over the wire are the URLs of the source and target documents (ie. a 'thin ping').</li>
       </ul>
@@ -1299,7 +1299,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <section property="bibo:hasPart" resource="#delivery-ldn" typeof="bibo:Chapter" id="delivery-ldn">
       <h3 resource="#h-delivery-ldn" id="h-delivery-ldn"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2 </span>LDN</span></h3>
-      <p><strong>[<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>]</strong> provides a protocol for sending, receving and consuming notifications which may contain any content, or be triggered by any person or process. Senders, receivers and consumers can all be on different domains, thus this meets the criteria for a federation protocol. This is a suitable notification mechanism when:</p>
+      <p><strong>[<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>]</strong> provides a protocol for sending, receiving and consuming notifications which may contain any content, or be triggered by any person or process. Senders, receivers and consumers can all be on different domains, thus this meets the criteria for a federation protocol. This is a suitable notification mechanism when:</p>
 
       <ul>
         <li>Notifications need to be identifiable with their own URLs and exposed by the receiver for other applications to discover and re-use.</li>
@@ -1307,7 +1307,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <li>You need to advertise constraints on the type or contents of notifications accepted by a receiver.</li>
       </ul>
 
-      <p>[<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>] functionality is divided between <em>senders</em>, <em>receivers</em> and <em>consumers</em>. The endpoint to which notifications are sent is the <em>Inbox</em>. Any resource (a user profile, blog post, document) can advertise its inbox so that it may be discovered through an HTTP Link header or RDF body. To this Inbox, senders make a <code>POST</code> request containing the JSON-LD (or other RDF syntax per <code>Accept-Post</code> negotation with the receiver) payload of the notification. The receiver returns a URL from which the notification data can be retrieved, and also adds this URI to a list which is returned upon a <code>GET</code> request on the Inbox. Consumers retreive the Inbox listing as such, and from there the individual notifications, as JSON-LD (optionally content negotiated to another RDF syntax). An obvious type of consumer is a script which displays notifications in a human-readable way.</p>
+      <p>[<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>] functionality is divided between <em>senders</em>, <em>receivers</em> and <em>consumers</em>. The endpoint to which notifications are sent is the <em>Inbox</em>. Any resource (a user profile, blog post, document) can advertise its inbox so that it may be discovered through an HTTP Link header or RDF body. To this Inbox, senders make a <code>POST</code> request containing the JSON-LD (or other RDF syntax per [<cite><a href="#bib-Accept-Post" class="bibref">Accept-Post</a></cite>] negotation with the receiver) payload of the notification. The receiver returns a URL from which the notification data can be retrieved, and also adds this URL to a list which is returned upon a <code>GET</code> request to the Inbox. Consumers retreive the Inbox listing as such, and from there the individual notifications, as JSON-LD (optionally content negotiated to another RDF syntax). An obvious type of consumer is a script which displays notifications in a human-readable way.</p>
 
       <p>An existing [<cite><a href="#bib-LDP" class="bibref">LDP</a></cite>] implementation can serve as an [<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>] receiver, by simply advertising any <code>ldp:Container</code> as the Inbox for a resource.</p>
 
@@ -1422,6 +1422,8 @@ target=https:<span class="hljs-comment">//aaronpk.example/post-by-aaron</span></
       <h3 resource="#h-informative-references" id="h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">A.1 </span>Informative references</span></h3>
       <dl resource="" class="bibliography"><dt id="bib-AS1">[AS1]</dt>
         <dd>J. Snell; M. Atkins; W. Norris; C. Messina; M. Wilkinson; R. Dolin. http://activitystrea.ms. <a property="dc:references" href="http://activitystrea.ms/specs/json/1.0/"><cite>JSON Activity Streams 1.0.</cite></a>. Unofficial. URL: <a property="dc:references" href="http://activitystrea.ms/specs/json/1.0/">http://activitystrea.ms/specs/json/1.0/</a>
+        </dd><dt id="bib-Accept-Post">[Accept-Post]</dt>
+        <dd><em style="color: #f00">Reference not found.</em>
         </dd><dt id="bib-ActivityStreams2">[ActivityStreams2]</dt>
         <dd>James Snell; Evan Prodromou. W3C. <a property="dc:references" href="http://www.w3.org/TR/activitystreams"><cite>ActivityStreams 2.0</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="http://www.w3.org/TR/activitystreams">http://www.w3.org/TR/activitystreams</a>
         </dd><dt id="bib-Activitypub">[Activitypub]</dt>
