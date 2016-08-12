@@ -668,15 +668,27 @@ table.th90 th, table.th90 td {
         <li>The only data you need to send over the wire are the URLs of the source and target documents (ie. a 'thin ping').</li>
       </ul>
 
-      <p>Discovery of the [[Webmention]] endpoint (a script which can process incoming webmentions) is through a link relation (<code>rel="webmention"</code>), either in the HTTP Header or body of the target. This endpoint does not need to be on the same domain as the target, so webmention receiving can be delegated to a third party.</p>
+      <p>There are no constraints on the syntax of the source and target documents. Discovery of the [[Webmention]] endpoint (a script which can process incoming webmentions) is through a link relation (<code>rel="webmention"</code>), either in the HTTP Link Header or HTML body of the target. This endpoint does not need to be on the same domain as the target, so webmention receiving can be delegated to a third party.</p>
 
-      <p>[[Webmention]] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. This means a webmention can be triggered from a web form or from the commandline with <code>curl</code>. Integration with existing applications is straightforward through translating this form-encoded data into JSON, RDF (<a href="http://www.w3.org/ns/webmention#">namespace</a>), or another preferred syntax at the recievers end if necessary. There are no constraints on the syntax of the source and target documents.</p>
+      <p>[[Webmention]] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. This means a webmention can be triggered from a web form or from the commandline with <code>curl</code>. Beyond verification, there are no requirements on what the receiver should do upon receipt of a Webmention. One could integrate a Webmention endpoint into existing applications through for example translating this form-encoded data into JSON, RDF (<a href="http://www.w3.org/ns/webmention#">namespace</a>), or another preferred syntax for storage.</p>
 
-      <p>[[Webmention]] can be extended by adding additional parameters to the POST request; applications must have prior agreement in order to understand them, and there is potential for collision of extension terms.</p>
     </section>
 
     <section id="delivery-ldn">
       <h5>LDN</h5>
+      <p><strong>[[LDN]]</strong> provides a protocol for sending, receving and consuming notifications which may contain any content, or be triggered by any person or process. Senders, receivers and consumers can all be on different domains, thus this meets the criteria for a federation protocol. This is a suitable notification mechanism when:</p>
+
+      <ul>
+        <li>Notifications need to be identifiable with their own URLs and exposed by the receiver for other applications to discover and re-use.</li>
+        <li>Notifications are represented as a JSON-LD payload (ie. a 'fat ping').</li>
+        <li>You need to advertise constraints on the type or contents of notifications accepted by a receiver.</li>
+      </ul>
+
+      <p>[[LDN]] functionality is divided between <em>senders</em>, <em>receivers</em> and <em>consumers</em>. The endpoint to which notifications are sent is the <em>Inbox</em>. Any resource (a user profile, blog post, document) can advertise its inbox so that it may be discovered through an HTTP Link header or RDF body. To this Inbox, senders make a <code>POST</code> request containing the JSON-LD (or other RDF syntax per <code>Accept-Post</code> negotation with the receiver) payload of the notification. The receiver returns a URL from which the notification data can be retrieved, and also adds this URI to a list which is returned upon a <code>GET</code> request on the Inbox. Consumers retreive the Inbox listing as such, and from there the individual notifications, as JSON-LD (optionally content negotiated to another RDF syntax). An obvious type of consumer is a script which displays notifications in a human-readable way.</p>
+
+      <p>An existing [[LDP]] implementation can serve as an [[LDN]] receiver, by simply advertising any <code>ldp:Container</code> as the Inbox for a resource.</p>
+
+      <p>Receivers are likely to want to constrain the types of notifications they accept. They can do this transparently (such that senders are able to attempt to conform, rather than having their requests rejected opaquely) by advertising data shapes constraints such as [[SHACL]]. Advertisement of such constraints also allows consumers to understand the types of notifications in the Inbox before attempting to retreive them. Receivers may also access control their inbox for example by requiring an <code>Authorization</code> header from both senders and consumers.</p>
     </section>
 
     <section id="delivery-activitypub">

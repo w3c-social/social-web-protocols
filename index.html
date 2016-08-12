@@ -327,6 +327,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     code {
       color: #C83500;
     }
+    
+    th code {
+      color: inherit;
+    }
     /* --- TOC --- */
     
     .toc a,
@@ -610,6 +614,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+  <meta content="ReSpec 4.4.5" name="generator">
   <script type="application/json" id="initialUserConfig">
     {
       "specStatus": "ED",
@@ -738,15 +743,15 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <body id="respecDocument" role="document" class="h-entry">
   <div id="respecHeader" role="contentinfo" class="head">
     <p>
-      <a class="logo" href="http://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" height="48" width="72"></a>
+      <a class="logo" href="https://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" height="48" width="72"></a>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Social Web Protocols</h1>
-    <h2 id="w3c-editor-s-draft-19-july-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-07-19">19 July 2016</time></h2>
+    <h2 id="w3c-editor-s-draft-12-august-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-08-12">12 August 2016</time></h2>
     <dl>
       <dt>This version:</dt>
       <dd><a class="u-url" href="https://w3c-social.github.io/social-web-protocols">https://w3c-social.github.io/social-web-protocols</a></dd>
       <dt>Latest published version:</dt>
-      <dd><a href="http://www.w3.org/TR/social-web-protocols/">http://www.w3.org/TR/social-web-protocols/</a></dd>
+      <dd><a href="https://www.w3.org/TR/social-web-protocols/">https://www.w3.org/TR/social-web-protocols/</a></dd>
       <dt>Latest editor's draft:</dt>
       <dd><a href="https://w3c-social.github.io/social-web-protocols">https://w3c-social.github.io/social-web-protocols</a></dd>
       <dt>Editor:</dt>
@@ -756,14 +761,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     </dl>
     <p class="copyright">
-      <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2016
+      <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2016
 
-      <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
-      <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
-      <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>).
-      <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
-      <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
-      <a rel="license" href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.
+      <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+      <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+      <a href="https://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>).
+      <abbr title="World Wide Web Consortium">W3C</abbr> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+      <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+      <a rel="license" href="https://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.
     </p>
     <hr title="Separator for header">
   </div>
@@ -778,77 +783,77 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <section id="sotd" class="introductory">
     <h2 resource="#h-sotd" id="h-sotd"><span property="xhv:role" resource="xhv:heading">Status of This Document</span></h2>
     <p>
-      <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at http://www.w3.org/TR/.</em>
+      <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at https://www.w3.org/TR/.</em>
     </p>
 
     <p>
       This document was published by the <a href="https://www.w3.org/Social/WG">Social Web Working Group</a> as an Editor's Draft. If you wish to make comments regarding this document, please send them to
       <a href="mailto:public-socialweb@w3.org">public-socialweb@w3.org</a> (<a href="mailto:public-socialweb-request@w3.org?subject=subscribe">subscribe</a>,
-      <a href="http://lists.w3.org/Archives/Public/public-socialweb/">archives</a>). All comments are welcome.
+      <a href="https://lists.w3.org/Archives/Public/public-socialweb/">archives</a>). All comments are welcome.
     </p>
     <p>
       Publication as an Editor's Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
     </p>
     <p>
       This document was produced by a group operating under the
-      <a id="sotd_patent" property="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
+      <a id="sotd_patent" property="w3p:patentRules" href="https://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
               Policy</a>.
       <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/424242/status" rel="disclosure">public list of any patent
                 disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains
-      <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+      <a href="https://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
               Claim(s)</a> must disclose the information in accordance with
-      <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+      <a href="https://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
               6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
     </p>
-    <p>This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+    <p>This document is governed by the <a id="w3c_process_revision" href="https://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
     </p>
 
   </section>
   <nav id="toc">
     <h2 resource="#table-of-contents" id="table-of-contents" class="introductory"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2>
-    <ul role="directory" class="toc">
+    <ol role="directory" class="toc">
       <li class="tocline"><a class="tocxref" href="#overview"><span class="secno">1. </span>Overview</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#contents"><span class="secno">1.1 </span>Contents</a></li>
           <li class="tocline"><a class="tocxref" href="#swwg-drafts"><span class="secno">1.2 </span>Social Web Working Group Drafts</a></li>
           <li class="tocline"><a class="tocxref" href="#other-specs"><span class="secno">1.3 </span>Other specifications</a></li>
           <li class="tocline"><a class="tocxref" href="#requirements"><span class="secno">1.4 </span>Requirements</a></li>
-        </ul>
+        </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#reading"><span class="secno">2. </span>Reading</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#content-representation"><span class="secno">2.1 </span>Content representation</a></li>
           <li class="tocline"><a class="tocxref" href="#objects"><span class="secno">2.2 </span>Objects</a></li>
           <li class="tocline"><a class="tocxref" href="#streams"><span class="secno">2.3 </span>Streams</a></li>
-        </ul>
+        </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#creating-content"><span class="secno">3. </span>Creating content</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#updating"><span class="secno">3.1 </span>Updating</a></li>
           <li class="tocline"><a class="tocxref" href="#deleting"><span class="secno">3.2 </span>Deleting</a></li>
-        </ul>
+        </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#subscribing"><span class="secno">4. </span>Subscribing</a></li>
       <li class="tocline"><a class="tocxref" href="#delivery"><span class="secno">5. </span>Delivery</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#delivery-webmention"><span class="secno">5.1 </span>Webmention</a></li>
           <li class="tocline"><a class="tocxref" href="#delivery-ldn"><span class="secno">5.2 </span>LDN</a></li>
           <li class="tocline"><a class="tocxref" href="#delivery-activitypub"><span class="secno">5.3 </span>ActivityPub</a></li>
           <li class="tocline"><a class="tocxref" href="#delivery-interop"><span class="secno">5.4 </span>Delivery interop</a></li>
-        </ul>
+        </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#profiles"><span class="secno">6. </span>Profiles</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#relationships"><span class="secno">6.1 </span>Relationships</a></li>
           <li class="tocline"><a class="tocxref" href="#authorization-and-access-control"><span class="secno">6.2 </span>Authorization and access control</a></li>
-        </ul>
+        </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#references"><span class="secno">A. </span>References</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#informative-references"><span class="secno">A.1 </span>Informative references</a></li>
-        </ul>
+        </ol>
       </li>
-    </ul>
+    </ol>
   </nav>
 
 
@@ -1286,15 +1291,27 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <li>The only data you need to send over the wire are the URLs of the source and target documents (ie. a 'thin ping').</li>
       </ul>
 
-      <p>Discovery of the [<cite><a href="#bib-Webmention" class="bibref">Webmention</a></cite>] endpoint (a script which can process incoming webmentions) is through a link relation (<code>rel="webmention"</code>), either in the HTTP Header or body of the target. This endpoint does not need to be on the same domain as the target, so webmention receiving can be delegated to a third party.</p>
+      <p>There are no constraints on the syntax of the source and target documents. Discovery of the [<cite><a href="#bib-Webmention" class="bibref">Webmention</a></cite>] endpoint (a script which can process incoming webmentions) is through a link relation (<code>rel="webmention"</code>), either in the HTTP Link Header or HTML body of the target. This endpoint does not need to be on the same domain as the target, so webmention receiving can be delegated to a third party.</p>
 
-      <p>[<cite><a href="#bib-Webmention" class="bibref">Webmention</a></cite>] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. This means a webmention can be triggered from a web form or from the commandline with <code>curl</code>. Integration with existing applications is straightforward through translating this form-encoded data into JSON, RDF (<a href="http://www.w3.org/ns/webmention#">namespace</a>), or another preferred syntax at the recievers end if necessary. There are no constraints on the syntax of the source and target documents.</p>
+      <p>[<cite><a href="#bib-Webmention" class="bibref">Webmention</a></cite>] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. This means a webmention can be triggered from a web form or from the commandline with <code>curl</code>. Beyond verification, there are no requirements on what the receiver should do upon receipt of a Webmention. One could integrate a Webmention endpoint into existing applications through for example translating this form-encoded data into JSON, RDF (<a href="http://www.w3.org/ns/webmention#">namespace</a>), or another preferred syntax for storage.</p>
 
-      <p>[<cite><a href="#bib-Webmention" class="bibref">Webmention</a></cite>] can be extended by adding additional parameters to the POST request; applications must have prior agreement in order to understand them, and there is potential for collision of extension terms.</p>
     </section>
 
     <section property="bibo:hasPart" resource="#delivery-ldn" typeof="bibo:Chapter" id="delivery-ldn">
       <h3 resource="#h-delivery-ldn" id="h-delivery-ldn"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2 </span>LDN</span></h3>
+      <p><strong>[<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>]</strong> provides a protocol for sending, receving and consuming notifications which may contain any content, or be triggered by any person or process. Senders, receivers and consumers can all be on different domains, thus this meets the criteria for a federation protocol. This is a suitable notification mechanism when:</p>
+
+      <ul>
+        <li>Notifications need to be identifiable with their own URLs and exposed by the receiver for other applications to discover and re-use.</li>
+        <li>Notifications are represented as a JSON-LD payload (ie. a 'fat ping').</li>
+        <li>You need to advertise constraints on the type or contents of notifications accepted by a receiver.</li>
+      </ul>
+
+      <p>[<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>] functionality is divided between <em>senders</em>, <em>receivers</em> and <em>consumers</em>. The endpoint to which notifications are sent is the <em>Inbox</em>. Any resource (a user profile, blog post, document) can advertise its inbox so that it may be discovered through an HTTP Link header or RDF body. To this Inbox, senders make a <code>POST</code> request containing the JSON-LD (or other RDF syntax per <code>Accept-Post</code> negotation with the receiver) payload of the notification. The receiver returns a URL from which the notification data can be retrieved, and also adds this URI to a list which is returned upon a <code>GET</code> request on the Inbox. Consumers retreive the Inbox listing as such, and from there the individual notifications, as JSON-LD (optionally content negotiated to another RDF syntax). An obvious type of consumer is a script which displays notifications in a human-readable way.</p>
+
+      <p>An existing [<cite><a href="#bib-LDP" class="bibref">LDP</a></cite>] implementation can serve as an [<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>] receiver, by simply advertising any <code>ldp:Container</code> as the Inbox for a resource.</p>
+
+      <p>Receivers are likely to want to constrain the types of notifications they accept. They can do this transparently (such that senders are able to attempt to conform, rather than having their requests rejected opaquely) by advertising data shapes constraints such as [<cite><a href="#bib-SHACL" class="bibref">SHACL</a></cite>]. Advertisement of such constraints also allows consumers to understand the types of notifications in the Inbox before attempting to retreive them. Receivers may also access control their inbox for example by requiring an <code>Authorization</code> header from both senders and consumers.</p>
     </section>
 
     <section property="bibo:hasPart" resource="#delivery-activitypub" typeof="bibo:Chapter" id="delivery-activitypub">
@@ -1419,6 +1436,8 @@ target=https:<span class="hljs-comment">//aaronpk.example/post-by-aaron</span></
         <dd>Steve Speicher; John Arwe; Ashok Malhotra. W3C. <a property="dc:references" href="https://www.w3.org/TR/ldp/"><cite>Linked Data Platform 1.0</cite></a>. 26 February 2015. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/ldp/">https://www.w3.org/TR/ldp/</a>
         </dd><dt id="bib-Micropub">[Micropub]</dt>
         <dd>Aaron Parecki. W3C. <a property="dc:references" href="https://www.w3.org/TR/micropub/"><cite>Micropub</cite></a>. 13 July 2016. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/micropub/">https://www.w3.org/TR/micropub/</a>
+        </dd><dt id="bib-SHACL">[SHACL]</dt>
+        <dd>Holger Knublauch; Dimitris Kontokostas. W3C. <a property="dc:references" href="https://www.w3.org/TR/shacl/"><cite>Shapes Constraint Language (SHACL)</cite></a>. 30 May 2016. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/shacl/">https://www.w3.org/TR/shacl/</a>
         </dd><dt id="bib-Salmentions">[Salmentions]</dt>
         <dd>Ben Roberts, Tantek Çelik. IndieWebCamp. <a property="dc:references" href="http://indiewebcamp.com/Salmention"><cite>Salmentions</cite></a>. Living specification. URL: <a property="dc:references" href="http://indiewebcamp.com/Salmention">http://indiewebcamp.com/Salmention</a>
         </dd><dt id="bib-Solid">[Solid]</dt>
@@ -1428,7 +1447,7 @@ target=https:<span class="hljs-comment">//aaronpk.example/post-by-aaron</span></
         </dd><dt id="bib-h-entry">[h-entry]</dt>
         <dd>Tantek Çelik. microformats.org. <a property="dc:references" href="http://microformats.org/wiki/h-entry"><cite>h-entry</cite></a>. Living Specification. URL: <a property="dc:references" href="http://microformats.org/wiki/h-entry">http://microformats.org/wiki/h-entry</a>
         </dd><dt id="bib-jf2">[jf2]</dt>
-        <dd><em style="color: #f00">Reference not found.</em>
+        <dd>Benjamin Roberts; Kevin Marks. W3C. <a property="dc:references" href="https://www.w3.org/TR/jf2/"><cite>JF2 Post Serialization Format</cite></a>. 28 July 2016. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/jf2/">https://www.w3.org/TR/jf2/</a>
         </dd>
       </dl>
     </section>
