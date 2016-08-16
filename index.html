@@ -614,7 +614,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
-  <meta content="ReSpec 4.4.5" name="generator">
+  <meta content="ReSpec 5.0.0" name="generator">
   <script type="application/json" id="initialUserConfig">
     {
       "specStatus": "ED",
@@ -746,7 +746,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <a class="logo" href="https://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" height="48" width="72"></a>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Social Web Protocols</h1>
-    <h2 id="w3c-editor-s-draft-12-august-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-08-12">12 August 2016</time></h2>
+    <h2 id="w3c-editor-s-draft-16-august-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-08-16">16 August 2016</time></h2>
     <dl>
       <dt>This version:</dt>
       <dd><a class="u-url" href="https://w3c-social.github.io/social-web-protocols">https://w3c-social.github.io/social-web-protocols</a></dd>
@@ -839,7 +839,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <li class="tocline"><a class="tocxref" href="#delivery-webmention"><span class="secno">5.1 </span>Webmention</a></li>
           <li class="tocline"><a class="tocxref" href="#delivery-ldn"><span class="secno">5.2 </span>LDN</a></li>
           <li class="tocline"><a class="tocxref" href="#delivery-activitypub"><span class="secno">5.3 </span>ActivityPub</a></li>
-          <li class="tocline"><a class="tocxref" href="#delivery-interop"><span class="secno">5.4 </span>Delivery interop</a></li>
+          <li class="tocline"><a class="tocxref" href="#delivery-interop"><span class="secno">5.4 </span>Delivery interop</a>
+            <ol class="toc">
+              <li class="tocline"><a class="tocxref" href="#ldn-to-wm"><span class="secno">5.4.1 </span>LDN to Webmention</a></li>
+              <li class="tocline"><a class="tocxref" href="#wm-to-ldn"><span class="secno">5.4.2 </span>Webmention to LDN</a></li>
+              <li class="tocline"><a class="tocxref" href="#wm-as-as"><span class="secno">5.4.3 </span>Webmention as AS2</a></li>
+            </ol>
+          </li>
         </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#profiles"><span class="secno">6. </span>Profiles</a>
@@ -1293,7 +1299,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>There are no constraints on the syntax of the source and target documents. Discovery of the [<cite><a href="#bib-Webmention" class="bibref">Webmention</a></cite>] endpoint (a script which can process incoming webmentions) is through a link relation (<code>rel="webmention"</code>), either in the HTTP Link Header or HTML body of the target. This endpoint does not need to be on the same domain as the target, so webmention receiving can be delegated to a third party.</p>
 
-      <p>[<cite><a href="#bib-Webmention" class="bibref">Webmention</a></cite>] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. This means a webmention can be triggered from a web form or from the commandline with <code>curl</code>. Beyond verification, there are no requirements on what the receiver should do upon receipt of a Webmention. One could integrate a Webmention endpoint into existing applications through for example translating this form-encoded data into JSON, RDF (<a href="http://www.w3.org/ns/webmention#">namespace</a>), or another preferred syntax for storage.</p>
+      <p>Webmentions are verified by the server dereferencing the source and parsing it to check for the existence of the target URL. If the target URL isn't found, the webmention <em title="MUST" class="rfc2119">MUST</em> be rejected.</p>
+
+      <p>[<cite><a href="#bib-Webmention" class="bibref">Webmention</a></cite>] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. Beyond verification, it is not specified what the receiver should do upon receipt of a Webmention. What the webmention endpoint should return on a <code>GET</code> request is also left unspecified.</p>
 
     </section>
 
@@ -1316,63 +1324,105 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <section property="bibo:hasPart" resource="#delivery-activitypub" typeof="bibo:Chapter" id="delivery-activitypub">
       <h3 resource="#h-delivery-activitypub" id="h-delivery-activitypub"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3 </span>ActivityPub</span></h3>
-      <p><strong>[<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>]</strong> provides a JSON-based API for sending and receiving [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] activities as notifications. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
+      <p><strong>[<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>]</strong> uses [<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>] to send notifications with some specific constraints. These are:</p>
 
       <ul>
-        <li>You describe the notification with [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>].</li>
-        <li>You need to send or receive the whole notification over the wire (ie. a 'fat ping').</li>
-        <li>You need to send or receive JSON payloads only.</li>
-        <li>You need to add additional properties to your notifications unambiguously with JSON-LD.</li>
-        <li>You need to send the same notification to multiple users from one activity.</li>
+        <li>The notification payload <em title="MUST" class="rfc2119">MUST</em> be [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>].</li>
+        <li>The notification payload <em title="MUST" class="rfc2119">MUST</em> be JSON-LD.</li>
+        <li>The receiver <em title="MUST" class="rfc2119">MUST</em> verify the notification by fetching its source from the origin server.</li>
+        <li>All notification POST requests are authenticated.</li>
       </ul>
 
-      <p>The endpoint which processes incoming notifications is a user's [<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>] <code>inbox</code>, discoverable from the target user's profile. The recipient user may be addressed directly (through <code>object</code>, <code>target</code>, <code>to</code>, <code>cc</code>, and/or <code>bcc</code>), and/or inferred as the owner of another resource which is addressed (through <code>object</code>, <code>target</code> and/or <code>inReplyTo</code>).</p>
+      <p>[<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>] specifies how to define the <em>target(s)</em> to which a notification is to be sent (a pre-requisite to [<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>] sending), via the [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] audience targeting and object linking properties.</p>
 
-      <p>An [<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>] server delivers the entire activity to all discovered endpoints as a JSON payload of an HTTP POST request.</p>
+      <p>[<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>] also defines side-effects that must be carried out by the server as a result of notification receipt. These include:</p>
 
-      <p>An [<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>] server receiving such an activity must verify the notification is accurate (by fetching the source, or some prior trust arrangement with the sender, eg. through an authentication token or digital signature).</p>
-
-      <p>[<cite><a href="#bib-Activitypub" class="bibref">Activitypub</a></cite>] delivery can be extended through the [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>] extension mechanism, with JSON-LD.</p>
+      <ul>
+        <li>Creating, updating or deleting new objects upon receipt of <code>Create</code>, <code>Update</code> and <code>Delete</code> activities.</li>
+        <li>Reversing the side-effects of prior activities upon receipt of the <code>Undo</code> activity.</li>
+        <li>Updating specialised collections for <code>Follow</code>, <code>Like</code> and <code>Block</code> activities.</li>
+        <li>Updating any other collections upon receipt of <code>Add</code> and <code>Remove</code> activities.</li>
+      </ul>
 
     </section>
 
     <section property="bibo:hasPart" resource="#delivery-interop" typeof="bibo:Chapter" id="delivery-interop">
       <h3 resource="#h-delivery-interop" id="h-delivery-interop"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.4 </span>Delivery interop</span></h3>
 
-      <p>Webmention receivers wishing to also accept LDN POSTs at their Webmention endpoint <em title="MUST" class="rfc2119">MUST</em>:</p>
-      <ul>
-        <li>Advertise the webmention endpoint via <code>rel="http://www.w3.org/ns/ldp#inbox"</code> in addition to <code>rel="webmention"</code> (in the Link header, HTML body or JSON body of a target).</li>
-        <li>Accept POST requests with the content-type <code>application/ld+json</code>. Expect the body of the request to be:
-          <div class="example">
-            <div class="example-title marker"><span>Example 1</span></div><pre class="hljs xquery">{
-  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/webmention#"</span>,
-  <span class="hljs-string">"source"</span>: { <span class="hljs-string">"@id"</span>: <span class="hljs-string">"https://waterpigs.example/post-by-barnaby"</span> },
-  <span class="hljs-string">"target"</span>: { <span class="hljs-string">"@id"</span>: <span class="hljs-string">"https://aaronpk.example/post-by-aaron"</span> }
-}</pre></div>
-          Use the <code>source-&gt;@id</code> and <code>target-&gt;@id</code> values as the <code>source</code> and <code>target</code> of the Webmention, and proceed with verification.</li>
-        <li class="issue">What if a sender doesn't send compacted JSON-LD, or sends something with vocabularies instead of/additional to Webmention?</li>
-        <li>If returning a <code>201 Created</code>, it <em title="MUST" class="rfc2119">MUST</em> return a <code>Location</code> header with a URL from which the contents of the request posted can be retrieved. <code>202 Accepted</code> is still fine.</li>
-        <li>Note than when verifying the source, there's a good chance you can request/parse it as RDF.</li>
-      </ul>
+      <section property="bibo:hasPart" resource="#ldn-to-wm" typeof="bibo:Chapter" id="ldn-to-wm">
+        <h4 resource="#h-ldn-to-wm" id="h-ldn-to-wm"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.4.1 </span>LDN to Webmention</span></h4>
 
-      <p>LDN receivers wishing to also accept Webmentions to their Inbox <em title="MUST" class="rfc2119">MUST</em>:</p>
-      <ul>
-        <li>Advertise the Inbox via <code>rel="webmention"</code> in addition to <code>rel="http://www.w3.org/ns/ldp#inbox"</code> (in the Link header, HTML body or JSON body of a target).</li>
-        <li>Accept POST requests with a content type <code>application/x-www-form-urlencoded</code>. Convert these requests from:
-          <div class="example">
-            <div class="example-title marker"><span>Example 2</span></div><pre class="hljs javascript">source=https:<span class="hljs-comment">//waterpigs.example/post-by-barnaby&amp;</span>
-target=https:<span class="hljs-comment">//aaronpk.example/post-by-aaron</span></pre></div>
-          to:
-          <div class="example">
-            <div class="example-title marker"><span>Example 3</span></div><pre class="hljs xquery">{
+        <p>Webmention receivers wishing to also accept LDN POSTs at their Webmention endpoint <em title="MUST" class="rfc2119">MUST</em>:</p>
+        <ul>
+          <li>Advertise the webmention endpoint via <code>rel="http://www.w3.org/ns/ldp#inbox"</code> in addition to <code>rel="webmention"</code> (in the Link header, HTML body or JSON body of a target).</li>
+          <li>Accept POST requests with the content-type <code>application/ld+json</code>. Expect the body of the request to be:
+            <div class="example">
+              <div class="example-title marker"><span>Example 1</span></div><pre class="hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/webmention#"</span>,
   <span class="hljs-string">"source"</span>: { <span class="hljs-string">"@id"</span>: <span class="hljs-string">"https://waterpigs.example/post-by-barnaby"</span> },
   <span class="hljs-string">"target"</span>: { <span class="hljs-string">"@id"</span>: <span class="hljs-string">"https://aaronpk.example/post-by-aaron"</span> }
 }</pre></div>
-          and proceed per [<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>]; receivers <em title="MAY" class="rfc2119">MAY</em> add other triples at their discretion.</li>
-        <li>Receivers <em title="MUST" class="rfc2119">MUST</em> return a <code>201 Created</code> with a <code>Location</code> header or <code>202 Accepted</code>.</li>
-        <li>Receivers <em title="MUST" class="rfc2119">MUST</em> verify the request by retrieving the source document and checking a link to the target document is present. If the Webmention is not verified, recievers <em title="MUST NOT" class="rfc2119">MUST NOT</em> keep it.</li>
-      </ul>
+            Use the <code>source-&gt;@id</code> and <code>target-&gt;@id</code> values as the <code>source</code> and <code>target</code> of the Webmention, and proceed with verification.</li>
+          <li class="issue">What if a sender doesn't send compacted JSON-LD, or sends something with vocabularies instead of/additional to Webmention?</li>
+          <li>If returning a <code>201 Created</code>, it <em title="MUST" class="rfc2119">MUST</em> return a <code>Location</code> header with a URL from which the contents of the request posted can be retrieved. <code>202 Accepted</code> is still fine.</li>
+          <li>Note than when verifying the source, there's a good chance you can request/parse it as RDF.</li>
+        </ul>
+      </section>
+
+      <section property="bibo:hasPart" resource="#wm-to-ldn" typeof="bibo:Chapter" id="wm-to-ldn">
+        <h4 resource="#h-wm-to-ldn" id="h-wm-to-ldn"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.4.2 </span>Webmention to LDN</span></h4>
+
+        <p>LDN receivers wishing to also accept Webmentions to their Inbox <em title="MUST" class="rfc2119">MUST</em>:</p>
+        <ul>
+          <li>Advertise the Inbox via <code>rel="webmention"</code> in addition to <code>rel="http://www.w3.org/ns/ldp#inbox"</code> (in the Link header, HTML body or JSON body of a target).</li>
+          <li>Accept POST requests with a content type <code>application/x-www-form-urlencoded</code>. Convert these requests from:
+            <div class="example">
+              <div class="example-title marker"><span>Example 2</span></div><pre class="hljs javascript">source=https:<span class="hljs-comment">//waterpigs.example/post-by-barnaby&amp;</span>
+target=https:<span class="hljs-comment">//aaronpk.example/post-by-aaron</span></pre></div>
+            to:
+            <div class="example">
+              <div class="example-title marker"><span>Example 3</span></div><pre class="hljs xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/webmention#"</span>,
+  <span class="hljs-string">"source"</span>: { <span class="hljs-string">"@id"</span>: <span class="hljs-string">"https://waterpigs.example/post-by-barnaby"</span> },
+  <span class="hljs-string">"target"</span>: { <span class="hljs-string">"@id"</span>: <span class="hljs-string">"https://aaronpk.example/post-by-aaron"</span> }
+}</pre></div>
+            and proceed per [<cite><a href="#bib-LDN" class="bibref">LDN</a></cite>]; receivers <em title="MAY" class="rfc2119">MAY</em> add other triples at their discretion.</li>
+          <li>Receivers <em title="MUST" class="rfc2119">MUST</em> return a <code>201 Created</code> with a <code>Location</code> header or <code>202 Accepted</code>.</li>
+          <li>Receivers <em title="MUST" class="rfc2119">MUST</em> verify the request by retrieving the source document and checking a link to the target document is present. If the Webmention is not verified, recievers <em title="MUST NOT" class="rfc2119">MUST NOT</em> keep it.</li>
+        </ul>
+      </section>
+
+      <section property="bibo:hasPart" resource="#wm-as-as" typeof="bibo:Chapter" id="wm-as-as">
+        <h4 resource="#h-wm-as-as" id="h-wm-as-as"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.4.3 </span>Webmention as AS2</span></h4>
+
+        <p>A webmention may be represented as a persistent resource with [<cite><a href="#bib-ActivityStreams2" class="bibref">ActivityStreams2</a></cite>]:</p>
+
+        <div class="example">
+          <div class="example-title marker"><span>Example 4</span></div><pre class="hljs xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"https://www.w3.org/ns/activitystreams#"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Relationship"</span>,
+  <span class="hljs-string">"subject"</span>: <span class="hljs-string">"https://waterpigs.example/post-by-barnaby"</span>,
+  <span class="hljs-string">"object"</span>: <span class="hljs-string">"https://aaronpk.example/post-by-aaron"</span>
+}</pre></div>
+
+        <p>A receiver or sender may want to augment this representation with the relationship between the two documents, and any other pertinent data. In the receiver's case, this could be gathered when they parse the source during the verification process. For example:</p>
+
+        <div class="example">
+          <div class="example-title marker"><span>Example 5</span></div><pre class="hljs xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"https://www.w3.org/ns/activitystreams#"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Relationship"</span>,
+  <span class="hljs-string">"subject"</span>: {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"https://waterpigs.example/post-by-barnaby"</span>,
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"Hi Aaron, great post."</span>
+  },
+  <span class="hljs-string">"object"</span>: {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"https://aaronpk.example/post-by-aaron"</span>,
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"Aaron's first post."</span>
+  }
+  <span class="hljs-string">"relationship"</span>: <span class="hljs-string">"inReplyTo"</span>
+}</pre></div>
+      </section>
+
     </section>
 
 
@@ -1437,9 +1487,9 @@ target=https:<span class="hljs-comment">//aaronpk.example/post-by-aaron</span></
         </dd><dt id="bib-LDP">[LDP]</dt>
         <dd>Steve Speicher; John Arwe; Ashok Malhotra. W3C. <a property="dc:references" href="https://www.w3.org/TR/ldp/"><cite>Linked Data Platform 1.0</cite></a>. 26 February 2015. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/ldp/">https://www.w3.org/TR/ldp/</a>
         </dd><dt id="bib-Micropub">[Micropub]</dt>
-        <dd>Aaron Parecki. W3C. <a property="dc:references" href="https://www.w3.org/TR/micropub/"><cite>Micropub</cite></a>. 13 July 2016. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/micropub/">https://www.w3.org/TR/micropub/</a>
+        <dd>Aaron Parecki. W3C. <a property="dc:references" href="https://www.w3.org/TR/micropub/"><cite>Micropub</cite></a>. 16 August 2016. W3C Candidate Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/micropub/">https://www.w3.org/TR/micropub/</a>
         </dd><dt id="bib-SHACL">[SHACL]</dt>
-        <dd>Holger Knublauch; Dimitris Kontokostas. W3C. <a property="dc:references" href="https://www.w3.org/TR/shacl/"><cite>Shapes Constraint Language (SHACL)</cite></a>. 30 May 2016. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/shacl/">https://www.w3.org/TR/shacl/</a>
+        <dd>Holger Knublauch; Dimitris Kontokostas. W3C. <a property="dc:references" href="https://www.w3.org/TR/shacl/"><cite>Shapes Constraint Language (SHACL)</cite></a>. 14 August 2016. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/shacl/">https://www.w3.org/TR/shacl/</a>
         </dd><dt id="bib-Salmentions">[Salmentions]</dt>
         <dd>Ben Roberts, Tantek Çelik. IndieWebCamp. <a property="dc:references" href="http://indiewebcamp.com/Salmention"><cite>Salmentions</cite></a>. Living specification. URL: <a property="dc:references" href="http://indiewebcamp.com/Salmention">http://indiewebcamp.com/Salmention</a>
         </dd><dt id="bib-Solid">[Solid]</dt>
