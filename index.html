@@ -735,6 +735,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           ],
           "status": "FPWD",
           "publisher": "W3C"
+        },
+        "Accept-Post":
+        {
+          "title": "The Accept-Post HTTP Header.",
+          "href": "http://tools.ietf.org/html/draft-wilde-accept-post",
+          "authors": [
+            "J. Arwe",
+            "S. Speicher",
+            "E. Wilde"
+          ],
+          "status": "Internet Draft",
+          "publisher": "IETF"
         }
       }
     }
@@ -746,7 +758,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <a class="logo" href="https://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" height="48" width="72"></a>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Social Web Protocols</h1>
-    <h2 id="w3c-editor-s-draft-16-august-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-08-16">16 August 2016</time></h2>
+    <h2 id="w3c-editor-s-draft-17-august-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-08-17">17 August 2016</time></h2>
     <dl>
       <dt>This version:</dt>
       <dd><a class="u-url" href="https://w3c-social.github.io/social-web-protocols">https://w3c-social.github.io/social-web-protocols</a></dd>
@@ -1349,6 +1361,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <section property="bibo:hasPart" resource="#delivery-interop" typeof="bibo:Chapter" id="delivery-interop">
       <h3 resource="#h-delivery-interop" id="h-delivery-interop"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.4 </span>Delivery interop</span></h3>
 
+      <p>This section describes how receiver implementations of either Webmention or LDN may create bridging code in order to accept notifications from senders of the other. This can also be read to understand how a sender of either Webmention or LDN should adapt their discovery and payload in order to send to a receiver of the other.</p>
+
       <section property="bibo:hasPart" resource="#ldn-to-wm" typeof="bibo:Chapter" id="ldn-to-wm">
         <h4 resource="#h-ldn-to-wm" id="h-ldn-to-wm"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.4.1 </span>LDN to Webmention</span></h4>
 
@@ -1473,7 +1487,7 @@ target=https:<span class="hljs-comment">//aaronpk.example/post-by-aaron</span></
       <dl resource="" class="bibliography"><dt id="bib-AS1">[AS1]</dt>
         <dd>J. Snell; M. Atkins; W. Norris; C. Messina; M. Wilkinson; R. Dolin. http://activitystrea.ms. <a property="dc:references" href="http://activitystrea.ms/specs/json/1.0/"><cite>JSON Activity Streams 1.0.</cite></a>. Unofficial. URL: <a property="dc:references" href="http://activitystrea.ms/specs/json/1.0/">http://activitystrea.ms/specs/json/1.0/</a>
         </dd><dt id="bib-Accept-Post">[Accept-Post]</dt>
-        <dd><em style="color: #f00">Reference not found.</em>
+        <dd>J. Arwe; S. Speicher; E. Wilde. IETF. <a property="dc:references" href="http://tools.ietf.org/html/draft-wilde-accept-post"><cite>The Accept-Post HTTP Header.</cite></a>. Internet Draft. URL: <a property="dc:references" href="http://tools.ietf.org/html/draft-wilde-accept-post">http://tools.ietf.org/html/draft-wilde-accept-post</a>
         </dd><dt id="bib-ActivityStreams2">[ActivityStreams2]</dt>
         <dd>James Snell; Evan Prodromou. W3C. <a property="dc:references" href="http://www.w3.org/TR/activitystreams"><cite>ActivityStreams 2.0</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="http://www.w3.org/TR/activitystreams">http://www.w3.org/TR/activitystreams</a>
         </dd><dt id="bib-Activitypub">[Activitypub]</dt>
