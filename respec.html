@@ -253,6 +253,13 @@ table.th90 th, table.th90 td {
               authors: ["Sarven Capadisli", "Amy Guy"],
               status: "FPWD",
               publisher: "W3C"
+            },
+            "Accept-Post": {
+              title: "The Accept-Post HTTP Header.",
+              href: "http://tools.ietf.org/html/draft-wilde-accept-post",
+              authors: ["J. Arwe", "S. Speicher", "E. Wilde"],
+              status: "Internet Draft",
+              publisher: "IETF"
             }
           }
       };
@@ -686,7 +693,7 @@ table.th90 th, table.th90 td {
         <li>You need to advertise constraints on the type or contents of notifications accepted by a receiver.</li>
       </ul>
 
-      <p>[[LDN]] functionality is divided between <em>senders</em>, <em>receivers</em> and <em>consumers</em>. The endpoint to which notifications are sent is the <em>Inbox</em>. Any resource (a user profile, blog post, document) can advertise its inbox so that it may be discovered through an HTTP Link header or RDF body. To this Inbox, senders make a <code>POST</code> request containing the JSON-LD (or other RDF syntax per [[accept-post]] negotation with the receiver) payload of the notification. The receiver returns a URL from which the notification data can be retrieved, and also adds this URL to a list which is returned upon a <code>GET</code> request to the Inbox. Consumers retreive the Inbox listing as such, and from there the individual notifications, as JSON-LD (optionally content negotiated to another RDF syntax). An obvious type of consumer is a script which displays notifications in a human-readable way.</p>
+      <p>[[LDN]] functionality is divided between <em>senders</em>, <em>receivers</em> and <em>consumers</em>. The endpoint to which notifications are sent is the <em>Inbox</em>. Any resource (a user profile, blog post, document) can advertise its inbox so that it may be discovered through an HTTP Link header or RDF body. To this Inbox, senders make a <code>POST</code> request containing the JSON-LD (or other RDF syntax per [[Accept-Post]] negotation with the receiver) payload of the notification. The receiver returns a URL from which the notification data can be retrieved, and also adds this URL to a list which is returned upon a <code>GET</code> request to the Inbox. Consumers retreive the Inbox listing as such, and from there the individual notifications, as JSON-LD (optionally content negotiated to another RDF syntax). An obvious type of consumer is a script which displays notifications in a human-readable way.</p>
 
       <p>An existing [[LDP]] implementation can serve as an [[LDN]] receiver, by simply advertising any <code>ldp:Container</code> as the Inbox for a resource.</p>
 
