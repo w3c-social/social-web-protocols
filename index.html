@@ -491,27 +491,82 @@ table.th90 th, table.th90 td {
     <section id="content-representation">
       <h3>Content representation</h3>
 
-      <p><strong>[[ActivityStreams2]]</strong> content MUST be served with the Content-Type <code>application/activity+json</code> or, if necessary for JSON-LD extended implementations, <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>. Content MUST be described using the [[ActivityStreams2]] vocabulary, and MAY use other vocabularies in addition or instead, per the [[ActivityStreams2]] extension mechanism.</p>
+      <section id="content-as2">
+        <h4>ActivityStreams 2.0</h4>
 
-      <p>Note: [[ActivityStreams2]] builds upon [[AS1]] and is not fully backwards compatible; <a href="http://www.w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [[AS1]], you should transition to [[ActivityStreams2]].
+        <p><strong>[[ActivityStreams2]]</strong> content MUST be served with the Content-Type <code>application/activity+json</code> or, if necessary for JSON-LD extended implementations, <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>. Content MUST be described using the [[ActivityStreams2]] vocabulary, and MAY use other vocabularies in addition or instead, per the [[ActivityStreams2]] extension mechanism.</p>
 
-      <p><strong>[[Activitypub]]</strong> servers and clients publish, consume and deliver [[ActivityStreams2]] JSON with the content type <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>.</p>
+        <p>Note: [[ActivityStreams2]] builds upon [[AS1]] and is not fully backwards compatible; <a href="http://www.w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [[AS1]], you should transition to [[ActivityStreams2]].</p>
 
-      <p>In order to support [[Activitypub]] clients, content MUST be available as [[ActivityStreams2]] JSON. This could be directly, through content negotiation (when requested with an appropriate <code>Accept</code> header), or via a <code>rel="alternate" type="application/activity+json"</code> link (which could be to a different domain, for third-party services which dynamically generate [[ActivityStreams2]] JSON on behalf of the publisher). </p>
+        <p><strong>[[Activitypub]]</strong> servers and clients publish, consume and deliver [[ActivityStreams2]] JSON with the content type <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>.</p>
 
-      <p><strong>[[LDN]]</strong> consumers MUST be able to consume content in any vocabulary as JSON-LD, and MAY request other RDF syntaxes. Receivers MUST make content available as JSON-LD, and MAY offer other RDF syntaxes. LDN specifies how to represent the relation between an inbox and its contents using the [[LDP]] vocabulary term <code>contains</code>.</p>
+        <p>In order to support [[Activitypub]] clients, content MUST be available as [[ActivityStreams2]] JSON. This could be directly, through content negotiation (when requested with an appropriate <code>Accept</code> header), or via a <code>rel="alternate" type="application/activity+json"</code> link (which could be to a different domain, for third-party services which dynamically generate [[ActivityStreams2]] JSON on behalf of the publisher). </p>
 
-      <div class="issue" title="Inbox interop">
-        <p>Currenty LDN expects inboxes to be represented with <code>ldp:contains</code> and ActivityPub expects them with <code>as:items</code>. This does not affect sending interoperability, but could be confusing for some reading/consuming clients. See <a href="https://github.com/w3c-social/social-web-protocols/issues/36">issue 36</a> and <a href="#inbox-interop">interim interoperability notes</a>.</p>
-      </div>
+      </section>
+
+      <section id="content-jf2">
+        <h4>JF2</h4>
+        <p>This is a simpler form of the parsed microformats2 syntax, and alternative/supplement to [[ActivityStreams2]], being worked on as a WG Note. It is not currently referenced by any other specifications in the WG.</p>
+      </section>
+
+      <section id="content-other">
+        <h4>Other ways of representing content</h4>
+
+        <p><strong>[[LDN]]</strong> is agnostic about the vocabulary of individual notifications, but the syntax MUST be JSON-LD, though consumers MAY request other RDF syntaxes and receivers MAY offer other RDF syntaxes. Thus, notifications may be represented with [[ActivityStreams2]].</p>
+        <p>LDN specifies how to represent the relation between an inbox and its contents using the [[LDP]] vocabulary term <code>contains</code>.</p>
+
+        <div class="issue" title="Inbox interop">
+          <p>Currenty LDN expects inboxes to be represented with <code>ldp:contains</code> and ActivityPub expects them with <code>as:items</code>. This does not affect sending interoperability, but could be confusing for some reading/consuming clients. See <a href="https://github.com/w3c-social/social-web-protocols/issues/36">issue 36</a> and <a href="#inbox-interop">interim interoperability notes</a>.</p>
+        </div>
       
-      <p><strong>[[Micropub]]</strong> update clients MUST consume content as JSON in the parsed mf2 syntax.</p>
+        <p><strong>[[Micropub]]</strong> update clients MUST consume content as JSON in the parsed microformats2 syntax.</p>
+      </section>
 
-      <p><strong>[[jf2]]</strong> is a simpler form of the parsed mf2 syntax, being worked on as a WG Note.</p>
+    </section>
+    <section id="objects">
+      <h3>Objects</h3>
+    
+      <p>All objects MUST have URLs in the <code>id</code> property, which return the properties of an object according to <a href="#content-representation">content representation</a>, and depending on the requester's right to access the content.</p>
+    </section>
+    <section id="streams">
+      <h3>Streams</h3>
+    
+      <p>Each stream MUST have a URL which MUST result in the contents of the stream (according to the requester's right to access, and could be paged), and MAY include additional metadata about the stream (such as title, description).</p>
+      
+      <p>Each <a href="#objects">object</a> in a stream MUST contain at least its URL, which can be dereferenced to retrieve all properties of the object, and MAY contain other properties of the object.</p>
+      
+      <p>One user may publish one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. A user <a href="#profiles">profile</a> MAY include links to multiple streams, which a consumer could follow to read or subscribe to.</p>
+
+      <section id="streams-activitypub">
+        <h4>ActivityPub</h4>
+      
+        <p>[[Activitypub]] specifies four feeds that MUST be accessible from a profile via the following properties:</p>
+
+        <ul>
+          <li><code>inbox</code>: A reference to an [[ActivityStreams2]] collection comprising of all the messages received by the actor.</li>
+          <li><code>outbox</code>: An [[ActivityStreams2]] collection comprising of all the messages produced by the actor.</li>
+          <li><code>following</code>: An [[ActivityStreams2]] collection of the actors that this actor is following.</li>
+          <li><code>followers</code>: An [[ActivityStreams2]] collection of the actors that follow this actor.</li>
+        </ul>
+
+        <p>[[Activitypub]] also specifies a further property for accessing additional feeds, which MAY be included in a profile:</p>
+
+        <ul>
+          <li><code>streams</code>: A list of supplementary Collections which may be of interest. </li>
+        </ul>
+      
+        <p class="issue" title="Streams discovery">ActivityPub discovery mechanism for this to be specified, likely link relations per <a href="https://github.com/w3c-social/activitypub/issues/50">issue 50</a>.</p>
+
+        <p>[[Activitypub]] permits arbitrary streams to be created through specifying special behavior for the server when it receives activities with types <code>Add</code> and <code>Remove</code>. When a server receives such an activity in the <code>outbox</code>, and the <code>target</code> is a Collection, it MUST add the <code>object</code> to the <code>target</code> (for <code>Add</code>) or remove the <code>object</code> from the <code>target</code> (for <code>Remove</code>).</p>
+      </section>
 
       <section id="inbox-interop">
-        <h4>Inbox interop</h4>
+        <h4>Inboxes</h4>
         <p>An inbox is a collection or stream of objects to which new objects may be <a href="#delivery">delivered</a>. The contents of this collection may also be read. Currently LDN consumers and ActivityPub consumers expect different representations for this collection.</p>
+
+        <p class="note" title="Inbox implementations">
+          This section describes a workaround until it can be resolved in the specifications themselves. We particularly welcome implementations of this workaround to help us determine the best solution.
+        </p>
       
         <p>ActivityPub servers wishing to be read by LDN consumers MUST:</p>
         <ul>
@@ -538,40 +593,6 @@ table.th90 th, table.th90 td {
           <li>look for items in the Inbox via the AS2 <code>items</code> property (rather than <code>ldp:contains</code>).</li>
         </ul>
       </section>
-
-    </section>
-    <section id="objects">
-      <h3>Objects</h3>
-    
-      <p>All objects MUST have URLs in the <code>id</code> property, which return the properties of an object according to <a href="#content-representation">content representation</a>, and depending on the requester's right to access the content.</p>
-    </section>
-    <section id="streams">
-      <h3>Streams</h3>
-    
-      <p>Each stream MUST have a URL which MUST result in the contents of the stream (according to the requester's right to access, and could be paged), and MAY include additional metadata about the stream (such as title, description).</p>
-      
-      <p>Each <a href="#objects">object</a> in a stream MUST contain at least its URL, which can be dereferenced to retrieve all properties of the object, and MAY contain other properties of the object.</p>
-      
-      <p>One user may publish one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. A user <a href="#profiles">profile</a> MAY include links to multiple streams, which a consumer could follow to read or subscribe to.</p>
-      
-      <p><strong>[[Activitypub]]</strong> specifies four feeds that MUST be accessible from a profile via the following properties:</p>
-
-      <ul>
-        <li><code>inbox</code>: A reference to an [[ActivityStreams2]] collection comprising of all the messages received by the actor.</li>
-        <li><code>outbox</code>: An [[ActivityStreams2]] collection comprising of all the messages produced by the actor.</li>
-        <li><code>following</code>: An [[ActivityStreams2]] collection of the actors that this actor is following.</li>
-        <li><code>followers</code>: An [[ActivityStreams2]] collection of the actors that follow this actor.</li>
-      </ul>
-
-      <p>[[Activitypub]] also specifies a further property for accessing additional feeds, which MAY be included in a profile:</p>
-
-      <ul>
-        <li><code>streams</code>: A list of supplementary Collections which may be of interest. </li>
-      </ul>
-      
-      <p class="issue">Activitypub discovery mechanism for this to be specified, likely link relations per <a href="https://github.com/w3c-social/activitypub/issues/50">issue 50</a>.</p>
-
-      <p>[[Activitypub]] specifies special behavior for activities with types <code>Add</code> and <code>Remove</code>. When a server receives such an activity in the <code>outbox</code>, and the <code>target</code> is a Collection, it MUST add the <code>object</code> to the <code>target</code> (for <code>Add</code>) or remove the <code>object</code> from the <code>target</code> (for <code>Remove</code>).
 
     </section>
   </section>
