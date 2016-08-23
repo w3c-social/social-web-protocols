@@ -634,19 +634,14 @@ table.th90 th, table.th90 td {
 
     <section id="subscribing-activitypub">
       <h3>ActivityPub</h3>
-      <p><strong>[[Activitypub]]</strong> servers distribute the activities of an actor by sending POST requests containing the activities as JSON payloads to the <code>inbox</code> of all actors in an actor's <code>Followers</code> collection. For subscription requests, special behavior is defined for servers when an [[ActivityStreams2]] <code>Follow</code> activity is appears in an actor's <code>outbox</code> or <code>inbox</code>.</p> 
+      <p>[[Activitypub]] servers maintain a <em>Followers</em> collection for all users. This collection may be directly addressed, or addressed automatically or by default, in the <code>to</code>, <code>cc</code> or <code>bcc</code> field of any Activity, and as a result, servers <a href="#delivery">deliver</a> the Activity to the inbox of each user in the collection.</p>
+      <p>Subscription requests (requests to be added to this collection) are made by the subscriber's server <code>POST</code>ing a <code>Follow</code> Activity to the target's inbox. The target server then SHOULD add the subscriber to the target's Followers collection. Exceptions may be made if, for example, the target has blocked the subscriber.</p>
+      <p>Simultaneously, the subscriber's server (upon receipt of the <code>Follow</code> in their <em>outbox</em>) MAY add the target to the subscriber's <em>Following</em> collection.</p>
+
+      <p>It works, in conjunction with <a href="#delivery">delivery</a>, when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
 
       <ul>
-        <li>For <code>outbox</code> (an outgoing subscription request): The activity is <a href="#delivery">delivered</a> as usual to the <code>object</code>'s <code>inbox</code>, and additionally the <code>object</code> is added to the actor's <code>Following</code> collection.</li>
-        <li>For <code>inbox</code> (an incoming subscription request): The recipient's (the <code>object</code> of the <code>Follow</code> activity) server adds the <code>actor</code> of the <code>Follow</code> activity to the recipient's <code>Followers</code> collection, to which all new activities of the recipient are subsequently delivered.</li>
-      </ul>
-      <p>It works when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
-
-      <ul>
-        <li>The objects and streams being subscribed to are described with [[ActivityStreams2]].</li>
         <li>The subscriber wants to request updates from a specific actor (rather than objects, streams or threads, see <a href="https://github.com/w3c-social/activitypub/issues/80">issue 80</a>.</li>
-        <li>You need to send or receive the whole requested resource over the wire (ie. a 'fat ping').</li>
-        <li>You need to send or receive JSON payloads only.</li>
         <li>Subscriptions requests and fulfillment are handled server-side.</li>
         <li>The publisher is aware of who has subscribed; this is a <em>push</em> mechanism.</li>
       </ul>
