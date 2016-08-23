@@ -260,6 +260,13 @@ table.th90 th, table.th90 td {
               authors: ["J. Arwe", "S. Speicher", "E. Wilde"],
               status: "Internet Draft",
               publisher: "IETF"
+            },
+            "PubSubHubbub": {
+              title: "PubSubHubbub",
+              href: "https://github.com/w3c/pubshubhubbub/",
+              authors: ["Julien Genestoux"],
+              status: "ED",
+              publisher: "W3C"
             }
           }
       };
@@ -321,14 +328,17 @@ table.th90 th, table.th90 td {
         <dt>JF2 [<a href="http://dissolve.github.io/jf2/">SWWG WD (Note)</a>]</dt>
         <dd>A JSON serialization for <a href="#reading">representing</a> objects and feeds of social data.</dd>
 
-        <dt>Linked Data Notifications [<a href="https://linkedresearch.org/ldn/">SWWG ED</a>]</dt>
+        <dt>Linked Data Notifications [<a href="https://linkedresearch.org/ldn/">SWWG WD</a>]</dt>
         <dd>An RDF-based protocol for <a href="#delivery">delivery</a>.</dd>
 
-        <dt>Micropub [<a href="http://www.w3.org/TR/micropub">SWWG WD</a>]</dt>
+        <dt>Micropub [<a href="http://www.w3.org/TR/micropub">SWWG CR</a>]</dt>
         <dd>A form-encoding-based API for <a href="#creating-content">creating</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</dd>
 
-        <dt>Post Type Discovery [<a href="https://tantek.github.io/post-type-discovery/">ED</a>]</dt>
+        <dt>Post Type Discovery [<a href="https://tantek.github.io/post-type-discovery/">SWWG WD</a>]</dt>
         <dd>A protocol to bridge implicitly typed posts and explicitly typed posts.</dd>
+
+        <dt>PubSubHubbub [<a href="https://github.com/w3c/pubsubhubbub">SWWG ED</a>]</dt>
+        <dd>A protocol for <a href="#subscribing">subscription</a> to any resource and <a href="#delivery">delivery</a> of updates about it.</dd>
 
         <dt>Webmention [<a href="http://www.w3.org/TR/webmention">SWWG CR</a>]</dt>
         <dd>A form-encoding-based protocol for <a href="#delivery">delivery</a>.</dd>
@@ -442,6 +452,18 @@ table.th90 th, table.th90 td {
           <td></td>
           <td></td>
           <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td style="text-align:left;">PubSubHubbub<br></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>X</td>
           <td></td>
           <td></td>
         </tr>
@@ -607,8 +629,6 @@ table.th90 th, table.th90 td {
     <h2>Subscribing</h2>
 
     <p>An agent (client or server) may <em>ask</em> to be notified of changes to a content object (eg. edits, new replies) or stream of content (eg. objects added or removed from a particular stream). This is <em>subscribing</em>. A server may also receive notifications of changes to content it has <em>not subscribed</em> to: see <a href="#delivery">delivery</a>.</p>
-    
-    <p class="issue">Working group has yet to discuss this in depth, subject to significant change.</p>
 
     <p><strong>[[Activitypub]]</strong> servers distribute the activities of an actor by sending POST requests containing the activities as JSON payloads to the <code>inbox</code> of all actors in an actor's <code>Followers</code> collection. For subscription requests, special behavior is defined for servers when an [[ActivityStreams2]] <code>Follow</code> activity is appears in an actor's <code>outbox</code> or <code>inbox</code>.</p> 
 
@@ -627,7 +647,9 @@ table.th90 th, table.th90 td {
       <li>The publisher is aware of who has subscribed; this is a <em>push</em> mechanism.</li>
     </ul>
 
-    <p><strong>[[Solid]]</strong> uses websockets to allow client-side applications to subscribe to changes in objects ([[LDP]] Resources) and streams ([[LDP]] Containers). The websocket endpoint is advertised in the <code>Updates-Via</code> HTTP Link Header. The subscriber sends the keyword <code>sub</code> followed by an empty space and then the URI of the resource, to the target’s websockets URI. The target’s server sends a websockets message containing the keyword <code>pub</code>, followed by an empty space and the URI of the resource that has changed, whenever there is a change. It works when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
+    <p><strong>[[PubSubHubbub]]</strong>: The subscriber discovers the target's hub, and sends a form-encoded <code>POST</code> request containing values for <code>hub.mode</code> ("subscribe"), <code>hub.topic</code> and <code>hub.callback</code>. The hub verifies this request. When the target posts new content, the target's server sends a form-encoded <code>POST</code> to their hub with values for <code>hub.mode</code> ("publish") and <code>hub.url</code> and the hub checks the URL for new content and subsequently <code>POST</code>s updates to the subscriber's callback URL.</p>
+    
+    <p><strong>[[Solid]]</strong> uses websockets to allow client-side applications to subscribe to changes in objects ([[LDP]] Resources) and streams ([[LDP]] Containers). The websocket endpoint is advertised in the <code>Updates-Via</code> HTTP Link Header. The subscriber sends the keyword <code>sub</code> followed by an empty space and then the URI of the resource, to the target's websockets URI. The target's server sends a websockets message containing the keyword <code>pub</code>, followed by an empty space and the URI of the resource that has changed, whenever there is a change. It works when the publisher and subscriber are on different domains, thus serving as a federation protocol. This is a suitable subscription mechanism when:</p>
  
     <ul>
       <li>You send live updates over websockets.</li>
@@ -650,8 +672,7 @@ table.th90 th, table.th90 td {
     <p>Other options yet to be debated...</p>
     
     <ul>
-      <li><strong>Web Push Protocol</strong>: The subscriber follows the <code>urn:ietf:params:push</code> link relation to the target’s Push Service, and then <a href="https://tools.ietf.org/html/draft-ietf-webpush-protocol-02#section-4">Subscribes for Push Messages</a></li>
-      <li><strong>PubSubHubbub</strong>: The subscriber discovers the target’s hub, and sends a form-encoded <code>POST</code> request containing values for <code>hub.mode</code> (“subscribe”), <code>hub.topic</code> and <code>hub.callback</code>. When the target posts new content, the target’s server sends a form-encoded <code>POST</code> to the hub with values for <code>hub.mode</code> (“publish”) and <code>hub.url</code> and the hub checks the URL for new content and <code>POST</code>s updates to the subscriber’s callback URL. (<em>See <a href="http://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html">PuSH 0.4</a> and <a href="http://indiewebcamp.com/How_to_publish_and_consume_PubSubHubbub">How To Publish And Consume PuSH</a></em>)</li>
+      <li><strong>Web Push Protocol</strong>: The subscriber follows the <code>urn:ietf:params:push</code> link relation to the target's Push Service, and then <a href="https://tools.ietf.org/html/draft-ietf-webpush-protocol-02#section-4">Subscribes for Push Messages</a></li>
       <li>Pull, ie. just reading an [[ActivityStreams2]] feed.</li>
     </ul>
 
@@ -722,6 +743,11 @@ table.th90 th, table.th90 td {
         <li>Updating any other collections upon receipt of <code>Add</code> and <code>Remove</code> activities.</li>
       </ul>
 
+    </section>
+
+    <section id="delivery-push">
+      <h5>PubSubHubbub</h5>
+      <p><strong>[[PubSubHubbub]]</strong> <em>targets</em> deliver content to their <em>hub</em>, and <em>hubs</em> to their <em>subscribers</em> using HTTP <code>POST</code> requests. The body of the request is left to the discretion of the sender in both cases. This may be refined as the spec develops.</p>
     </section>
 
     <section id="delivery-interop">
@@ -823,10 +849,10 @@ table.th90 th, table.th90 td {
       <section id="relationships">
         <h3>Relationships</h3>
       
-        <p>Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user ‘friending’ another triggers a subscription request from the first user’s server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStremas 2 syntax and MAY (and are likely to) use extension vocabularies as needed.</p>
+        <p>Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user ‘friending' another triggers a subscription request from the first user's server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStremas 2 syntax and MAY (and are likely to) use extension vocabularies as needed.</p>
         
         <ul>
-          <li><strong>Activitypub:</strong> When a server receives a <code>Follow</code> Activity in its <code>inbox</code>, the subject is added to a <code>Followers</code> <code>Collection</code>, which is discoverable from the subject’s profile.</li>
+          <li><strong>Activitypub:</strong> When a server receives a <code>Follow</code> Activity in its <code>inbox</code>, the subject is added to a <code>Followers</code> <code>Collection</code>, which is discoverable from the subject's profile.</li>
         </ul>
       </section>
       
