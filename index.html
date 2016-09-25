@@ -167,7 +167,7 @@ table.th90 th, table.th90 td {
 <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
 <script class='remove'>
       var respecConfig = {
-          specStatus: "ED",
+          specStatus: "WD",
           shortName:  "social-web-protocols",
           editors: [
                 {   name:       "Amy Guy",
@@ -733,6 +733,13 @@ table.th90 th, table.th90 td {
     <p>A user or application may wish to push a notification to another user, for example to send a message or some new information; because they have linked to (replied, liked, bookmarked, reposted, etc) their content; because they have linked to (tagged, addressed) the user directly; to make the recipient aware of a change in state of some document or resource on the Web.</p>
 
     <p class="note"><em>Note: we need to leave it open for users to refuse content they have not explicitly subscribed to, ie. nothing else should rely on implementation of Delivery.</em></p>
+
+    <section id="targeting-and-discovery">
+      <h3>Targeting and discovery</h3>
+      <p>The target of a notification is usually the addressee or the subject, as referenced by a URL. Once you have determined your target, you need to discover where to send the notification for that particular target. Do this by fetching the target URL and looking for a link to an endpoint which will accept the type of notification you want to send.</p>
+      <p>Bear in mind that many potential targets will <em>not</em> be configured to receive notifications at all. To avoid overloading unsuspecting servers with discovery-related requests, your application should employ a "back-off" strategy when carrying out discovery multiple times to targets on the same domin. This could involve increasing the period of time between subsequent requests, or caching unsuccessful discovery attempts so those domains can be avoided in future. You may wish to send a <code>User-Agent</code> header with a reference to the notification mechanism you are using so that recipient servers can find out more about the purpose of your requests.</p>
+      <p>Your application should also respect relevant cache control and retry headers returned by the target server.</p>
+    </section>
 
     <section id="delivery-webmention">
       <h3>Webmention</h3>
