@@ -262,9 +262,9 @@ table.th90 th, table.th90 td {
               status: "Internet Draft",
               publisher: "IETF"
             },
-            "PubSub": {
-              title: "PubSub",
-              href: "https://github.com/w3c/pubshubhubbub/",
+            "WebSub": {
+              title: "WebSub",
+              href: "https://www.w3.org/TR/websub",
               authors: ["Julien Genestoux"],
               status: "ED",
               publisher: "W3C"
@@ -460,7 +460,7 @@ table.th90 th, table.th90 td {
           <td></td>
         </tr>
         <tr>
-          <td style="text-align:left;">PubSub<br></td>
+          <td style="text-align:left;">WebSub<br></td>
           <td></td>
           <td></td>
           <td></td>
@@ -683,7 +683,7 @@ table.th90 th, table.th90 td {
     </section>
 
     <section id="subscribing-push">
-      <h3>PubSub</h3>
+      <h3>WebSub</h3>
       <p>The subscriber discovers the target's hub, and sends a form-encoded <code>POST</code> request containing values for <code>hub.mode</code> ("subscribe"), <code>hub.topic</code> and <code>hub.callback</code>. The hub verifies this request. When the target posts new content, the target's server sends a form-encoded <code>POST</code> to their hub with values for <code>hub.mode</code> ("publish") and <code>hub.url</code> and the hub checks the URL for new content and subsequently <a href="#delivery">delivers</a> updates to the subscriber's callback URL.</p>
     </section>
     
@@ -805,8 +805,8 @@ table.th90 th, table.th90 td {
     </section>
 
     <section id="delivery-push">
-      <h5>PubSub</h5>
-      <p><strong>[[PubSub]]</strong> <em>targets</em> deliver content to their <em>hub</em>, and <em>hubs</em> to their <em>subscribers</em> using HTTP <code>POST</code> requests. The body of the request is left to the discretion of the sender in both cases. This may be refined as the spec develops.</p>
+      <h5>WebSub</h5>
+      <p><strong>[[WebSub]]</strong> <em>targets</em> deliver content to their <em>hub</em>, and <em>hubs</em> to their <em>subscribers</em> using HTTP <code>POST</code> requests. The body of the request is left to the discretion of the sender in both cases. This may be refined as the spec develops.</p>
     </section>
 
     <section id="delivery-interop">
@@ -939,7 +939,7 @@ table.th90 th, table.th90 td {
       <section id="changes-since-2016-10-12">
         <h3>Changes from 12 October 2016 WD to this version</h3>
         <ul>
-          <li>Updated PubSub since it was published as FPWD.</li>
+          <li>Updated WebSub since it was published as FPWD.</li>
         </ul>
       </section>
       <section id="changes-since-2016-08-23">
