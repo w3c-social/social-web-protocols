@@ -502,6 +502,7 @@ table.th90 th, table.th90 td {
       <ul>
         <li><strong>ActivityPub and ActivityStreams 2.0</strong>: ActivityPub uses the AS2 syntax and vocabulary for the payload of all requests.</li>
         <li><strong>ActivityPub and Linked Data Notifications</strong>: ActivityPub specialises LDN as the mechanism for delivery of notifications by requiring that payloads are AS2. <em>Inbox</em> endpoint discovery is the same. LDN receivers can understand requests from ActivityPub federated servers, but ActivityPub servers can't necessarily understand requests from generic LDN senders.</li>
+        <li><strong>ActivityStreams 2.0 and Linked Data Notifications</strong>: LDN MAY use the AS2 syntax and vocabulary for the payload of notification requests.</li>
         <li><strong>Webmention and Linked Data Notifications</strong>: Overlapping functionality that needs to be bridged due to different content types of requests. An LDN request MAY contain the equivalent data as a Webmention request, but not necessarily vice versa.</li>
         <li><strong>ActivityPub and Micropub</strong>: Overlapping functionality that needs to be bridged due to different vocabularies and possibly different content types of requests. Micropub specifies client-to-server interactions for content creation; ActivityPub specifies this, <em>plus</em> side-effects and server-to-server interactions.</li>
         <li><strong>Micropub and Webmention</strong>: Are complementary but independent. Content could be created with Micropub, then Webmention discovery can be commenced on any URLs in the content.</li>
@@ -521,7 +522,7 @@ table.th90 th, table.th90 td {
 
       <p><strong>[[ActivityStreams2]]</strong> is the recommended syntax and vocabulary for social data. ActivityStreams 2.0 represents content and interactions as <em>Objects</em> and <em>Activities</em>. The ActivityStreams vocabulary defines a finite set of common Object and Activity types and properties, as well as an extension mechanism for applications which want to expand on or specialise these.</p>
 
-      <p>ActivityStreams 2.0 content MUST be served with the Content-Type <code>application/activity+json</code> or for JSON-LD extended implementations, <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>.</p>
+      <p>ActivityStreams 2.0 content MUST be served with the Content-Type <code>application/activity+json</code> or for JSON-LD extended implementations, <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>. Consumers should recognise both of these Content-Types as ActivityStreams 2.0.</p>
 
       <p>In order to claim ActivityStreams 2.0 conformance, a data publisher MUST use ActivityStreams 2.0 vocabulary terms where available, and <em>only</em> use other vocabularies <em>in addition</em>, or where no appropriate ActivityStreams 2.0 term exists.</p>
 
