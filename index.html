@@ -168,6 +168,7 @@ table.th90 th, table.th90 td {
 <script class='remove'>
       var respecConfig = {
           specStatus: "WD",
+          publishDate: "2017-04-12",
           shortName:  "social-web-protocols",
           editors: [
                 {   name:       "Amy Guy",
@@ -307,43 +308,49 @@ table.th90 th, table.th90 td {
     <section id="contents">
       <h3>Contents</h3>
     
-      <p>This is an overview of the current state of specifications of the Social Web Working Group. This document also describes Social Web Working Group specifications in context of W3C recommendations and relevant drafts from other communities outside of the Social Web Working Group. As many of these specs are under ongoing development, this document is subject to change alongside them.</p>
+      <p>This is an overview of the current state of specifications of the Social Web Working Group. This document also describes Social Web Working Group specifications in context of other W3C recommendations and relevant drafts from other communities outside of the W3C. As many of these specs are under ongoing development, this document is subject to change alongside them.</p>
 
       <p>You might also want to take a look at the Working Group's <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a> to understand the division of concerns.</p>
       
-      <p>Due to the diversity of viable technical approaches proposed within the Working Group, several specifications on the recommendation track provide overlapping functionality through differing mechanisms. Thus this document exists to provide informative guidance on how and when to implement the various specifications, as well as normative instructions to implement bridges between recommendations with overlapping functionality. This is currently a recommendation-track document, but may finally be published as a Note.</p>
+      <p>Due to the diversity of viable technical approaches proposed within the Working Group, several specifications on the recommendation track provide overlapping functionality through differing mechanisms. This document exists to provide informative guidance on how and when to implement the various specifications, as well as guidance to implement bridges between recommendations with overlapping functionality.</p>
 
     </section>
+    <section id="swwg-specs">
+      <h3>Social Web Working Group Specifications</h3>
+
+      <dl>
+
+        <dt>ActivityPub (<a href="http://www.w3.org/TR/activitypub">Candidate Recommendation</a>)</dt>
+        <dd>JSON-based APIs for <a href="#reading">reading</a>, <a href="#creating-content">creating</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</dd>
+
+        <dt>ActivityStreams 2.0 (AS2) (<a href="http://www.w3.org/TR/activitystreams-core">Core</a>, Candidate Recommendation, <a href="http://www.w3.org/TR/activitystreams-vocabulary">Vocabularly</a>, Candidate Recommendation)</dt>
+        <dd>The syntax and vocabulary for <a href="#reading">representing</a> social activities, actors, objects, and collections in JSON and RDF.</dd>
+
+        <dt>Linked Data Notifications (<a href="https://linkedresearch.org/ldn/">Proposed Recommendation</a>)</dt>
+        <dd>An RDF-based protocol for <a href="#delivery">delivery</a>.</dd>
+
+        <dt>Micropub (<a href="http://www.w3.org/TR/micropub">Candidate Recommendation</a>)</dt>
+        <dd>A form-encoding-based API for <a href="#creating-content">creating</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</dd>
+
+        <dt>WebSub (<a href="https://www.w3.org/TR/websub">Candidate Recommendation</a>)</dt>
+        <dd>A protocol for <a href="#subscribing">subscription</a> to any resource and <a href="#delivery">delivery</a> of updates about it.</dd>
+
+        <dt>Webmention (<a href="http://www.w3.org/TR/webmention">Recommendation</a>)</dt>
+        <dd>A form-encoding-based protocol for <a href="#delivery">delivery</a>.</dd>
+      </dl>
+      
+    </section>
+
     <section id="swwg-drafts">
       <h3>Social Web Working Group Drafts</h3>
 
       <dl>
-
-        <dt>ActivityPub [<a href="http://www.w3.org/TR/activitypub">SWWG WD</a>]</dt>
-        <dd>JSON-based APIs for <a href="#reading">reading</a>, <a href="#creating-content">creating</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</dd>
-
-        <dt>ActivityStreams 2.0 (AS2) [<a href="http://www.w3.org/TR/activitystreams-core">SWWG CR Core</a>, <a href="http://www.w3.org/TR/activitystreams-vocabulary">SWWG CR Vocab</a>]</dt>
-        <dd>The syntax and vocabulary for <a href="#reading">representing</a> social activities, actors, objects, and collections in JSON and RDF.</dd>
-
-        <dt>JF2 [<a href="http://dissolve.github.io/jf2/">SWWG WD (Note)</a>]</dt>
-        <dd>A JSON serialization for <a href="#reading">representing</a> objects and feeds of social data.</dd>
-
-        <dt>Linked Data Notifications [<a href="https://linkedresearch.org/ldn/">SWWG CR</a>]</dt>
-        <dd>An RDF-based protocol for <a href="#delivery">delivery</a>.</dd>
-
-        <dt>Micropub [<a href="http://www.w3.org/TR/micropub">SWWG CR</a>]</dt>
-        <dd>A form-encoding-based API for <a href="#creating-content">creating</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</dd>
-
-        <dt>Post Type Discovery [<a href="https://tantek.github.io/post-type-discovery/">SWWG WD</a>]</dt>
-        <dd>A protocol to bridge implicitly typed posts and explicitly typed posts.</dd>
-
-        <dt>PubSub [<a href="https://www.w3.org/TR/pubsub">SWWG WD</a>]</dt>
-        <dd>A protocol for <a href="#subscribing">subscription</a> to any resource and <a href="#delivery">delivery</a> of updates about it.</dd>
-
-        <dt>Webmention [<a href="http://www.w3.org/TR/webmention">SWWG PR</a>]</dt>
-        <dd>A form-encoding-based protocol for <a href="#delivery">delivery</a>.</dd>
+        <dt>JF2 (<a href="https://www.w3.org/TR/jf2/">First Public Working Draft (Note)</a>)</dt>
+        <dd>An alternative JSON serialization for <a href="#reading">representing</a> objects and feeds of social data.</dd>
+        
+        <dt>Post Type Discovery (<a href="https://www.w3.org/TR/post-type-discovery/">Working Draft</a>)</dt>
+        <dd>A protocol to bridge implicitly typed objects and explicitly typed objects.</dd>
       </dl>
-      
     </section>
 
     <section id="other-specs">
@@ -359,9 +366,6 @@ table.th90 th, table.th90 td {
 
         <dt>Linked Data Platform [<a href="https://www.w3.org/TR/ldp/">LDP REC</a>]</dt>
         <dd>A protocol for reading and writing Linked Data.</dd>
-
-        <dt>Solid [<a href="http://github.com/solid/solid-spec">ED</a>] (External with SWWG representation)</dt>
-        <dd>Extensions to LDP for use in social applications</dd>
 
       </dl>
     
