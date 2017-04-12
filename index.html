@@ -192,7 +192,7 @@ table.th90 th, table.th90 td {
               authors:  [
                 "Aaron Parecki"
               ],
-              status:   "CR",
+              status:   "REC",
               publisher:  "W3C"
             },
             "ActivityStreams2": {
@@ -201,7 +201,7 @@ table.th90 th, table.th90 td {
               authors: [
                 "James Snell", "Evan Prodromou"
               ],
-              status: "WD",
+              status: "CR",
               publisher: "W3C"
             },
             "AS1": {
@@ -238,21 +238,21 @@ table.th90 th, table.th90 td {
               title: "Web Annotation Protocol",
               href: "https://www.w3.org/TR/annotation-protocol/",
               authors: ["Rob Sanderson"],
-              status: "WD",
+              status: "PR",
               publisher: "W3C"
             },
             "AnnotationVocab": {
               title: "Web Annotation Vocabulary",
               href: "https://www.w3.org/TR/annotation-vocab/",
               authors: ["Robert Sanderson", "Paolo Ciccarese", "Benjamin Young"],
-              status: "WD",
+              status: "PR",
               publisher: "W3C"
             },
             "LDN": {
               title: "Linked Data Notifications",
               href: "https://www.w3.org/tr/ldn/",
               authors: ["Sarven Capadisli", "Amy Guy"],
-              status: "FPWD",
+              status: "PR",
               publisher: "W3C"
             },
             "Accept-Post": {
@@ -268,6 +268,13 @@ table.th90 th, table.th90 td {
               authors: ["Julien Genestoux"],
               status: "ED",
               publisher: "W3C"
+            },
+            "mf2parsing": {
+              title: "Microformats2 Parsing Algorithm",
+              href: "http://microformats.org/wiki/microformats2-parsing",
+              authors: ["Tantek Çelik"],
+              status: "Living specification",
+              publisher: "microformats.org"
             }
           }
       };
@@ -512,35 +519,30 @@ table.th90 th, table.th90 td {
     <section id="content-representation">
       <h3>Content representation</h3>
 
-      <section id="content-as2">
-        <h4>ActivityStreams 2.0</h4>
+      <p><strong>[[ActivityStreams2]]</strong> is the recommended syntax and vocabulary for social data. ActivityStreams 2.0 represents content and interactions as <em>Objects</em> and <em>Activities</em>. The ActivityStreams vocabulary defines a finite set of common Object and Activity types and properties, as well as an extension mechanism for applications which want to expand on or specialise these.</p>
 
-        <p><strong>[[ActivityStreams2]]</strong> content MUST be served with the Content-Type <code>application/activity+json</code> or, if necessary for JSON-LD extended implementations, <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>. Content MUST be described using the [[ActivityStreams2]] vocabulary, and MAY use other vocabularies in addition or instead, per the [[ActivityStreams2]] extension mechanism.</p>
+      <p>ActivityStreams 2.0 content MUST be served with the Content-Type <code>application/activity+json</code> or for JSON-LD extended implementations, <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>.</p>
 
-        <p>Note: [[ActivityStreams2]] builds upon [[AS1]] and is not fully backwards compatible; <a href="http://www.w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [[AS1]], you should transition to [[ActivityStreams2]].</p>
+      <p>In order to claim ActivityStreams 2.0 conformance, a data publisher MUST use ActivityStreams 2.0 vocabulary terms where available, and <em>only</em> use other vocabularies <em>in addition</em>, or where no appropriate ActivityStreams 2.0 term exists.</p>
 
-        <p><strong>[[Activitypub]]</strong> servers and clients publish, consume and deliver [[ActivityStreams2]] JSON with the content type <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>.</p>
+      <p class="note" title="ActivityStreams 1.0">ActivityStreams 2.0 builds upon [[AS1]] and is not fully backwards compatible; <a href="http://www.w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [[AS1]], you should transition to ActivityStreams 2.0.</p>
 
-        <p>In order to support [[Activitypub]] clients, content MUST be available as [[ActivityStreams2]] JSON. This could be directly, through content negotiation (when requested with an appropriate <code>Accept</code> header), or via a <code>rel="alternate" type="application/activity+json"</code> link (which could be to a different domain, for third-party services which dynamically generate [[ActivityStreams2]] JSON on behalf of the publisher). </p>
+      <p><strong>[[Activitypub]]</strong> uses ActivityStreams 2.0 for all data, and also <em>extends</em> ActivityStreams 2.0 with additional terms. Thus, ActivityPub requires requests have the Content-Type <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>.</p>
 
-      </section>
-
-      <section id="content-jf2">
-        <h4>JF2</h4>
-        <p>This is a simpler form of the parsed microformats2 syntax, and alternative/supplement to [[ActivityStreams2]], being worked on as a WG Note. It is not currently referenced by any other specifications in the WG.</p>
-      </section>
+      <p>To make content available as ActivityStreams 2.0 JSON, one could do so directly when requested with an appropriate <code>Accept</code> header (eg. <code>application/activity+json</code> or <code>application/ld+json</code>), or indirectly via a <code>rel="alternate" type="application/activity+json"</code> link . This link could be to a different domain, for third-party services which dynamically generate ActivityStreams 2.0 JSON on behalf of a publisher.</p>
 
       <section id="content-other">
         <h4>Other ways of representing content</h4>
 
-        <p><strong>[[LDN]]</strong> is agnostic about the vocabulary of individual notifications, but the syntax MUST be JSON-LD, though consumers MAY request other RDF syntaxes and receivers MAY offer other RDF syntaxes. Thus, notifications may be represented with [[ActivityStreams2]].</p>
-        <p>LDN specifies how to represent the relation between an inbox and its contents using the [[LDP]] vocabulary term <code>contains</code>.</p>
+        <p>If you don't like ActivityStreams 2.0, there are still some specifications you can use for particular tasks.</p>
 
-        <div class="issue" title="Inbox interop">
-          <p>Currenty LDN expects inboxes to be represented with <code>ldp:contains</code> and ActivityPub expects them with <code>as:items</code>. This does not affect sending interoperability, but could be confusing for some reading/consuming clients. See <a href="https://github.com/w3c-social/social-web-protocols/issues/36">issue 36</a> and <a href="#inbox-interop">interim interoperability notes</a>.</p>
-        </div>
+        <p><strong>[[LDN]]</strong> notification contents can use any vocabulary, so long as the data is available in JSON-LD. Thus notifications MAY use ActivityStreams 2.0, but don't have to.</p>
       
-        <p><strong>[[Micropub]]</strong> update clients MUST consume content as JSON in the parsed microformats2 syntax.</p>
+        <p><strong>[[Micropub]]</strong> clients which expect to read data (this would usually be clients for <em>updating</em>) are expecting it as JSON in the <a href="http://microformats.org/wiki/microformats2-parsing">parsed microformats2 syntax</a>.</p>
+
+        <p><strong>[[WebSub]]</strong> is agnostic as to the Content-Type used by publishers; hubs are expected to deliver the new content to subscribers as-is produced by the publisher, at the publisher's <code>topic</code> URL.</p>
+
+        <p class="note" title="JF2">JF2 is an alternative syntax and vocabulary to ActivityStreams 2.0, based on a simplification of the microformats2 parsing algorithm, which may be published as a Working Group Note. It is not currently referenced by any other specifications in the WG.</p>
       </section>
 
     </section>
