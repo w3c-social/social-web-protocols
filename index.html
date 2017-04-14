@@ -579,8 +579,6 @@ table.th90 th, table.th90 td {
           <li><code>streams</code>: A list of supplementary Collections which may be of interest. </li>
         </ul>
       
-        <p class="issue" title="Streams discovery">ActivityPub discovery mechanism for this to be specified, likely link relations per <a href="https://github.com/w3c-social/activitypub/issues/50">issue 50</a>.</p>
-
         <p>[[Activitypub]] permits arbitrary streams to be created through specifying special behavior for the server when it receives activities with types <code>Add</code> and <code>Remove</code>. When a server receives such an activity in the <code>outbox</code>, and the <code>target</code> is a Collection, it MUST add the <code>object</code> to the <code>target</code> (for <code>Add</code>) or remove the <code>object</code> from the <code>target</code> (for <code>Remove</code>).</p>
       </section>
 
