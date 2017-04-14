@@ -564,18 +564,19 @@ table.th90 th, table.th90 td {
       <section id="streams-activitypub">
         <h4>ActivityPub</h4>
       
-        <p>[[Activitypub]] specifies four feeds that MUST be accessible from a profile via the following properties:</p>
+        <p>[[Activitypub]] specifies two feeds that MUST be accessible from a profile via the following properties:</p>
 
         <ul>
-          <li><code>inbox</code>: A reference to an [[ActivityStreams2]] collection comprising of all the messages received by the actor.</li>
-          <li><code>outbox</code>: An [[ActivityStreams2]] collection comprising of all the messages produced by the actor.</li>
-          <li><code>following</code>: An [[ActivityStreams2]] collection of the actors that this actor is following.</li>
-          <li><code>followers</code>: An [[ActivityStreams2]] collection of the actors that follow this actor.</li>
+          <li><code>inbox</code>: A reference to an [[ActivityStreams2]] collection comprising all the objects received by the actor.</li>
+          <li><code>outbox</code>: An [[ActivityStreams2]] collection comprising all the objects produced by the actor.</li>
         </ul>
 
-        <p>[[Activitypub]] also specifies a further property for accessing additional feeds, which MAY be included in a profile:</p>
+        <p>[[Activitypub]] also specifies four further properties for accessing additional feeds, which SHOULD or MAY be included in a profile:</p>
 
         <ul>
+          <li><code>following</code>: An [[ActivityStreams2]] collection of the actors that this actor is following.</li>
+          <li><code>followers</code>: An [[ActivityStreams2]] collection of the actors that follow this actor
+          <li><code>likes</code>: An [[ActivityStreams2]] collection of every <code>object</code> from all of the actor's <code>Like</code> activities (generated automatically by the server).</li>
           <li><code>streams</code>: A list of supplementary Collections which may be of interest. </li>
         </ul>
       
