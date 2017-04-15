@@ -670,8 +670,6 @@ table.th90 th, table.th90 td {
       <p class="issue">ActivityPub currently only supports updates of a whole object at once. <a href="https://github.com/w3c-social/activitypub/issues/85">Issue 85 for partial updates</a>.</p>
 
       <p><strong>[[Micropub]]</strong> clients perform updates, as either form-encoded or JSON POST requests, using the <code>mp-action=update</code> parameter, as well as a <code>replace</code>, <code>add</code> or <code>delete</code> property containing the updates to make, to the Micropub endpoint (discovery described in <a href="#publishing">publishing</a>). <code>replace</code> replaces all values of the specified property. If the property does not exist already, it is created. <code>add</code> adds new values to the specified property without changing the existing ones. If the property does not exist already, it is created. <code>delete</code> removes the specified property; you can also remove properties by value by specifying the value.</p>
-
-      <p><strong>[[LDP]]</strong> clients perform replacement-style updates by sending an HTTP PUT request to the URL of the object to be updated. Partial-style updates are performed with an HTTP PATCH request.</p>
       
 
     </section>
@@ -683,8 +681,6 @@ table.th90 th, table.th90 td {
       <p><strong>[[Activitypub]]</strong> clients delete an object by sending an HTTP POST request containing an [[ActivityStreams2]] <code>Delete</code> activity to the <code>outbox</code> of the authenticated user. Servers MUST <em>replace</em> the <code>object</code> of this activity with a tombstone and return a <code>410 Gone</code> status code, or just return a <code>404 Not Found</code>, from its URL.</p>
 
       <p><strong>[[Micropub]]</strong> delete requests are two key-value pairs, in form-encoded or JSON: <code>mp-action</code>: <code>delete</code> and <code>url</code>: <code>url-to-be-deleted</code>, sent to the Micropub endpoint (discovery described in <a href="#publishing">publishing</a>).</p>
-
-      <p><strong>[[LDP]]</strong> deletes are performed by sending an HTTP DELETE request to the URL of the object to be deleted.</p>
       
   </section>
 </section>
