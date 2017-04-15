@@ -306,7 +306,7 @@ table.th90 th, table.th90 td {
     
     <ul>
       <li>how to <a href="#reading">expose/consume</a> social content (reading).</li>
-      <li><a href="#content-representation">what to post</a>, and where to, in order to <a href="#creating-content">create</a>, <a href="#updating">update</a> or <a href="#deleting">delete</a> content.</li>
+      <li><a href="#content-representation">what to post</a>, and where to, in order to <a href="#publishing">create</a>, <a href="#updating">update</a> or <a href="#deleting">delete</a> content.</li>
       <li>how to <a href="#subscribing">ask for notifications</a> about content (subscribing).</li>
       <li>how to <a href="#delivery">deliver notifications</a> about content or users (delivery).</li>
       <li>how to expose <a href="#profiles">profiles</a> and <a href="#relationships">relationships</a>.</li>
@@ -328,7 +328,7 @@ table.th90 th, table.th90 td {
       <dl>
 
         <dt>ActivityPub (<a href="http://www.w3.org/TR/activitypub">Candidate Recommendation</a>)</dt>
-        <dd>JSON-based APIs for <a href="#reading">reading</a>, <a href="#creating-content">creating</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</dd>
+        <dd>JSON-based APIs for <a href="#reading">reading</a>, <a href="#publishing">publishing</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</dd>
 
         <dt>ActivityStreams 2.0 (AS2) (<a href="http://www.w3.org/TR/activitystreams-core">Core</a>, Candidate Recommendation, <a href="http://www.w3.org/TR/activitystreams-vocabulary">Vocabularly</a>, Candidate Recommendation)</dt>
         <dd>The syntax and vocabulary for <a href="#reading">representing</a> social activities, actors, objects, and collections in JSON and RDF.</dd>
@@ -337,7 +337,7 @@ table.th90 th, table.th90 td {
         <dd>An RDF-based protocol for <a href="#delivery">delivery</a>.</dd>
 
         <dt>Micropub (<a href="http://www.w3.org/TR/micropub">Candidate Recommendation</a>)</dt>
-        <dd>A form-encoding-based API for <a href="#creating-content">creating</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</dd>
+        <dd>A form-encoding-based API for <a href="#publishing">publishing</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</dd>
 
         <dt>WebSub (<a href="https://www.w3.org/TR/websub">Candidate Recommendation</a>)</dt>
         <dd>A protocol for <a href="#subscribing">subscription</a> to any resource and <a href="#delivery">delivery</a> of updates about it.</dd>
@@ -387,7 +387,7 @@ table.th90 th, table.th90 td {
           <th><a href="#content-representation">Vocabulary</a></th>
           <th><a href="#content-representation">Syntax</a></th>
           <th><a href="#reading">Read</a></th>
-          <th><a href="#creating-content">Create</a></th>
+          <th><a href="#publishing">Create</a></th>
           <th><a href="#updating">Update</a></th>
           <th><a href="#deleting">Delete</a></th>
           <th><a href="#subscribing">Subscription</a></th>
@@ -620,35 +620,45 @@ table.th90 th, table.th90 td {
     </section>
   </section>
 
-  <section id="creating-content">
-    <h2>Creating content</h2>
+  <section id="publishing">
+    <h2>Publishing</h2>
 
-    <p>Content generated through a client (such as a web form, mobile app, smart device) is created when it is sent to a server for processing, where it is typically stored and usually published (either publicly or to a restricted audience). Clients and servers may independently support creating, updating and deleting; there are no dependencies between them. Authentication and authorization for creating content is left out of scope.</p>
+    <p>Publishing in this context incorporates creating new content, and updating or deleting existing content. Content generated through a client (such as a web form, mobile app, sensor, smart device) is created when it is sent to a server for processing, where it is typically stored and usually published (either publicly or to a restricted audience, in human- and/or machine-readable forms). Clients and servers may independently support creating, updating and deleting; there are no dependencies between them.</p>
 
-    <p><strong>[[Activitypub]]</strong> clients discover the <code>outbox</code> of the authenticated user from their JSON profile, then make an HTTP POST request with an appropriate [[ActivityStreams2]] activity as a JSON payload. [[Activitypub]] requires use of the [[ActivityStreams2]] vocabulary and syntax, which may be extended with JSON-LD. The URL of the created resource is generated at the discretion of the server. This is an appropriate protocol to use when:</p>
+    <p>Authentication and authorization between clients and servers for creating content are left out of scope.</p>
 
-    <ul>
-      <li>You want to send/receive a JSON or JSON-LD payload.</li>
-      <li>Your data is described with [[ActivityStreams2]] (optionally extensible via JSON-LD).</li>
-    </ul>
+    <p>The two specifications recommended by the Social Web Working Group for publishing are [[Activitypub]] and [[Micropub]]. They use similar high level mechanisms, but differ in requirements around both the vocabularies and content types of data. ActivityPub contains a client-to-server API for creating ActivityStreams 2.0 objects and activities, and specifies additional responsibilities for clients around addressing objects, and for servers around the side-effects of certain types of objects. Micropub provides a basic client-to-server API for creating blog-post type content which can be implemented alone and is intended as a quickstart for content creation, on top of which more complex (but optional) actions can be layered.</p>
 
-    <p><strong>[[Micropub]]</strong> clients discover the Micropub endpoint from the current user's homepage (likely entered by the user as part of authentication) from a <code>rel="micropub"</code> link, then make a <code>x-www-form-urlencoded</code> POST request containing the key-value pairs for the attributes of the object being created. The URL of the created resource is generated at the discretion of the server. Micropub requires use of the Microformats 2 [[h-entry]] vocabulary, as well as a set of reserved attributes as commands to the server. Any additional key names sent outside of this vocabulary may be ignored by the server.</p>
+    <p>Both provide similar media endpoints for uploading files.</p>
 
-    <p>[[Micropub]] requests may alternatively be sent as a JSON payload, the syntax of which is derived from the Microformats 2 parsing algorithm. This is an appropriate protocol to use when:</p>
+    <div class="note" title="REST">
+      <p>Neither ActivityPub nor Micropub define APIs for publishing based on HTTP verbs. If you're looking for something more RESTful, you may like the Linked Data Platform (<strong>[[LDP]]</strong>).</p>
+    </div>
 
-    <ul>
-      <li>You want to send/receive a form-encoded or JSON payload.</li>
-      <li>Your data is described with the [[h-entry]] syntax and vocabulary.</li>
-      <li>You can rely on out-of-band agreements between clients and servers for vocabulary extensibility.</li>
-    </ul>
+    <section id="creating">
+      <h3>Creating</h3>
 
-    <p><strong>[[LDP]]</strong> servers are written to by sending an HTTP POST request to a <code>Container</code> (any resource on the server which returns <code>Link: &lt;http://www.w3.org/ns/ldp#Container&gt;; rel="type"</code>), containing an RDF payload with attributes of the object being created. An identifier for the created resource is generated at the discretion of the server. The URL is created by appending the identifier to the URL of the <code>Container</code> that was posted to. [[Solid]] and [[AnnotationProtocol]] both use slightly altered [[LDP]] to create content; [[Solid]] restricts use to only Basic Containers, while the [[AnnotationProtocol]] specifies the [[AnnotationVocab]] and primary syntax as JSON-LD. This is an appropriate protocol to use when:</p>
+      <p>The publishing endpoint of <strong>[[Activitypub]]</strong> is the <code>outbox</code>. Clients are assumed to have the URL of a (ideally authenticated) user profile as a starting point, and discover the value of the <code>https://www.w3.org/ns/activitystreams#outbox</code> property found at the profile URL (which should be available as JSON). The client then makes an HTTP <code>POST</code> request with an [[ActivityStreams2]] activity or object as a JSON payload with a content type of <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>. The URL of the created resource is generated at the discretion of the server, and returned in the <code>Location</code> HTTP header. This is an appropriate protocol to use when:</p>
 
-    <ul>
-      <li>Your data is represented as RDF.</li>
-      <li>Clients and servers are vocabulary agnostic.</li>
-      <li>You prefer a more RESTful API.</li>
-    </ul>
+      <ul>
+        <li>You want to send/receive a JSON or JSON-LD payload.</li>
+        <li>Your data is described with [[ActivityStreams2]] (optionally extensible via JSON-LD).</li>
+        <li>You want serves to carry out a known set of actions upon content creation.</li>
+      </ul>
+
+      <p>Side-effects of creating content with ActivityPub are for the most part adding things to various different collections collections (likes, follows, etc); but also include requirements about blocking users, and a hook to enable federated servers.</p> 
+
+      <p>The publishing endpoint for <strong>[[Micropub]]</strong> is the <code>micropub</code> end point. Clients discover this from a user's URL via a <code>rel="micropub"</code> link (in an HTTP <code>Link</code> header, or an HTML element). Clients make a <code>x-www-form-urlencoded</code> POST request containing the key-value pairs for the attributes of the object being created. The URL of the created resource is generated at the discretion of the server, and returned in the <code>Location</code> HTTP header. Clients and servers must support attributes from the Microformats 2 [[h-entry]] vocabulary. Micropub also defines special reserved attributes (prefixed with <code>mp-</code>) which can be used as commands to the server. Any additional key names sent outside of these vocabularies may be ignored by the server.</p>
+
+      <p>[[Micropub]] requests may alternatively be sent as a JSON payload, the syntax of which is derived from the Microformats 2 parsing algorithm. This is an appropriate protocol to use when:</p>
+
+      <ul>
+        <li>You want to send/receive a form-encoded or JSON payload.</li>
+        <li>Your data is described with the [[h-entry]] syntax and vocabulary.</li>
+        <li>You can rely on out-of-band agreements between clients and servers for vocabulary extensibility.</li>
+      </ul>
+
+    </section>
 
     <section id="updating">
       <h3>Updating</h3>
@@ -659,7 +669,7 @@ table.th90 th, table.th90 td {
 
       <p class="issue">ActivityPub currently only supports updates of a whole object at once. <a href="https://github.com/w3c-social/activitypub/issues/85">Issue 85 for partial updates</a>.</p>
 
-      <p><strong>[[Micropub]]</strong> clients perform updates, as either form-encoded or JSON POST requests, using the <code>mp-action=update</code> parameter, as well as a <code>replace</code>, <code>add</code> or <code>delete</code> property containing the updates to make, to the Micropub endpoint (discovery described in <a href="#creating-content">creating</a>). <code>replace</code> replaces all values of the specified property. If the property does not exist already, it is created. <code>add</code> adds new values to the specified property without changing the existing ones. If the property does not exist already, it is created. <code>delete</code> removes the specified property; you can also remove properties by value by specifying the value.</p>
+      <p><strong>[[Micropub]]</strong> clients perform updates, as either form-encoded or JSON POST requests, using the <code>mp-action=update</code> parameter, as well as a <code>replace</code>, <code>add</code> or <code>delete</code> property containing the updates to make, to the Micropub endpoint (discovery described in <a href="#publishing">publishing</a>). <code>replace</code> replaces all values of the specified property. If the property does not exist already, it is created. <code>add</code> adds new values to the specified property without changing the existing ones. If the property does not exist already, it is created. <code>delete</code> removes the specified property; you can also remove properties by value by specifying the value.</p>
 
       <p><strong>[[LDP]]</strong> clients perform replacement-style updates by sending an HTTP PUT request to the URL of the object to be updated. Partial-style updates are performed with an HTTP PATCH request.</p>
       
@@ -672,7 +682,7 @@ table.th90 th, table.th90 td {
 
       <p><strong>[[Activitypub]]</strong> clients delete an object by sending an HTTP POST request containing an [[ActivityStreams2]] <code>Delete</code> activity to the <code>outbox</code> of the authenticated user. Servers MUST <em>replace</em> the <code>object</code> of this activity with a tombstone and return a <code>410 Gone</code> status code, or just return a <code>404 Not Found</code>, from its URL.</p>
 
-      <p><strong>[[Micropub]]</strong> delete requests are two key-value pairs, in form-encoded or JSON: <code>mp-action</code>: <code>delete</code> and <code>url</code>: <code>url-to-be-deleted</code>, sent to the Micropub endpoint (discovery described in <a href="#creating-content">creating</a>).</p>
+      <p><strong>[[Micropub]]</strong> delete requests are two key-value pairs, in form-encoded or JSON: <code>mp-action</code>: <code>delete</code> and <code>url</code>: <code>url-to-be-deleted</code>, sent to the Micropub endpoint (discovery described in <a href="#publishing">publishing</a>).</p>
 
       <p><strong>[[LDP]]</strong> deletes are performed by sending an HTTP DELETE request to the URL of the object to be deleted.</p>
       
