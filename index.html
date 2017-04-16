@@ -561,17 +561,17 @@ table.th90 th, table.th90 td {
       
       <p>One user may publish one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. A user <a href="#profiles">profile</a> MAY include links to multiple streams, which a consumer could follow to read or subscribe to.</p>
 
-      <section id="streams-activitypub">
-        <h4>ActivityPub</h4>
+      <section id="streams-special">
+        <h4>Special streams</h4>
       
-        <p>[[Activitypub]] specifies two feeds that MUST be accessible from a profile via the following properties:</p>
+        <p><strong>[[Activitypub]]</strong> specifies two streams that MUST be accessible from a profile via the following properties:</p>
 
         <ul>
           <li><code>inbox</code>: A reference to an [[ActivityStreams2]] collection comprising all the objects received by the actor.</li>
           <li><code>outbox</code>: An [[ActivityStreams2]] collection comprising all the objects produced by the actor.</li>
         </ul>
 
-        <p>[[Activitypub]] also specifies four further properties for accessing additional feeds, which SHOULD or MAY be included in a profile:</p>
+        <p>[[Activitypub]] also specifies four further properties for accessing additional streams, which SHOULD or MAY be included in a profile:</p>
 
         <ul>
           <li><code>following</code>: An [[ActivityStreams2]] collection of the actors that this actor is following.</li>
