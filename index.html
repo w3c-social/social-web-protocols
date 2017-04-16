@@ -585,32 +585,36 @@ table.th90 th, table.th90 td {
 
       <section id="inbox-interop">
         <h4>Inboxes</h4>
-        <p>An inbox is a collection or stream of objects to which new objects may be <a href="#delivery">delivered</a>. The contents of this collection may also be read. Currently LDN consumers and ActivityPub consumers expect different representations for this collection.</p>
+        <p>An Inbox is a collection or stream of objects to which new objects may be <a href="#delivery">delivered</a>. The contents of this collection may also be read. While ActivityPub and LDN align for <em>writing</em> to an Inbox, due to irritating but ultimately unavoidable compatibility requirements with AS2 and LDP respectively, they use different vocabularies when Inbox contents are returned for <em>reading</em>. Fortunately for consuming clients to check for both vocabularies or for publishers to publish using both is not a huge implementation hurdle, so bridging is fairly trivial.</p>
+        <ul>
+          <li>ActivityPub Inboxes are an [[ActivityStreams2]] <code>OrderedCollection</code>, and link to their contents with the <code>items</code> property.</li>
+          <li>LDN Inboxes are an [[LDP]] <code>Container</code>, and link to their contents with the <code>contains</code> property.</li>
+        </ul>
 
-        <p class="note" title="Inbox implementations">
-          This section describes a workaround until it can be resolved in the specifications themselves. We particularly welcome implementations of this workaround to help us determine the best solution.
-        </p>
+        <p>In addition, ActivityPub has more constraints on the content type of the <code>inbox</code> stream, so LDN receivers either need to conform to these constraints (basically just making sure all your JSON-LD is compacted) or ActivityPub clients need to incorporate proper RDF parsing when reading an <code>inbox</code> stream.</p>
+
+        <p>In summary:</p>
       
-        <p>ActivityPub servers wishing to be read by LDN consumers MUST:</p>
+        <p><strong>ActivityPub servers</strong> wishing to be read by LDN consumers MUST:</p>
         <ul>
           <li>serve content with the content-type <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>.</li>
           <li>include along with the Inbox <code>Collection</code>, every item in the Inbox related with the <code>ldp:contains</code> property.</li>
         </ul>
 
-        <p>ActivityPub clients wishing to read from LDN Inboxes MUST:</p>
+        <p><strong>ActivityPub clients</strong> wishing to read from LDN Inboxes MUST:</p>
         <ul>
           <li>request content with the content-type <code>application/ld+json</code>. Running it through JSON-LD compacting should help.</li>
           <li>look for items in the Inbox via the <code>ldp:contains</code> property (rather than AS2 <code>items</code>).</li>
         </ul>
 
-        <p>LDN receivers wishing to interoperate with ActivityPub consuming clients MUST:</p>
+        <p><strong>LDN receivers</strong> wishing to interoperate with ActivityPub consuming clients MUST:</p>
         <ul>
           <li>treat the content-type <code>application/activity+json</code> as equivalent to <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>.</li>
           <li>use compacted JSON-LD.</li>
           <li>serve Inbox contents as an AS2 <code>Collection</code> (where each notification is related to the inbox with the AS2 <code>items</code> property).</li>
         </ul>
 
-        <p>LDN consumers wishing to read from inboxes on ActivityPub servers MUST:</p>
+        <p><strong>LDN consumers</strong> wishing to read from inboxes on ActivityPub servers MUST:</p>
         <ul>
           <li>if content is returned with the content-type <code>application/activity+json</code> and missing an <code>@context</code>, apply the default AS2 context, and treat it as JSON-LD.</li>
           <li>look for items in the Inbox via the AS2 <code>items</code> property (rather than <code>ldp:contains</code>).</li>
