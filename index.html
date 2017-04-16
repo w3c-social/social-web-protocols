@@ -807,7 +807,7 @@ table.th90 th, table.th90 td {
 
     <section id="delivery-push">
       <h5>WebSub</h5>
-      <p><strong>[[WebSub]]</strong> <em>targets</em> deliver content to their <em>hub</em>, and <em>hubs</em> to their <em>subscribers</em> using HTTP <code>POST</code> requests. The body of the request is left to the discretion of the sender in both cases. This may be refined as the spec develops.</p>
+      <p><strong>[[WebSub]]</strong> <em>publishers</em> deliver content to their <em>hub</em>, and <em>hubs</em> to their <em>subscribers</em> using HTTP <code>POST</code> requests. The body of the request is left to the discretion of the sender in the first case, and in the latter case must match the Content-Type of and contain contents from the <code>topic</code> URL.</p>
     </section>
 
     <section id="delivery-interop">
