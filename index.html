@@ -163,12 +163,11 @@ table.th90 th {
 table.th90 th, table.th90 td {
   text-align: center;
 }
-</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+</style><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
 <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
 <script class='remove'>
       var respecConfig = {
-          specStatus: "WD",
-          publishDate: "2017-05-04",
+          specStatus: "ED",
           shortName:  "social-web-protocols",
           otherLinks: [
               {
@@ -342,35 +341,40 @@ table.th90 th, table.th90 td {
 
     </section>
     <section id="swwg-specs">
-      <h3>Social Web Working Group Specifications</h3>
+      <h3>Recommendations</h3>
+
+      <p>These specifications are finished, though new implementation reports and feedback are always welcome (details for where to submit these are at the top of each document).</p>
 
       <dl>
 
-        <dt>ActivityPub (<a href="http://www.w3.org/TR/activitypub">Candidate Recommendation</a>)</dt>
-        <dd>JSON-based APIs for <a href="#reading">reading</a>, <a href="#publishing">publishing</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</dd>
-
-        <dt>ActivityStreams 2.0 (AS2) (<a href="http://www.w3.org/TR/activitystreams-core">Core</a>, Candidate Recommendation, <a href="http://www.w3.org/TR/activitystreams-vocabulary">Vocabularly</a>, Candidate Recommendation)</dt>
+        <dt>ActivityStreams 2.0 (AS2) (<a href="http://www.w3.org/TR/activitystreams-core">Core</a>, <a href="http://www.w3.org/TR/activitystreams-vocabulary">Vocabularly</a>)</dt>
         <dd>The syntax and vocabulary for <a href="#reading">representing</a> social activities, actors, objects, and collections in JSON and RDF.</dd>
 
-        <dt>Linked Data Notifications (<a href="https://linkedresearch.org/ldn/">Proposed Recommendation</a>)</dt>
+        <dt><a href="https://www.w3.org/TR/ldn">Linked Data Notifications</a></dt>
         <dd>An RDF-based protocol for <a href="#delivery">delivery</a>.</dd>
 
-        <dt>Micropub (<a href="http://www.w3.org/TR/micropub">Candidate Recommendation</a>)</dt>
+        <dt><a href="http://www.w3.org/TR/micropub">Micropub</a></dt>
         <dd>A form-encoding and JSON-based API for <a href="#publishing">publishing</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</dd>
 
-        <dt>WebSub (<a href="https://www.w3.org/TR/websub">Candidate Recommendation</a>)</dt>
-        <dd>A protocol for <a href="#subscribing">subscription</a> to any resource and <a href="#delivery">delivery</a> of updates about it.</dd>
-
-        <dt>Webmention (<a href="http://www.w3.org/TR/webmention">Recommendation</a>)</dt>
+        <dt><a href="http://www.w3.org/TR/webmention">Webmention</a></dt>
         <dd>A form-encoding-based protocol for <a href="#delivery">delivery</a>.</dd>
       </dl>
       
     </section>
 
     <section id="swwg-drafts">
-      <h3>Social Web Working Group Drafts</h3>
+      <h3>Specifications in progress</h3>
+
+      <p>These specifications are still being worked on. Your attention, implementation, and issue-raising is particularly appreciated.</p>
 
       <dl>
+
+        <dt>ActivityPub (<a href="http://www.w3.org/TR/activitypub">Candidate Recommendation</a>)</dt>
+        <dd>JSON-based APIs for <a href="#reading">reading</a>, <a href="#publishing">publishing</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</dd>
+
+        <dt>WebSub (<a href="https://www.w3.org/TR/websub">Candidate Recommendation</a>)</dt>
+        <dd>A protocol for <a href="#subscribing">subscription</a> to any resource and <a href="#delivery">delivery</a> of updates about it.</dd>
+
         <dt>JF2 (<a href="https://www.w3.org/TR/jf2/">First Public Working Draft (Note)</a>)</dt>
         <dd>An alternative JSON serialization for <a href="#reading">representing</a> objects and feeds of social data.</dd>
         
@@ -969,8 +973,15 @@ table.th90 th, table.th90 td {
     <section id="change-log" class="appendix information">
       <h2>Change Log</h2>
 
+      <section id="changes-since-2017-05-04">
+      <h3>Changes from 4 May 2017 WD to this version</h3>
+      <ul>
+        <li>Update document status of specifications.</li>
+      </ul>
+      </section>
+
       <section id="changes-since-2016-11-16">
-        <h3>Changes from 16 November WD to this version</h3>
+        <h3>Changes from 16 November 2016 WD to this version</h3>
         <ul>
           <li>Update document status of progressing specs.</li>
           <li>s/PubSub/WebSub</li>
