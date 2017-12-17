@@ -913,15 +913,17 @@ table.th90 th, table.th90 td {
         </ul>
       </section>
       
-      <section id="authorization-and-access-control">
-        <h3>Authorization and access control</h3>
+      <section id="auth">
+        <h3>Authentication, authorization, and access control</h3>
       
-        <p>Servers may restrict/authorize access to content however they want?</p>
+        <p>Authentication and authorization mechanisms were out of scope for the Social Web WG. Please follow the <a href="https://www.w3.org/wiki/SocialCG">Community Group</a> for development in this space. Meanwhile, some of the WG specifications contain non-normative notes on the topic:</p>
         
         <ul>
-          <li><strong>ActivityPub:</strong> see <a href="http://w3c-social.github.io/activitypub/#authorization">auth</a></li>
-          <li><strong>Indieweb:</strong> see <a href="https://indiewebcamp.com/private_posts">private posts</a>, <a href="https://indiewebcamp.com/private-webmention">private webmention</a></li>
-          <li><strong>Solid:</strong> see <a href="https://github.com/solid/solid-spec#web-access-control">acl</a></li>
+          <li><strong>ActivityPub:</strong> Points to a Community Group best practices report in <a href="https://www.w3.org/TR/activitypub/#authorization">B.1 Authentication and Authorization</a>.</li>
+          <li><strong>LDN:</strong> Recommends that receivers employ some kind of verification mechanism which <em>may</em> be authentication in <a href="https://www.w3.org/TR/ldn/#sender-verification">3.3.3 Sender verification</a>, with additional security considerations in <a href="https://www.w3.org/TR/ldn/#authenticated-inboxes">5.6 Authenticated inboxes</a>.</li>
+          <li><strong>Micropub:</strong> Requires bearer tokens, and suggests IndieAuth in <a href="https://www.w3.org/TR/micropub/#authentication-and-authorization">5. Authentication and Authorization</a>.</li>
+          <li><strong>Webmention:</strong> Points to an extension for use with access controlled posts in <a href="https://www.w3.org/TR/webmention/#private-webmention">B.3 Private Webmention</a>.</li>
+          <li><strong>WebSub:</strong> Describes optional use of HMAC Signatures in <a href="https://www.w3.org/TR/websub/#authenticated-content-distribution">8.1 Authenticated Content Distribution</a>.</li>
         </ul>
       </section>
     </section>
