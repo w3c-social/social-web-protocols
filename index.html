@@ -696,12 +696,12 @@ table.th90 th, table.th90 td {
 
     </section>
 
-    <section id="subscribing-delegating">
-      <h3>Delegating subscription handling</h3>
+    <section id="subscribing-hub">
+      <h3>Subscribing with a hub</h3>
       <p><strong>[[WebSub]]</strong> provides a mechanism to delegate subscription handling and delivery of content to subscribers to a third-party, called a <em>hub</em>. All publishers need to do is link to their chosen hub(s) using HTTP <code>Link</code> headers or HTML <code>&lt;link&gt; </code> elements with <code>rel="hub"</code>, and then notify the hub when new content is available. The mechanism for notifying the hub is left deliberately unspecified, as publishers may have their own built in hub, and therefore use an internal mechanism.</p>
       
       <div class="note" title="Notifying the hub">
-        <p>Hubs and publishers which would like to agree on a standard mechanism to communicate might consider employing an existing <a href="#delivery">delivery</a> mechanism, namely Linked Data Notifications or Webmention.</p>
+        <p>A mechanism for communcation between hubs and publishers may be standardised in future as an extension.</p>
       </div>
 
       <p>The subscriber discovers the hub from the publisher, and sends a form-encoded <code>POST</code> request containing values for <code>hub.mode</code> ("subscribe"), <code>hub.topic</code> (the URL to subscribe to) and <code>hub.callback</code> (the URL where updates should be sent to, which should be 'unguessable' and unique per subscription). The hub and subscriber carry out a series of exchanges to verify this request.</p>
@@ -716,7 +716,7 @@ table.th90 th, table.th90 td {
       </ul>
 
       <div class="note" title="WebSub and Inboxes">
-        <p>LDN Receivers can receive deliveries from WebSub hubs by using the <code>inbox</code> URL as the <code>hub.callback</code> URL and <em>either</em> only subscribing to resources published as JSON-LD <em>or</em> accepting content-types other than JSON-LD.</p>
+        <p>LDN Receivers can be used to receive deliveries from WebSub hubs by using the <code>inbox</code> URL as the <code>hub.callback</code> URL and <em>either</em> only subscribing to resources published as JSON-LD <em>or</em> accepting content-types other than JSON-LD.</p>
       </div>
     </section>
     
