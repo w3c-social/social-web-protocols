@@ -310,235 +310,191 @@ table.th90 th, table.th90 td {
     <p>People and the content they create are the core components of the social web; they make up the social graph. This document describes a standard way in which people can:</p>
     
     <ul>
-      <li>connect with other people and subscribe to their content;</li>
       <li>create, update and delete social content;</li>
+      <li>connect with other people by subscribing to their content;</li>
       <li>interact with other peoples' content;</li>
-      <li>be notified when other people interact with their content;</li>
+      <li>be notified when other people interact with their content.</li>
     </ul>
     
     <p>regardless of <em>what that content</em> is or <em>where it is stored</em>.</p>
     
-    <p>These components are core building blocks for interoperable social systems.</p>
+    <p>These components are core building blocks for interoperable decentralised social systems.</p>
     
-    <p>Each of these components can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others. Put simply, this document tells you, according the recommendations of the Social Web Working Group:</p>
-    
-    <ul>
-      <li>how to <a href="#reading">expose/consume</a> social content (reading).</li>
-      <li><a href="#content-representation">what to post</a>, and where to, in order to <a href="#publishing">create</a>, <a href="#updating">update</a> or <a href="#deleting">delete</a> content.</li>
-      <li>how to <a href="#subscribing">ask for notifications</a> about content (subscribing).</li>
-      <li>how to <a href="#delivery">deliver notifications</a> about content or users (delivery).</li>
-      <li>how to expose <a href="#profiles">profiles</a> and <a href="#relationships">relationships</a>.</li>
-    </ul>
-    
+    <p>Each of these components can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others.</p>
+
     <section id="contents">
       <h3>Contents</h3>
     
-      <p>This is an overview of the current state of specifications of the Social Web Working Group. This document also describes Social Web Working Group specifications in context of other W3C recommendations and relevant drafts from other communities outside of the W3C. As many of these specs are under ongoing development, this document is subject to change alongside them.</p>
-
-      <p>You might also want to take a look at the Working Group's <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a> to understand the division of concerns.</p>
+      <p>This is an overview of the specifications of the Social Web Working Group.</p>
       
-      <p>Due to the diversity of viable technical approaches proposed within the Working Group, several specifications on the recommendation track provide overlapping functionality through differing mechanisms. This document exists to provide informative guidance on how and when to implement the various specifications, as well as guidance to implement bridges between recommendations with overlapping functionality.</p>
+      <p>Due to the diversity of viable technical approaches proposed within the Working Group, several specifications reached recommendation which provide overlapping functionality through differing mechanisms. This document exists to provide informative guidance on how and when to implement the various specifications, as well as some hints towards routes to bridging between similar specifications.</p>
 
     </section>
+
+    <section id="definitions">
+      <h3>Definitions</h3>
+
+      <p>This document is divided into five sections, pertaining to the components above, and derived from the <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a>. The various Social Web Working Group specifications implement different combinations of these requirements (see <a href="#requirements"></a>) so for clarity the requirement sections are defined here.</p>
+
+      <dl>
+        <dt><a href="#reading">reading</a></dt>
+        <dd>covers specifications which describe the syntax and vocabulary to be used for social content. Useful for applications which expose feeds, as well as those which consume them.</dd>
+        <dt>publishing</dt>
+        <dd>covers Social API specifications which tell clients how to instruct servers to <a href="#publishing">create</a>, <a href="#updating">update</a> or <a href="#deleting">delete</a> content.</dd>
+        <dt><a href="#subscribing">subscribing</a></dt>
+        <dd>covers Federation API specifications which describe how to ask for notifications about content, and subsequently how those notifications should be delivered.</dd>
+        <dt><a href="#delivery">delivery</a></dt>
+        <dd>covers Federation API specifications which describe how to deliver notifications which have not been solicited through subscription.</dd>
+        <dt><a href="#profiles">profiles</a></dt>
+        <dd>covers specifications which describe profiles.</dd>
+      </dl>
+      
+    </section>
+    
     <section id="swwg-specs">
-      <h3>Recommendations</h3>
+      <h3>Specifications</h3>
 
       <p>These specifications are finished, though new implementation reports and feedback are always welcome (details for where to submit these are at the top of each document).</p>
 
       <dl>
 
-        <dt>ActivityStreams 2.0 (AS2) (<a href="http://www.w3.org/TR/activitystreams-core">Core</a>, <a href="http://www.w3.org/TR/activitystreams-vocabulary">Vocabularly</a>)</dt>
-        <dd>The syntax and vocabulary for <a href="#reading">representing</a> social activities, actors, objects, and collections in JSON and RDF.</dd>
+        <dt><a href="http://www.w3.org/TR/activitypub">ActivityPub</a></dt>
+        <dd>JSON(-LD)-based APIs for client-to-server interactions (ie. publishing) and server-to-server interactions (ie. federation).</dd>
 
+        <dt>ActivityStreams 2.0 (AS2) (<a href="http://www.w3.org/TR/activitystreams-core">Core</a>, <a href="http://www.w3.org/TR/activitystreams-vocabulary">Vocabularly</a>)</dt>
+        <dd>The syntax and vocabulary for <a href="#reading">representing</a> social activities, actors, objects, and collections in JSON(-LD).</dd>
+        
         <dt><a href="https://www.w3.org/TR/ldn">Linked Data Notifications</a></dt>
-        <dd>An RDF-based protocol for <a href="#delivery">delivery</a>.</dd>
+        <dd>A JSON-LD-based protocol for <a href="#delivery">delivery</a>.</dd>
 
         <dt><a href="http://www.w3.org/TR/micropub">Micropub</a></dt>
-        <dd>A form-encoding and JSON-based API for <a href="#publishing">publishing</a>, <a href="#updating">updating</a> and <a href="#deleting">deleting</a>.</dd>
+        <dd>A form-encoding and JSON-based API for client-to-server interactions (ie. publishing).</dd>
 
         <dt><a href="http://www.w3.org/TR/webmention">Webmention</a></dt>
         <dd>A form-encoding-based protocol for <a href="#delivery">delivery</a>.</dd>
-      </dl>
-      
-    </section>
-
-    <section id="swwg-drafts">
-      <h3>Specifications in progress</h3>
-
-      <p>These specifications are still being worked on. Your attention, implementation, and issue-raising is particularly appreciated.</p>
-
-      <dl>
-
-        <dt>ActivityPub (<a href="http://www.w3.org/TR/activitypub">Candidate Recommendation</a>)</dt>
-        <dd>JSON-based APIs for <a href="#reading">reading</a>, <a href="#publishing">publishing</a>, <a href="#updating">updating</a>, <a href="#deleting">deleting</a>, <a href="#subscribing">subscribing</a>, <a href="#delivery">delivery</a> and <a href="#profiles">profiles</a>.</dd>
-
-        <dt>WebSub (<a href="https://www.w3.org/TR/websub">Candidate Recommendation</a>)</dt>
+        
+        <dt><a href="https://www.w3.org/TR/websub">WebSub</a></dt>
         <dd>A protocol for <a href="#subscribing">subscription</a> to any resource and <a href="#delivery">delivery</a> of updates about it.</dd>
 
-        <dt>JF2 (<a href="https://www.w3.org/TR/jf2/">First Public Working Draft (Note)</a>)</dt>
-        <dd>An alternative JSON serialization for <a href="#reading">representing</a> objects and feeds of social data.</dd>
-        
-        <dt>Post Type Discovery (<a href="https://www.w3.org/TR/post-type-discovery/">Working Draft</a>)</dt>
-        <dd>A protocol to bridge implicitly typed objects and explicitly typed objects.</dd>
       </dl>
-    </section>
 
-    <section id="other-specs">
-      <h3>Other specifications</h3>
+      <section id="requirements">
+        <h4>Requirements</h4>
+        <p>This table shows the high level requirements according to the <a href="https://www.w3.org/2013/socialweb/social-wg-charter.html">Social Web Working Group charter</a> and the <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a>, and how the specifications of the Working Group overlap with respect to each.</p>
+        <p>This table lists the requirements met by the core functionality of each specification. Some specifications may additionally touch on or make suggestions about other requirements, which can be useful when deciding how to combine specifications, and is highlighted as appropriate throughout this document.</p>
+        <table class="th90">
+          <tr>
+            <td></td>
+            <td colspan="3">Data model</td>
+            <td colspan="4">Social API</td>
+            <td colspan="2">Federation API</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th></th>
+            <th><a href="#content-representation">Vocabulary</a></th>
+            <th><a href="#content-representation">Syntax</a></th>
+            <th><a href="#profiles">Profiles</a></th>
+            <th><a href="#reading">Read</a></th>
+            <th><a href="#publishing">Create</a></th>
+            <th><a href="#updating">Update</a></th>
+            <th><a href="#deleting">Delete</a></th>
+            <th><a href="#subscribing">Subscription</a></th>
+            <th><a href="#delivery">Delivery</a></th>
+          </tr>
+          <tr>
+            <td style="text-align:left;">ActivityPub</td>
+            <td></td>
+            <td></td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+          </tr>
+          <tr>
+            <td style="text-align:left;">ActivityStreams 2.0</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td style="text-align:left;">Linked Data Notifications</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>X</td>
+          </tr>
+          <tr>
+            <td style="text-align:left;" style="text-align:left;">Micropub</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td style="text-align:left;">Webmention</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>X</td>
+          </tr>
+          <tr>
+            <td style="text-align:left;">WebSub<br></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>X</td>
+            <td></td>
+          </tr>
 
-      <dl>
+        </table>
+      </section>
 
-        <dt>ActivityStreams 1.0 [<a href="http://activitystrea.ms/specs/json/1.0/">External</a>]</dt>
-        <dd>The predecessor to [[ActivityStreams2]].</dd>
-
-        <dt>Annotation Protocol [<a href="https://www.w3.org/TR/annotation-protocol/">WAWG CR</a>]</dt>
-        <dd>Transport mechanisms for creating and managing annotations on the Web.</dd>
-
-        <dt>Linked Data Platform [<a href="https://www.w3.org/TR/ldp/">LDP REC</a>]</dt>
-        <dd>A protocol for reading and writing Linked Data.</dd>
-
-      </dl>
-    
-    </section>
-
-    <section id="requirements">
-      <h3>Requirements</h3>
-      <p>This table shows the high level requirements according to the <a href="https://www.w3.org/2013/socialweb/social-wg-charter.html">Social Web Working Group charter</a> and the <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a>, and how the specifications of the Working Group overlap with respect to each.</p>
-      <table class="th90">
-        <tr>
-          <td></td>
-          <td colspan="3">Data model</td>
-          <td colspan="4">Social API</td>
-          <td colspan="2">Federation API</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th></th>
-          <th><a href="#content-representation">Vocabulary</a></th>
-          <th><a href="#content-representation">Syntax</a></th>
-          <th><a href="#profiles">Profiles</a></th>
-          <th><a href="#reading">Read</a></th>
-          <th><a href="#publishing">Create</a></th>
-          <th><a href="#updating">Update</a></th>
-          <th><a href="#deleting">Delete</a></th>
-          <th><a href="#subscribing">Subscription</a></th>
-          <th><a href="#delivery">Delivery</a></th>
-        </tr>
-        <tr>
-          <td style="text-align:left;">ActivityPub</td>
-          <td></td>
-          <td></td>
-          <td>X</td>
-          <td>X</td>
-          <td>X</td>
-          <td>X</td>
-          <td>X</td>
-          <td>X</td>
-          <td>X</td>
-        </tr>
-        <tr>
-          <td style="text-align:left;">ActivityStreams 2.0</td>
-          <td>X</td>
-          <td>X</td>
-          <td>X</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        
-        <tr>
-          <td style="text-align:left;">Linked Data Notifications</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>X</td>
-        </tr>
-        <tr>
-          <td style="text-align:left;" style="text-align:left;">Micropub</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>X</td>
-          <td>X</td>
-          <td>X</td>
-          <td></td>
-          <td></td>
-        </tr>
-        
-        <tr>
-          <td style="text-align:left;">WebSub<br></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>X</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style="text-align:left;">Webmention</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>X</td>
-        </tr>
-
-        <tr>
-          <td style="text-align:left;">JF2</td>
-          <td>X</td>
-          <td>X</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style="text-align:left;">Post-type discovery<br></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>X</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </table>
-    </section>
-
-    <section id="how-do-the-specs-relate-to-each-other">
-      <h2>How do these specifications relate to each other?</h2>
-      <p>As a quick reference, some key relationships between specifications are as follows:</p>
-      <ul>
-        <li><strong>ActivityPub and ActivityStreams 2.0</strong>: ActivityPub uses the AS2 syntax and vocabulary for the payload of all requests.</li>
-        <li><strong>ActivityPub and Linked Data Notifications</strong>: ActivityPub specialises LDN as the mechanism for delivery of notifications by requiring that payloads are AS2. <em>Inbox</em> endpoint discovery is the same. LDN receivers can understand requests from ActivityPub federated servers, but ActivityPub servers can't necessarily understand requests from generic LDN senders.</li>
-        <li><strong>ActivityStreams 2.0 and Linked Data Notifications</strong>: LDN MAY use the AS2 syntax and vocabulary for the payload of notification requests.</li>
-        <li><strong>Webmention and Linked Data Notifications</strong>: Overlapping functionality that needs to be bridged due to different content types of requests. An LDN request MAY contain the equivalent data as a Webmention request, but not necessarily vice versa.</li>
-        <li><strong>ActivityPub and Micropub</strong>: Overlapping functionality that needs to be bridged due to different vocabularies and possibly different content types of requests. Micropub specifies client-to-server interactions for content creation; ActivityPub specifies this, <em>plus</em> side-effects and server-to-server interactions.</li>
-        <li><strong>Micropub and Webmention</strong>: Are complementary but independent. Content could be created with Micropub, then Webmention discovery can be commenced on any URLs in the content.</li>
-        <li><strong>Micropub and Linked Data Notifications</strong>: Are complementary but independent. Content could be created with Micropub, then LDN discovery can be commenced on any relevant resources identified by the server.</li>
-        <li><strong>Micropub and WebSub</strong>: Are complementary but independent. Content could be created with Micropub, then passed to a WebSub <em>hub</em> for delivery to subscribers.</li>
-      </ul>
+      <section id="how-do-the-specs-relate-to-each-other">
+        <h4>How do these specifications relate to each other?</h4>
+        <p>As a quick reference, some key relationships between specifications are as follows:</p>
+        <ul>
+          <li><strong>ActivityPub and ActivityStreams 2.0</strong>: ActivityPub uses the AS2 syntax and vocabulary for the payload of all requests.</li>
+          <li><strong>ActivityPub and Linked Data Notifications</strong>: ActivityPub specialises LDN as the mechanism for delivery of notifications by requiring that payloads are AS2. <em>Inbox</em> endpoint discovery is the same. LDN receivers can understand requests from ActivityPub federated servers, but ActivityPub servers can't necessarily understand requests from generic LDN senders.</li>
+          <li><strong>ActivityStreams 2.0 and Linked Data Notifications</strong>: LDN MAY use the AS2 syntax and vocabulary for the payload of notification requests.</li>
+          <li><strong>Webmention and Linked Data Notifications</strong>: Overlapping functionality that needs to be bridged due to different content types of requests. An LDN request MAY contain the equivalent data as a Webmention request, but not necessarily vice versa.</li>
+          <li><strong>ActivityPub and Micropub</strong>: Overlapping functionality that needs to be bridged due to different vocabularies and possibly different content types of requests. Micropub specifies client-to-server interactions for content creation; ActivityPub specifies this, <em>plus</em> side-effects and server-to-server interactions.</li>
+          <li><strong>Micropub and Webmention</strong>: Are complementary but independent. Content could be created with Micropub, then Webmention discovery can be commenced on any URLs in the content.</li>
+          <li><strong>Micropub and Linked Data Notifications</strong>: Are complementary but independent. Content could be created with Micropub, then LDN discovery can be commenced on any relevant resources identified by the server.</li>
+          <li><strong>Micropub and WebSub</strong>: Are complementary but independent. Content could be created with Micropub, then passed to a WebSub <em>hub</em> for delivery to subscribers.</li>
+          <li><strong>ActivityPub and WebSub</strong>: Overlapping functionality using different content types and verification mechanisms. </li>
+        </ul>
+      </section>
     </section>
   </section>
 
@@ -976,6 +932,7 @@ table.th90 th, table.th90 td {
       <section id="changes-since-2017-05-04">
       <h3>Changes from 4 May 2017 WD to this version</h3>
       <ul>
+        <li>Add requirements definitions to clarify the sections each spec is listed under.</li>
         <li>Update document status of specifications.</li>
       </ul>
       </section>
