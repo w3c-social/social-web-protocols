@@ -542,29 +542,28 @@ table.th90 th, table.th90 td {
 
         <p>If you don't like ActivityStreams 2.0, there are still some specifications you can use for particular tasks.</p>
 
-        <p><strong>[[LDN]]</strong> notification contents can use any vocabulary, so long as the data is available in JSON-LD. Thus notifications MAY use ActivityStreams 2.0, but don't have to.</p>
+        <p><strong>[LDN]]</strong> notification contents can use any vocabulary, so long as the data is available as JSON-LD. Thus notifications MAY use ActivityStreams 2.0, but don't have to.</p>
       
-        <p><strong>[[Micropub]]</strong> clients which expect to read data (this would usually be clients for <em>updating</em>) are expecting it as JSON in the <a href="http://microformats.org/wiki/microformats2-parsing">parsed microformats2 syntax</a>.</p>
+        <p><strong>[[Micropub]]</strong> clients which expect to read data (this would usually be clients for <em><a href="#updating">updating</a></em>) are expecting it as JSON in the <a href="http://microformats.org/wiki/microformats2-parsing">parsed microformats2 syntax</a>.</p>
 
         <p><strong>[[WebSub]]</strong> is agnostic as to the Content-Type used by publishers; hubs are expected to deliver the new content to subscribers as-is produced by the publisher, at the publisher's <code>topic</code> URL.</p>
 
-        <p class="note" title="JF2">JF2 is an alternative syntax and vocabulary to ActivityStreams 2.0, based on a simplification of the microformats2 parsing algorithm, which may be published as a Working Group Note. It is not currently referenced by any other specifications in the WG.</p>
       </section>
 
     </section>
     <section id="objects">
       <h3>Objects</h3>
     
-      <p>All objects MUST have URLs in the <code>id</code> property, which return the properties of an object according to <a href="#content-representation">content representation</a>, and depending on the requester's right to access the content.</p>
+      <p>All ActivityStreams 2.0 objects have URLs in the <code>id</code> property, which return the properties of an object. The response may vary depending on the requester's right to access the content.</p>
     </section>
-    <section id="streams">
-      <h3>Streams</h3>
+    <section id="collections">
+      <h3>Collections</h3>
     
-      <p>Each stream MUST have a URL which MUST result in the contents of the stream (according to the requester's right to access, and could be paged), and MAY include additional metadata about the stream (such as title, description).</p>
+      <p>Each ActivityStreams 2.0 collection has a URL in the <code>id</code> property which returns the contents of the stream (according to the requester's right to access). This could be paged - ActivityStreams 2.0 provides <a href="https://www.w3.org/TR/activitystreams-core/#paging">a paging mechanism</a>. It may include additional metadata about the stream (such as title, description).</p>
       
-      <p>Each <a href="#objects">object</a> in a stream MUST contain at least its URL, which can be dereferenced to retrieve all properties of the object, and MAY contain other properties of the object.</p>
+      <p>Each <a href="#objects">object</a> in a collection contains at least its URL (<code>id</code>), as well as optionally other properties of the object.</p>
       
-      <p>One user may publish one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. A user <a href="#profiles">profile</a> MAY include links to multiple streams, which a consumer could follow to read or subscribe to.</p>
+      <p>Collections may represent changing streams of objects, or fixed sets. One <a href="#profiles">profile</a> may be associated with one or more streams of content. Streams may be generated automatically or manually, and might be segregated by post type, topic, audience, or any arbitrary criteria decided by the curator of the stream. A profile may include links to multiple streams, which a consumer could follow to read or subscribe to.</p>
 
       <section id="streams-special">
         <h4>Special streams</h4>
@@ -576,16 +575,20 @@ table.th90 th, table.th90 td {
           <li><code>outbox</code>: An [[ActivityStreams2]] collection comprising all the objects produced by the actor.</li>
         </ul>
 
-        <p>[[Activitypub]] also specifies four further properties for accessing additional streams, which SHOULD or MAY be included in a profile:</p>
+        <p>ActivityPub also specifies further properties for accessing additional streams; <code>following</code> and <code>followers</code> are expected, and the rest are optional:</p>
 
         <ul>
           <li><code>following</code>: An [[ActivityStreams2]] collection of the actors that this actor is following.</li>
           <li><code>followers</code>: An [[ActivityStreams2]] collection of the actors that follow this actor
-          <li><code>likes</code>: An [[ActivityStreams2]] collection of every <code>object</code> from all of the actor's <code>Like</code> activities (generated automatically by the server).</li>
+          <li><code>liked</code>: An [[ActivityStreams2]] collection of every <code>object</code> from all of the actor's <code>Like</code> activities (generated automatically by the server).</li>
           <li><code>streams</code>: A list of supplementary Collections which may be of interest. </li>
+          <li><code>preferredUsername</code></li>
+          <li><code>endpoints</code>: A mapping of additional (typically server/domain-wide) endpoints which may be useful either for this actor or someone referencing this actor: 
+            <code>proxyUrl</code>, <code>oauthAuthorizationEndpoint</code>, <code>oauthTokenEndpoint</code>, <code>provideClientKey</code>, <code>signClientKey</code>, <code>sharedInbox</code>.</li>
+          <li>and any other applicable ActivityStreams 2.0 properties.</li>
         </ul>
       
-        <p>[[Activitypub]] permits arbitrary streams to be created through specifying special behavior for the server when it receives activities with types <code>Add</code> and <code>Remove</code>. When a server receives such an activity in the <code>outbox</code>, and the <code>target</code> is a Collection, it MUST add the <code>object</code> to the <code>target</code> (for <code>Add</code>) or remove the <code>object</code> from the <code>target</code> (for <code>Remove</code>).</p>
+        <p>[[Activitypub]] permits arbitrary collections to be created through specifying special behavior for the server when it receives activities with types <code>Add</code> and <code>Remove</code>. When a server receives such an activity in the <code>outbox</code>, and the <code>target</code> is a <code>Collection</code>, it adds the <code>object</code> to the <code>target</code> (for <code>Add</code>) or removes the <code>object</code> from the <code>target</code> (for <code>Remove</code>).</p>
       </section>
 
       <section id="inbox-interop">
