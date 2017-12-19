@@ -508,10 +508,10 @@ table.th90 th, table.th90 td {
           <li><strong>ActivityStreams 2.0 and Linked Data Notifications</strong>: LDN MAY use the AS2 syntax and vocabulary for the payload of notification requests.</li>
           <li><strong>Webmention and Linked Data Notifications</strong>: Overlapping functionality that needs to be bridged due to different content types of requests. An LDN request MAY contain the equivalent data as a Webmention request, but not necessarily vice versa.</li>
           <li><strong>ActivityPub and Micropub</strong>: Overlapping functionality that needs to be bridged due to different vocabularies and possibly different content types of requests. Micropub specifies client-to-server interactions for content creation; ActivityPub specifies this, <em>plus</em> side-effects and server-to-server interactions.</li>
-          <li><strong>Micropub and Webmention</strong>: Are complementary but independent. Content could be created with Micropub, then Webmention discovery can be commenced on any URLs in the content.</li>
-          <li><strong>Micropub and Linked Data Notifications</strong>: Are complementary but independent. Content could be created with Micropub, then LDN discovery can be commenced on any relevant resources identified by the server.</li>
-          <li><strong>Micropub and WebSub</strong>: Are complementary but independent. Content could be created with Micropub, then passed to a WebSub <em>hub</em> for delivery to subscribers.</li>
-          <li><strong>ActivityPub and WebSub</strong>: Overlapping functionality using different content types and verification mechanisms. </li>
+          <li><strong>Micropub and Webmention</strong>: Are complementary but independent. Content can be created with Micropub, then Webmentions can be sent to any URLs referenced by the content.</li>
+          <li><strong>Micropub and Linked Data Notifications</strong>: Are complementary but independent. Content can be created with Micropub, then LDN discovery can be commenced on any relevant resources referenced by the content.</li>
+          <li><strong>Micropub and WebSub</strong>: Are complementary but independent. Content can be created with Micropub, then a WebSub <em>hub</em> can handle delivery to subscribers.</li>
+          <li><strong>ActivityPub and WebSub</strong>: Overlapping functionality using different content types and verification mechanisms.</li>
         </ul>
       </section>
     </section>
