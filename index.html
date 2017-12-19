@@ -593,39 +593,48 @@ table.th90 th, table.th90 td {
 
       <section id="inbox-interop">
         <h4>Inboxes</h4>
-        <p>An Inbox is a collection or stream of objects to which new objects may be <a href="#delivery">delivered</a>. The contents of this collection may also be read. While ActivityPub and LDN align for <em>writing</em> to an Inbox, due to irritating but ultimately unavoidable compatibility requirements with AS2 and LDP respectively, they use different vocabularies when Inbox contents are returned for <em>reading</em>. Fortunately for consuming clients to check for both vocabularies or for publishers to publish using both is not a huge implementation hurdle, so bridging is fairly trivial.</p>
+        <p>An Inbox is an endpoint to which new objects may be <a href="#delivery">delivered</a>. It also serves as a collection whose contents may be read. The Inbox endpoint is used by both ActivityPub and LDN, and can be discovered through the properties:
+        <ul>
+          <li><code>ldp:inbox</code> (<code>http://www.w3.org/ns/ldp#inbox</code>)</li>
+          <li><code>as:inbox</code> (<code>https://www.w3.org/ns/activitystreams#inbox</code>)</li>
+        </ul>
+        <p>In terms of JSON-LD, the latter is an alias of the former.</p>
+
+        <p>For how and when to <em>write</em> to an Inbox, see <a href="#delivery">delivery</a>.</p>
+          
+        <p>The contents of this collection may also be read. While ActivityPub and LDN align for <em>writing</em> to an Inbox, due to irritating but ultimately unavoidable compatibility requirements with AS2 and LDP respectively, they use different vocabularies when Inbox contents are returned for <em>reading</em>. Fortunately for consuming clients to check for both vocabularies or for publishers to publish using both is not a huge implementation hurdle, so bridging is fairly trivial.</p>
         <ul>
           <li>ActivityPub Inboxes are an [[ActivityStreams2]] <code>OrderedCollection</code>, and link to their contents with the <code>items</code> property.</li>
-          <li>LDN Inboxes are an [[LDP]] <code>Container</code>, and link to their contents with the <code>contains</code> property.</li>
+          <li>LDN Inboxes are an [[LDP]] <code>Container</code> (providing an explicit type is optional), and link to their contents with the <code>contains</code> property.</li>
         </ul>
 
-        <p>In addition, ActivityPub has more constraints on the content type of the <code>inbox</code> stream, so LDN receivers either need to conform to these constraints (basically just making sure all your JSON-LD is compacted) or ActivityPub clients need to incorporate proper RDF parsing when reading an <code>inbox</code> stream.</p>
-
-        <p>In summary:</p>
+        <p>In addition, ActivityPub has more constraints on the format of the JSON-LD returned. The two lists to follow describe how to bridge the small differences between ActivityPub and LDN conformant Inboxes.</p>
       
-        <p><strong>ActivityPub servers</strong> wishing to be read by LDN consumers MUST:</p>
+        <p><strong>ActivityPub servers</strong> wishing to be read by LDN consumers:</p>
         <ul>
-          <li>serve content with the content-type <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>.</li>
-          <li>include along with the Inbox <code>Collection</code>, every item in the Inbox related with the <code>ldp:contains</code> property.</li>
+          <li>must return alongside the <code>items</code> for everything in the collection, an <code>ldp:contains</code> (<code>http://www.w3.org/ns/ldp#contains</code>) relation.</li>
         </ul>
 
-        <p><strong>ActivityPub clients</strong> wishing to read from LDN Inboxes MUST:</p>
+        <p><strong>ActivityPub clients</strong> wishing to read from LDN Inboxes:</p>
         <ul>
-          <li>request content with the content-type <code>application/ld+json</code>. Running it through JSON-LD compacting should help.</li>
-          <li>look for items in the Inbox via the <code>ldp:contains</code> property (rather than AS2 <code>items</code>).</li>
+          <li>must request content with the content-type <code>application/ld+json</code>. Running it through JSON-LD compaction should help to format the respone in a more friendly way.</li>
+          <li>must look for items in the Inbox via the <code>ldp:contains</code> property (rather than AS2 <code>items</code>).</li>
+          <li>should not expect any of the items to have their properties nested; will probably need to retrieve individual items from the URLs in the <code>@id</code> property.</li>
+          <li>Note the possibility of multiple vocabularies within the items in the Inbox themselves, including potentially a complete absence of any AS2.</li>
         </ul>
 
-        <p><strong>LDN receivers</strong> wishing to interoperate with ActivityPub consuming clients MUST:</p>
+        <p><strong>LDN receivers</strong> wishing to be readable by ActivityPub consuming clients:</p>
         <ul>
-          <li>treat the content-type <code>application/activity+json</code> as equivalent to <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>.</li>
-          <li>use compacted JSON-LD.</li>
-          <li>serve Inbox contents as an AS2 <code>Collection</code> (where each notification is related to the inbox with the AS2 <code>items</code> property).</li>
+          <li>must treat the content-type <code>application/activity+json</code> as equivalent to <code>application/ld+json; profile="http://www.w3.org/ns/activitystreams"</code>.</li>
+          <li>serve Inbox contents as an AS2 <code>Collection</code>, where each notification is related to the inbox with the AS2 <code>items</code> property.</li>
+          <li>must return compacted JSON-LD, and no <code>@graph</code>, serving the Inbox collection as the root of the document.</li>
+          <li>may make life easier by nesting additional properties of each resource in the Inbox.</li>
         </ul>
 
-        <p><strong>LDN consumers</strong> wishing to read from inboxes on ActivityPub servers MUST:</p>
+        <p><strong>LDN consumers</strong> wishing to read from Inboxes on ActivityPub servers:</p>
         <ul>
-          <li>if content is returned with the content-type <code>application/activity+json</code> and missing an <code>@context</code>, apply the default AS2 context, and treat it as JSON-LD.</li>
-          <li>look for items in the Inbox via the AS2 <code>items</code> property (rather than <code>ldp:contains</code>).</li>
+          <li>must, if content is returned with the content-type <code>application/activity+json</code> and missing an <code>@context</code>, apply the default AS2 context, and treat it as JSON-LD.</li>
+          <li>must look for items in the Inbox via the AS2 <code>items</code> property (rather than <code>ldp:contains</code>).</li>
         </ul>
       </section>
 
