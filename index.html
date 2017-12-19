@@ -322,6 +322,19 @@ table.th90 th, table.th90 td {
     
     <p>Each of these components can be implemented independently as needed, or all together in one system, as well as extended to meet domain-specific requirements. Users can store their social data across any number of compliant servers, and use compliant clients hosted elsewhere to interact with their own content and the content of others.</p>
 
+    <p>The <a href="https://www.w3.org/2013/socialweb/social-wg-charter">Social Web Working Group Charter</a> proposes the following deliverables, which have been met by the Group, and will be referred to throughout this document:</p>
+
+    <dl>
+      <dt>Social Data Syntax</dt>
+      <dd>A JSON-based syntax to allow the transfer of social information, such as status updates, across differing social systems.</dd>
+
+      <dt>Social API</dt>
+      <dd>A document that defines a specification for a client-side API that lets developers embed and format third party information such as social status updates.</dd>
+
+      <dt>Federation Protocol</dt>
+      <dd>A Web protocol to allow the federation of activity-based status updates and other data (such as profile information) between heterogeneous Web-based social systems. Federation should include multiple servers sharing updates within a client-server architecture, and allow decentralized social systems to be built.</dd>
+    </dl>
+
     <section id="contents">
       <h3>Contents</h3>
     
@@ -342,9 +355,9 @@ table.th90 th, table.th90 td {
         <dt>publishing</dt>
         <dd>covers Social API specifications which tell clients how to instruct servers to <a href="#publishing">create</a>, <a href="#updating">update</a> or <a href="#deleting">delete</a> content.</dd>
         <dt><a href="#subscribing">subscribing</a></dt>
-        <dd>covers Federation API specifications which describe how to ask for notifications about content, and subsequently how those notifications should be delivered.</dd>
+        <dd>covers Federation Protocol specifications which describe how to ask for notifications about content, and subsequently how those notifications should be delivered.</dd>
         <dt><a href="#delivery">delivery</a></dt>
-        <dd>covers Federation API specifications which describe how to deliver notifications which have not been solicited through subscription.</dd>
+        <dd>covers Federation Protocol specifications which describe how to deliver notifications which have not been solicited through subscription.</dd>
         <dt><a href="#profiles">profiles</a></dt>
         <dd>covers specifications which describe profiles.</dd>
       </dl>
@@ -385,9 +398,9 @@ table.th90 th, table.th90 td {
         <table class="th90">
           <tr>
             <td></td>
-            <td colspan="3">Data model</td>
+            <td colspan="3">Data syntax</td>
             <td colspan="4">Social API</td>
-            <td colspan="2">Federation API</td>
+            <td colspan="2">Federation Protocol</td>
             <td></td>
           </tr>
           <tr>
