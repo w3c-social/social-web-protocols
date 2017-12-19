@@ -1009,6 +1009,30 @@ table.th90 th, table.th90 td {
       </section>
     </section>
 
+    <section id="related-specs">
+      
+      <h2>Related specifcations</h2>
+
+      <p>Other specifications worth mentioning in relation to the output of the Social Web Working Group are outlined here.</p>
+
+      <p>Social Web Working Group Notes:</p>
+
+      <ul>
+        <li><strong>[[Post-Type Discovery]]</strong>: specifies an algorithm for determining the type of post by its properties. This may help with bridging between content marked up with microformats2, and explicitly typed vocabularies like ActivityStreams 2.0 (although it doesn't provide a direct mapping between vocabulary terms at the time of writing).</li>
+
+        <li><strong>[[JF2]]</strong>: is an alternative JSON syntax for social content, derived from microformats2. It includes individual objects and feeds. If you don't like ActivityStreams 2.0, you might like this instead. At the time of writing it is not referenced by any other Social Web Working Group specifications.</li> 
+      </ul>
+
+      <p>External:</p>
+
+      <ul>
+        <li><strong>[[IndieAuth]]</strong>: is an identity layer on top of OAuth 2, and the expected auth mechanism for Micropub clients.</li>
+        <li><strong>[[LDP]]</strong>: was an input to the Social Web Working Group charter. <code>Container</code>s on LDP servers can be used directly as LDN receivers, if you happen to have one lying around. The Web Annotation Protocol is also based on LDP.</li>
+        <li><strong>[[Web Annotation Protocol]]</strong>: uses ActivityStreams 2.0 Collections and Paging to model sets of annotations. Annotations themselves use the [[Annotation Vocabulary]].</li>
+      </ul>
+
+    </section>
+
     <section id="change-log" class="appendix information">
       <h2>Change Log</h2>
 
@@ -1022,6 +1046,7 @@ table.th90 th, table.th90 td {
         <li>Elaborate on Updates and Deletes for AP and Webmention.</li>
         <li>Profiles now describes each spec's use or expectations of profiles.</li>
         <li>Auth section now links to relevent parts of each individual spec.</li>
+        <li>Add a section for related specs.</li>
       </ul>
       </section>
 
