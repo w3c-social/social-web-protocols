@@ -972,17 +972,25 @@ table.th90 th, table.th90 td {
   <section id="profiles">
       <h2>Profiles</h2>
 
-      <p class="issue">Stub, needs expansion</p>
+      <p>The subject of a profile document can be a person, persona, organisation, bot, location, or other. None of the specifications described here prescribe particular relationships between real-world entities and online profiles. That is, one person can have many profiles, and one profile may be controlled by many people. How/if/when multiple profiles are linked together is implementation specific, and not specified anywhere here.</p>
 
-      <p>The subject of a profile document can be a person, persona, organisation, bot, location, … the type of the subject of the profile is not required. Each profile document MUST have a URL which SHOULD return attributes of the subject of the profile; SHOULD return at least one link to <a href="#reading">a stream of content</a> and MAY return content the subject has created. A JSON format MUST be available; other content types MAY be returned as well.</p>
+      <p>Most specifications expect that profiles are identified by and retrieved from a URL, and that attributes of the subject of the profile are available from the URL. Ideally they also return a link to at least one stream of content associated with the profile (or embed the content directly), for example activities or blog posts.</p>
+
+      <p><strong>ActivityPub</strong> profiles are JSON-LD documents containing any appropriate ActivityStreams 2.0 properties, as well as links to various endpoints and collections (see <a href="#streams-special"></a>).</p>
+
+      <p><strong>ActivityStreams 2.0</strong> has various <a href="https://www.w3.org/TR/activitystreams-core/#actors">Actor types</a>, which may be used to represent individuals or groups, and also includes <code>Profile</code>.</p> 
+
+      <p><strong>Micropub</strong> has a notion of a profile page (URL) that represents a user, but does not specify the format of that page, except for the link to the Micropub endpoint and authorization endpoints for clients to discover.</p>
       
+      <p><strong>Webmention</strong> does not specify any particular profile format, but in practice Webmention implementations typically publish and consume <a href="http://microformats.org/wiki/h-card">h-card</a> profile information to display authors of webmention sources (see <a href="https://www.w3.org/TR/webmention/#webmention-verification-p-4">examples in the Webmention spec</a>).</p>
+
       <section id="relationships">
         <h3>Relationships</h3>
       
-        <p>Semantics and representation of personal relationships are implementation specific. This specification deals with relationships only when distribution of content is affected, for example if one user ‘friending' another triggers a subscription request from the first user's server to the second. Lists of other relationships MAY be discoverable from a user profile, SHOULD be represented according to the ActivityStremas 2 syntax and MAY (and are likely to) use extension vocabularies as needed.</p>
+        <p>Semantics and representation of personal relationships are implementation specific. These specifications deal with relationships only when distribution of content is affected, for example when 'following' triggers a subscription request from one server to another. Lists of other relationships may be discoverable from a user profile, should be represented according to the ActivityStreams 2.0 syntax and may (and are likely to) use extension vocabularies as needed.</p>
         
         <ul>
-          <li><strong>Activitypub:</strong> When a server receives a <code>Follow</code> Activity in its <code>inbox</code>, the subject is added to a <code>Followers</code> <code>Collection</code>, which is discoverable from the subject's profile.</li>
+          <li><strong>ActivityPub:</strong> When a server receives a <code>Follow</code> Activity in its <code>inbox</code>, the subject is added to a <code>Followers</code> <code>Collection</code>, which is discoverable from the subject's profile. Federated servers use this collection to deliver updates when new content is created by the owner of the collection.</li>
         </ul>
       </section>
       
