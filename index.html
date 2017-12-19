@@ -644,34 +644,40 @@ table.th90 th, table.th90 td {
   <section id="publishing">
     <h2>Publishing</h2>
 
-    <p>Publishing in this context incorporates creating new content, and updating or deleting existing content. Content generated through a client (such as a web form, mobile app, sensor, smart device) is created when it is sent to a server for processing, where it is typically stored and usually published (either publicly or to a restricted audience, in human- and/or machine-readable forms). Clients and servers may independently support creating, updating and deleting; there are no dependencies between them.</p>
+    <p>Publishing in this context refers to modifying the outgoing feed associated with a particular profile. This incorporates creating new content, as well as updating or deleting existing content. Content generated through a client (such as a web form, mobile app, sensor, smart device) is created when it is sent to a server for processing, where it is typically stored and usually published (either publicly or to a restricted audience), in human- and/or machine-readable forms. Clients and servers may independently support creating, updating and deleting; there are no dependencies between them.</p>
 
-    <p>Authentication and authorization between clients and servers for creating content are left out of scope.</p>
+    <p class="note" title="Other kinds of publishing">
+      While delivering notifications or responding to subscription requests may trigger creating (or updating or deleting) something on the receiving end, the intent is different. These cases are called out as side effects in subscription and delivery where appropriate.
+    </p>
 
-    <p>The two specifications recommended by the Social Web Working Group for publishing are [[Activitypub]] and [[Micropub]]. They use similar high level mechanisms, but differ in requirements around both the vocabularies and content types of data. ActivityPub contains a client-to-server API for creating ActivityStreams 2.0 objects and activities, and specifies additional responsibilities for clients around addressing objects, and for servers around the side-effects of certain types of objects. Micropub provides a basic client-to-server API for creating blog-post type content which can be implemented alone and is intended as a quickstart for content creation, on top of which more complex (but optional) actions can be layered.</p>
+    <p>For notes about authentication and authorization between clients and servers, see <a href="#auth"></a></p>
 
-    <p>Both provide similar media endpoints for uploading files.</p>
+    <p>The two specifications recommended by the Social Web Working Group for publishing are [[Activitypub]] and [[Micropub]]. They use similar high level mechanisms, but differ in requirements around both the vocabularies and content types of data. </p>
+    <p>ActivityPub contains a client-to-server API for creating ActivityStreams 2.0 objects and activities, and specifies additional responsibilities for clients around addressing objects, and for servers around the side-effects of certain types of objects. </p>
+    <p>Micropub provides a basic client-to-server API for creating blog-post-type content and is intended as a quickstart for content creation, on top of which more complex (but optional) actions can be layered. Micropub also provides a media endpoint for uploading files.</p>
 
     <div class="note" title="REST">
-      <p>Neither ActivityPub nor Micropub define APIs for publishing based on HTTP verbs. If you're looking for something more RESTful, you may like the Linked Data Platform (<strong>[[LDP]]</strong>).</p>
+      <p>Neither ActivityPub nor Micropub define APIs for publishing based on HTTP verbs. If you're looking for something more RESTful, you may like the Linked Data Platform [[LDP]].</p>
     </div>
 
     <section id="creating">
       <h3>Creating</h3>
 
-      <p>The publishing endpoint of <strong>[[Activitypub]]</strong> is the <code>outbox</code>. Clients are assumed to have the URL of a (ideally authenticated) user profile as a starting point, and discover the value of the <code>https://www.w3.org/ns/activitystreams#outbox</code> property found at the profile URL (which should be available as JSON). The client then makes an HTTP <code>POST</code> request with an [[ActivityStreams2]] activity or object as a JSON payload with a content type of <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>. The URL of the created resource is generated at the discretion of the server, and returned in the <code>Location</code> HTTP header. This is an appropriate protocol to use when:</p>
+      <p>The publishing endpoint of <strong>[[Activitypub]]</strong> is the <code>outbox</code>. Clients are assumed to have the URL of a (ideally authenticated) profile as a starting point, and discover the value of the <code>https://www.w3.org/ns/activitystreams#outbox</code> property found at the profile URL (which should be available as JSON). The client then makes an HTTP <code>POST</code> request with an [[ActivityStreams2]] activity or object as a JSON payload with a content type of <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>. The URL of the created resource is generated at the discretion of the server, and returned in the <code>Location</code> HTTP header. This is an appropriate protocol to use when:</p>
 
       <ul>
         <li>You want to send/receive a JSON or JSON-LD payload.</li>
         <li>Your data is described with [[ActivityStreams2]] (optionally extensible via JSON-LD).</li>
-        <li>You want serves to carry out a known set of actions upon content creation.</li>
+        <li>You want servers to carry out a known set of actions upon content creation.</li>
       </ul>
 
       <p>Side-effects of creating content with ActivityPub are for the most part adding things to various different collections collections (likes, follows, etc); but also include requirements about blocking users, and a hook to enable federated servers.</p> 
 
-      <p>The publishing endpoint for <strong>[[Micropub]]</strong> is the <code>micropub</code> end point. Clients discover this from a user's URL via a <code>rel="micropub"</code> link (in an HTTP <code>Link</code> header, or an HTML element). Clients make a <code>x-www-form-urlencoded</code> POST request containing the key-value pairs for the attributes of the object being created. The URL of the created resource is generated at the discretion of the server, and returned in the <code>Location</code> HTTP header. Clients and servers must support attributes from the Microformats 2 [[h-entry]] vocabulary. Micropub also defines special reserved attributes (prefixed with <code>mp-</code>) which can be used as commands to the server. Any additional key names sent outside of these vocabularies may be ignored by the server.</p>
+      <p>The publishing endpoint for <strong>[[Micropub]]</strong> is the <code>micropub</code> endpoint. Clients discover this from a profile URL via a <code>rel="micropub"</code> link (in an HTTP <code>Link</code> header, or an HTML <code>&lt;link&gt;</code> element). Clients make a <code>x-www-form-urlencoded</code> POST request containing the key-value pairs for the attributes of the object being created. The URL of the created resource is generated at the discretion of the server, and returned in the <code>Location</code> HTTP header. Clients and servers must support attributes from the Microformats 2 [[h-entry]] vocabulary. Micropub also defines four reserved attributes (<code>access_token</code>, <code>h</code>, <code>action</code> and <code>url</code>) as well as reserves any attribute prefixed with <code>mp-</code>; these are used as commands to the server. Any additional key names sent outside of these vocabularies <em>may</em> be ignored by the server.</p>
 
-      <p>[[Micropub]] requests may alternatively be sent as a JSON payload, the syntax of which is derived from the Microformats 2 parsing algorithm. This is an appropriate protocol to use when:</p>
+      <p>Micropub requests may alternatively be sent as a JSON payload, the syntax of which is derived from the Microformats 2 parsing algorithm.</p>
+
+      <p>This is an appropriate protocol to use when:</p>
 
       <ul>
         <li>You want to send/receive a form-encoded or JSON payload.</li>
@@ -684,22 +690,34 @@ table.th90 th, table.th90 td {
     <section id="updating">
       <h3>Updating</h3>
       
-      <p>Content is updated when a client sends changes to attributes (additions, removals, replacements) to an existing object. If a server has implemented a <a href="#delivery">delivery</a> or <a href="#subscribing">subscription</a> mechanism, when an object is updated, the update MUST be propagated to the original recipients using the same mechanism.</p>
+      <p>Content is updated when a client sends changes to attributes (additions, removals, replacements) to an existing object.</p>
 
-      <p><strong>[[Activitypub]]</strong> clients send an HTTP <code>POST</code> request to the <code>outbox</code> containing an [[ActivityStreams2]] <code>Update</code> activity. The <code>object</code> of the activity is an existing object, and the fields to update should be nested. If a partial representation of an object is sent, omitted fields are <em>not</em> deleted by the server. In order to delete specific fields, the client can assign them a <code>null</code> value. However, when a federated server passes an <code>Update</code> activity to another server's <em><code>inbox</code></em>, the recipient must assume this is the <em>complete</em> object to be replaced; partial updates are not performed server-to-server.</p>
+      <p><strong>[[Activitypub]]</strong> clients send an HTTP <code>POST</code> request to the <code>outbox</code> containing an [[ActivityStreams2]] <code>Update</code> activity. The <code>object</code> of the activity is an existing object, including its <code>id</code>, and the fields to update should be nested. If a partial representation of an object is sent, omitted fields are <em>not</em> deleted by the server. In order to delete specific fields, the client can assign them a <code>null</code> value. </p>
 
-      <p><strong>[[Micropub]]</strong> clients perform updates, as either form-encoded or JSON POST requests, using the <code>mp-action=update</code> parameter, as well as a <code>replace</code>, <code>add</code> or <code>delete</code> property containing the updates to make, to the Micropub endpoint. <code>replace</code> replaces all values of the specified property; if the property does not exist already, it is created. <code>add</code> adds new values to the specified property without changing the existing ones; if the property does not exist already, it is created. <code>delete</code> removes the specified property; you can also remove properties by value by specifying the value.</p>
+      <p>In the case of ActivityPub federated servers, updates should be propagated to the <code>inbox</code>es of recipients of the original objects. However, when a federated server passes an <code>Update</code> activity to another server's <em><code>inbox</code></em>, the recipient must assume this is the <em>complete</em> object to be replaced; partial updates are not performed server-to-server.</p>
+
+      <p>An <code>Undo</code> with the <code>object</code> of the previous <code>Update</code> can be used to revert changes.</p>
+
+      <p><strong>[[Micropub]]</strong> clients perform updates as JSON POST requests, using the <code>"action": "update"</code> directive, as well as a <code>replace</code>, <code>add</code> or <code>delete</code> property containing the updates to make, to the Micropub endpoint. <code>replace</code> replaces all values of the specified property; if the property does not exist already, it is created. <code>add</code> adds new values to the specified property without changing the existing ones; if the property does not exist already, it is created. <code>delete</code> removes the specified property; you can also remove properties by value by specifying the value.</p>
+
+      <p>If a server also implements [[Webmention]] it should propagate the updates to anyone who received Webmentions for the original.</p>
+
+      <p>If a server also implements [[WebSub]], and the updated resource is part of a <code>topic</code>, the server should notify the hub of an update to the topic URL.</p>
       
 
     </section>
     <section id="deleting">
       <h3>Deleting</h3>
       
-      <p>Content is deleted when a client sends a request to delete an existing object. If a server has implemented a <a href="#delivery">delivery</a> or <a href="#subscribing">subscription</a> mechanism, when an object is deleted, the deletion MUST be propagated to the original recipients using the same mechanism.</p>
+      <p>Content is deleted when a client sends a request to delete an existing object.</p>
 
-      <p><strong>[[Activitypub]]</strong> clients delete an object by sending an HTTP POST request containing an [[ActivityStreams2]] <code>Delete</code> activity to the <code>outbox</code> of the authenticated user. Servers MUST either <em>replace</em> the <code>object</code> of this activity with a tombstone and return a <code>410 Gone</code> status code, or return a <code>404 Not Found</code>, from its URL.</p>
+      <p><strong>[[Activitypub]]</strong> clients delete an object by sending an HTTP POST request containing an [[ActivityStreams2]] <code>Delete</code> activity to the <code>outbox</code> of the authenticated user. Servers must either <em>replace</em> the <code>object</code> of this activity with a tombstone and return a <code>410 Gone</code> status code, or return a <code>404 Not Found</code>, from its URL.</p>
 
-      <p><strong>[[Micropub]]</strong> delete requests are two key-value pairs, in form-encoded or JSON: <code>mp-action</code>: <code>delete</code> and <code>url</code>: <code>url-to-be-deleted</code>, sent to the Micropub endpoint .</p>
+      <p>An <code>Undo</code> with the <code>object</code> of the previous <code>Delete</code> may be used to restore the object.</p>
+
+      <p><strong>[[Micropub]]</strong> delete requests are two key-value pairs, JSON: <code>"action": "delete"</code> and <code>"url": url-to-be-deleted</code>, sent to the Micropub endpoint. Posts may be resotred with <code>"action": "undelete"</code>.</p>
+
+      <p>As with <a href="#updating">updating</a>, servers implementing ActivityPub federation, Webmention or WebSub should propagate deletes accordingly.</p>
       
   </section>
 </section>
