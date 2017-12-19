@@ -843,7 +843,7 @@ table.th90 th, table.th90 td {
 
     <section id="delivery-mentioning">
       <h3>Mentioning</h3>
-      <p><strong>[[Webmention]]</strong> provides an API for sending and receiving notifications when a relationship is created, updated, or deleted between two documents by including the URL of one document in the content of another. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
+      <p><strong>[[Webmention]]</strong> provides an API for sending and receiving notifications when a relationship is created (or updated, or deleted) between two documents. A webmention sender is triggered by the creation (or modification) of content which includes the URL of another document. It works when the two documents are on different domains, thus serving as a federation protocol. This is a suitable notification mechanism when:</p>
 
       <ul>
         <li>You have a document (source) which contains the URL of another document (target).</li>
@@ -851,13 +851,21 @@ table.th90 th, table.th90 td {
         <li>The only data you need to send over the wire are the URLs of the source and target documents (ie. a 'thin ping').</li>
       </ul>
 
-      <p>If a Webmention is received and this is the first time this <code>source</code> and <code>target</code> combination has been seen by the receiver, this indicates a relationship between the <code>source</code> and <code>target</code> has been created. If the receiver has seen these values before, the receiver can fetch and parse the <code>source</code> to determine what has changed; either the content of the <code>source</code> has been updated (in which case the receiver can update local copies of the content, if it stored them in the first place), or the entire source has been deleted (expect a <code>410 Gone</code> response).</p>
-
       <p>There are no constraints on the syntax of the source and target documents. Discovery of the [[Webmention]] endpoint (a script which can process incoming webmentions) is through a link relation (<code>rel="webmention"</code>), either in the HTTP <code>Link</code> header or HTML body of the target. This endpoint does not need to be on the same domain as the target, so webmention receiving can be delegated to a third party.</p>
 
       <p>Webmentions are verified by the server dereferencing the source and parsing it to check for the existence of the target URL. If the target URL isn't found, the webmention MUST be rejected.</p>
 
-      <p>[[Webmention]] uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. Beyond verification, it is not specified what the receiver should do upon receipt of a Webmention. What the webmention endpoint should return on a <code>GET</code> request is also left unspecified.</p>
+      <p>Webmention uses <code>x-www-form-urlencoded</code> for the source and target as parameters in an HTTP POST request. Beyond verification, it is not specified what the receiver should do upon receipt of a Webmention. What the webmention endpoint should return on a <code>GET</code> request is also left unspecified.</p>
+
+      <section id="webmention-updates">
+
+        <h4>Updates and deletes</h4>
+
+        <p>In practice, Webmention receivers tend to fetch and store the webmention source. It is often displayed, for example as a reply underneath the target blog post.</p>
+
+        <p>If a Webmention is received and this is the first time this <code>source</code> and <code>target</code> combination has been seen by the receiver, this indicates a relationship between the <code>source</code> and <code>target</code> has been created. If the receiver has seen these values before, the receiver can fetch and parse the <code>source</code> to determine what has changed; either the content of the <code>source</code> has been updated (in which case the receiver can update local copies of the content, if it stored them in the first place), or the entire source has been deleted (expect a <code>410 Gone</code> response).</p>
+
+      </section>
 
     </section>
 
