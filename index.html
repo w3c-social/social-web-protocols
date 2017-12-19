@@ -347,7 +347,7 @@ table.th90 th, table.th90 td {
     <section id="definitions">
       <h3>Definitions</h3>
 
-      <p>This document is divided into five sections, pertaining to the components above, and derived from the <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a>. The various Social Web Working Group specifications implement different combinations of these requirements (see <a href="#requirements"></a>) so for clarity the requirement sections are defined here.</p>
+      <p>This document is divided into five sections, pertaining to the components above, and derived from the <a href="https://www.w3.org/wiki/Socialwg/Social_API/Requirements">Social API Requirements</a>. The various Social Web Working Group specifications implement different combinations of these requirements (see <a href="#requirements"></a>) so for clarity the requirement are defined here.</p>
 
       <dl>
         <dt><a href="#reading">reading</a></dt>
@@ -367,7 +367,7 @@ table.th90 th, table.th90 td {
     <section id="swwg-specs">
       <h3>Specifications</h3>
 
-      <p>These specifications are finished, though new implementation reports and feedback are always welcome (details for where to submit these are at the top of each document).</p>
+      <p>These are the specifications produced by the Social Web Working Group. New implementation reports and feedback are always welcome (details for where to submit these are at the top of each document).</p>
 
       <dl>
 
@@ -521,15 +521,21 @@ table.th90 th, table.th90 td {
 
       <p><strong>[[ActivityStreams2]]</strong> is the recommended syntax and vocabulary for social data. ActivityStreams 2.0 represents content and interactions as <em>Objects</em> and <em>Activities</em>. The ActivityStreams vocabulary defines a finite set of common Object and Activity types and properties, as well as an extension mechanism for applications which want to expand on or specialise these.</p>
 
-      <p>ActivityStreams 2.0 content MUST be served with the Content-Type <code>application/activity+json</code> or for JSON-LD extended implementations, <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>. Consumers should recognise both of these Content-Types as ActivityStreams 2.0.</p>
+      <p>ActivityStreams 2.0 content is served with the Content-Type <code>application/activity+json</code> or for JSON-LD extended implementations, <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>. Consumers should recognise both of these Content-Types as ActivityStreams 2.0; <span title="after much wringing of hands and gnashing of teeth, the WG decided that">they should be treated as equivalent</span>.</p>
 
-      <p>In order to claim ActivityStreams 2.0 conformance, a data publisher MUST use ActivityStreams 2.0 vocabulary terms where available, and <em>only</em> use other vocabularies <em>in addition</em>, or where no appropriate ActivityStreams 2.0 term exists.</p>
+      <p>In order to claim ActivityStreams 2.0 conformance, a data publisher must use ActivityStreams 2.0 vocabulary terms where available, and <em>only</em> use other vocabularies <em>in addition</em>, or where no appropriate ActivityStreams 2.0 term exists.</p>
 
       <p class="note" title="ActivityStreams 1.0">ActivityStreams 2.0 builds upon [[AS1]] and is not fully backwards compatible; <a href="http://www.w3.org/TR/activitystreams-core#activitystreams-1.0">the relationship between AS1 and AS2 is documented in the AS2 spec</a>. If you have implemented [[AS1]], you should transition to ActivityStreams 2.0.</p>
 
-      <p><strong>[[Activitypub]]</strong> uses ActivityStreams 2.0 for all data, and also <em>extends</em> ActivityStreams 2.0 with additional terms. Thus, ActivityPub requires requests have the Content-Type <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>.</p>
-
       <p>To make content available as ActivityStreams 2.0 JSON, one could do so directly when requested with an appropriate <code>Accept</code> header (eg. <code>application/activity+json</code> or <code>application/ld+json</code>), or indirectly via a <code>rel="alternate" type="application/activity+json"</code> link . This link could be to a different domain, for third-party services which dynamically generate ActivityStreams 2.0 JSON on behalf of a publisher.</p>
+
+      <div class="note" title="JSON-LD">
+        <p>When sent as JSON-LD, ActivityStreams 2.0 must be <a href="https://json-ld.org/spec/latest/json-ld-api/#compaction">compacted</a>, and must not use the <code>@graph</code> keyword. This is because an ActivityStreams 2.0 document requires a single <code>Object</code> as the root. To serve multiple resources, you can instead nest them.</p>
+        <p>The <a href="https://www.w3.org/ns/activitystreams#">ActivityStreams 2.0 JSON-LD context</a> (https://www.w3.org/ns/activitystreams#) aliases <code>@id</code> and <code>@type</code> to <code>id</code> and <code>type</code> respectively.</p>
+      </div>
+      
+      <p><strong>[[Activitypub]]</strong> uses ActivityStreams 2.0 for all data, and also <em>extends</em> ActivityStreams 2.0 with additional terms. Thus, ActivityPub requires responses to have the Content-Type <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>. Publishers are however expected to also respect requests with the <code>application/activity+json</code> Accept header.</p>
+
 
       <section id="content-other">
         <h4>Other ways of representing content</h4>
