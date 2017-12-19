@@ -872,61 +872,14 @@ table.th90 th, table.th90 td {
     <section id="delivery-interop">
       <h3>Delivery interop</h3>
 
-      <p>This section describes how receiver implementations of either Webmention or LDN may create bridging code in order to accept notifications from senders of the other. This can also be read to understand how a sender of either Webmention or LDN should adapt their discovery and payload in order to send to a receiver of the other.</p>
-
-      <section id="ldn-to-wm">
-        <h4>LDN to Webmention</h4>
-
-        <p>Webmention receivers wishing to also accept LDN <code>POST</code>s at their Webmention endpoint MUST:</p>
-        <ul>
-          <li>Advertise the webmention endpoint via <code>rel="http://www.w3.org/ns/ldp#inbox"</code> in addition to <code>rel="webmention"</code> (in the <code>Link</code> header, HTML body or JSON body of a target).</li>
-          <li>Accept <code>POST</code> requests with the Content-Type <code>application/ld+json</code>. Expect the body of the request to be:
-          <pre class="example">
-  {
-    "@context": "http://www.w3.org/ns/webmention#",
-    "@id": "",
-    "source": { "@id": "https://waterpigs.example/post-by-barnaby" },
-    "target": { "@id": "https://aaronpk.example/post-by-aaron" }
-  }
-          </pre>
-          Use the <code>source->@id</code> and <code>target->@id</code> values as the <code>source</code> and <code>target</code> of the Webmention, and proceed with verification.</li>
-          <li>If returning a <code>201 Created</code>, it MUST return a <code>Location</code> header with a URL from which the contents of the request posted can be retrieved. <code>202 Accepted</code> is still fine.</li>
-          <li>Note than when verifying the source, there's a good chance you can request/parse it as RDF.</li>
-        </ul>
-      </section>
-
-      <section id="wm-to-ldn">
-        <h4>Webmention to LDN</h4>
-
-        <p>LDN receivers wishing to also accept Webmentions to their Inbox MUST:</p>
-        <ul>
-          <li>Advertise the Inbox via <code>rel="webmention"</code> in addition to <code>rel="http://www.w3.org/ns/ldp#inbox"</code> (in the <code>Link</code> header, HTML body or JSON body of a target).</li>
-          <li>Accept <code>POST</code> requests with a content type <code>application/x-www-form-urlencoded</code>. Convert these requests from:
-          <pre class="example">
-  source=https://waterpigs.example/post-by-barnaby&amp;
-  target=https://aaronpk.example/post-by-aaron
-          </pre>
-          to:
-          <pre class="example">
-  {
-    "@context": "http://www.w3.org/ns/webmention#",
-    "@id": "",
-    "source": { "@id": "https://waterpigs.example/post-by-barnaby" },
-    "target": { "@id": "https://aaronpk.example/post-by-aaron" }
-  }
-          </pre>
-          and proceed per [[LDN]]; receivers MAY add other triples at their discretion.</li>
-          <li>Receivers MUST return a <code>201 Created</code> with a <code>Location</code> header or <code>202 Accepted</code>.</li>
-          <li>Receivers MUST verify the request by retrieving the source document and checking a link to the target document is present. If the Webmention is not verified, recievers MUST NOT keep it.</li>
-        </ul>
-      </section>
+      <p>This section describes how implementations of Webmention, ActivityPub and LDN may create bridging code in order to send and receive notifications from the others.</p>
 
       <section id="wm-as-as">
-        <h4>Webmention as AS2</h4>
+        <h4>Webmention as AS2 / ActivityPub</h4>
 
-        <p>A webmention may be represented as a persistent resource with [[ActivityStreams2]]. This could come in handy if a Webmention sender <em>mentions</em> a user known to be running an [[Activitypub]] federated server. In this case, the sender can use an AS2 payload and carry out <a href="#delivery">delivery</a> of the notification per ActivityPub/LDN.</p>
+        <p>A webmention may be represented as a persistent resource with the ActivityStreams 2.0 vocabulary. This could come in handy if a <strong>Webmention sender</strong> <em>mentions</em> a user known to be running an ActivityPub federated server, and wants a generic (ie. not ActivityPub specific) way of notifying about this. In this case, the sender can use an AS2 payload and deliver the notification per <a href="#wm-to-ldn"></a>.</p>
 
-        <pre class="example">
+        <pre class="example" id="wm-as2">
   {
     "@context": "https://www.w3.org/ns/activitystreams#",
     "type": "Relationship",
@@ -953,6 +906,63 @@ table.th90 th, table.th90 td {
   }
         </pre>
       </section>
+
+      <section id="ldn-to-wm">
+        <h4>LDN to Webmention</h4>
+
+        <p><strong>Webmention receivers</strong> wishing to also accept LDN <code>POST</code>s at their Webmention endpoint must:</p>
+        <ul>
+          <li>Advertise the webmention endpoint via <code>rel="http://www.w3.org/ns/ldp#inbox"</code> in addition to <code>rel="webmention"</code> (in the <code>Link</code> header, HTML body or JSON body of a target).</li>
+          <li>Accept <code>POST</code> requests with the Content-Type <code>application/ld+json</code>. Expect the body of the request to be:
+          <pre class="example">
+  {
+    "@context": "http://www.w3.org/ns/webmention#",
+    "@id": "",
+    "source": { "@id": "https://waterpigs.example/post-by-barnaby" },
+    "target": { "@id": "https://aaronpk.example/post-by-aaron" }
+  }
+          </pre>
+          Use the <code>source->@id</code> and <code>target->@id</code> values as the <code>source</code> and <code>target</code> of the Webmention, and proceed with verification.</li>
+          <li>If returning a <code>201 Created</code>, it MUST return a <code>Location</code> header with a URL from which the contents of the request posted can be retrieved. <code>202 Accepted</code> is still fine.</li>
+          <li>Note than when verifying the source, there's a good chance you can request/parse it as RDF.</li>
+        </ul>
+
+        <p><strong>LDN senders</strong> wishing to send to Webmention endpoints basically just need to implement Webmention sending. The Webmention endpoint is at <code>rel="webmention"</code> (either in an HTTP <code>Link</code> header or HTML <code>&lt;link&gt;</code> element).</p>
+
+        <p>Note that Webmention endpoints will only verify a received notification if the <code>source</code> is publicly retrievable and contains the URL of the <code>target</code>.</p>
+      </section>
+
+      <section id="wm-to-ldn">
+        <h4>Webmention to LDN</h4>
+
+        <p><strong>LDN receivers</strong> wishing to also accept Webmentions to their Inbox MUST:</p>
+        <ul>
+          <li>Advertise the Inbox via <code>rel="webmention"</code> in addition to <code>rel="http://www.w3.org/ns/ldp#inbox"</code> (in the <code>Link</code> header, HTML body or JSON body of a target).</li>
+          <li>Accept <code>POST</code> requests with a content type <code>application/x-www-form-urlencoded</code>. Convert these requests from:
+          <pre class="example">
+  source=https://waterpigs.example/post-by-barnaby&amp;
+  target=https://aaronpk.example/post-by-aaron
+          </pre>
+          to:
+          <pre class="example" id="wm-json">
+  {
+    "@context": "http://www.w3.org/ns/webmention#",
+    "@id": "",
+    "source": { "@id": "https://waterpigs.example/post-by-barnaby" },
+    "target": { "@id": "https://aaronpk.example/post-by-aaron" }
+  }
+          </pre>
+          and proceed per [[LDN]]; receivers MAY add other triples at their discretion.</li>
+          <li>Receivers MUST return a <code>201 Created</code> with a <code>Location</code> header or <code>202 Accepted</code>.</li>
+          <li>Receivers MUST verify the request by retrieving the source document and checking a link to the target document is present. If the Webmention is not verified, recievers MUST NOT keep it.</li>
+        </ul>
+
+        <p><strong>Webmention senders</strong> wishing to send to LDN Inboxes need to send a JSON-LD payload. Discover the Inbox endpoint through a relation of <code>http://www.w3.org/ns/ldp#inbox</code> between the <code>target</code> and the Inbox. A typical Webmention can be represented as JSON-LD per <a href="#wm-json">this example</a>, or as ActivityStreams 2.0 JSON per <a href="#wm-as2">this example</a>.</p>
+      </section>
+
+      <p class="note" title="Bridging services">
+        Look out for Webmention-ActivityPub bridges <em>as services</em>. These will provide endpoints to do the heavy lifting of the spec you don't want to implement yourself. You can use these endpoints as your Webmention or Inbox endpoint respectively. Brainstorming and implementations of such bridges can be found on the Social Web Community Group and the <a href="https://indieweb.org/bridge#ActivityPub">IndieWeb community</a>.
+      </p>
 
     </section>
 
