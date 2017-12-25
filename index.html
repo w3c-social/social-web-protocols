@@ -204,24 +204,6 @@ table.th90 th, table.th90 td {
           wgPublicList: "public-socialweb",
           wgPatentURI:  "https://www.w3.org/2004/01/pp-impl/72531/status",
           localBiblio:  {
-            "Webmention": {
-              title:    "Webmention",
-              href:     "http://www.w3.org/TR/webmention",
-              authors:  [
-                "Aaron Parecki"
-              ],
-              status:   "REC",
-              publisher:  "W3C"
-            },
-            "ActivityStreams2": {
-              title: "ActivityStreams 2.0",
-              href: "https://www.w3.org/TR/activitystreams-core",
-              authors: [
-                "James Snell", "Evan Prodromou"
-              ],
-              status: "CR",
-              publisher: "W3C"
-            },
             "AS1": {
               title: "JSON Activity Streams 1.0.",
               href: "http://activitystrea.ms/specs/json/1.0/",
@@ -229,48 +211,18 @@ table.th90 th, table.th90 td {
               status: "Unofficial",
               publisher: "http://activitystrea.ms"
             },
-            "Solid": {
-              title: "Solid",
-              href: "https://github.com/solid/solid-spec",
-              authors: ["Andrei Sambra"],
-              status: "ED",
-              publisher: "http://solid.mit.edu"
-            },
-            "h-entry": {
-              title: "h-entry",
-              href: "http://microformats.org/wiki/h-entry",
-              authors: [
-                "Tantek Çelik"
-              ],
-              status:   "Living Specification",
-              publisher:  "microformats.org"
-            },
-            "Salmentions": {
-              title: "Salmentions",
-              href: "http://indiewebcamp.com/Salmention",
-              authors: ["Ben Roberts, Tantek Çelik"],
+            "microformats2": {
+              title: "Microformats2",
+              href: "https://microformats.org/wiki/microformats2",
+              authors: ["Tantek Çelik"],
               status: "Living specification",
-              publisher: "IndieWebCamp"
+              publisher: "https://microformats.org"
             },
-            "AnnotationProtocol": {
-              title: "Web Annotation Protocol",
-              href: "https://www.w3.org/TR/annotation-protocol/",
-              authors: ["Rob Sanderson"],
-              status: "PR",
-              publisher: "W3C"
-            },
-            "AnnotationVocab": {
-              title: "Web Annotation Vocabulary",
-              href: "https://www.w3.org/TR/annotation-vocab/",
-              authors: ["Robert Sanderson", "Paolo Ciccarese", "Benjamin Young"],
-              status: "PR",
-              publisher: "W3C"
-            },
-            "LDN": {
-              title: "Linked Data Notifications",
-              href: "https://www.w3.org/tr/ldn/",
-              authors: ["Sarven Capadisli", "Amy Guy"],
-              status: "PR",
+            "IndieAuth": {
+              title: "IndieAuth",
+              href: "https://www.w3.org/TR/indieauth",
+              authors: ["Aaron Parecki"],
+              status: "Note",
               publisher: "W3C"
             },
             "Accept-Post": {
@@ -280,20 +232,6 @@ table.th90 th, table.th90 td {
               status: "Internet Draft",
               publisher: "IETF"
             },
-            "WebSub": {
-              title: "WebSub",
-              href: "https://www.w3.org/TR/websub",
-              authors: ["Julien Genestoux"],
-              status: "ED",
-              publisher: "W3C"
-            },
-            "mf2parsing": {
-              title: "Microformats2 Parsing Algorithm",
-              href: "http://microformats.org/wiki/microformats2-parsing",
-              authors: ["Tantek Çelik"],
-              status: "Living specification",
-              publisher: "microformats.org"
-            }
           }
       };
     </script>
@@ -377,22 +315,22 @@ table.th90 th, table.th90 td {
 
       <dl>
 
-        <dt><a href="http://www.w3.org/TR/activitypub">ActivityPub</a></dt>
+        <dt>[[Activitypub]]</dt>
         <dd>JSON(-LD)-based APIs for client-to-server interactions (ie. publishing) and server-to-server interactions (ie. federation).</dd>
 
-        <dt>ActivityStreams 2.0 (AS2) (<a href="http://www.w3.org/TR/activitystreams-core">Core</a>, <a href="http://www.w3.org/TR/activitystreams-vocabulary">Vocabularly</a>)</dt>
+        <dt>ActivityStreams 2.0 [[activitystreams-core]] and [[activitystreams-vocabulary]]</dt>
         <dd>The syntax and vocabulary for <a href="#reading">representing</a> social activities, actors, objects, and collections in JSON(-LD).</dd>
         
-        <dt><a href="https://www.w3.org/TR/ldn">Linked Data Notifications</a></dt>
+        <dt>Linked Data Notifications ([[LDN]])</dt>
         <dd>A JSON-LD-based protocol for <a href="#delivery">delivery</a>.</dd>
 
-        <dt><a href="http://www.w3.org/TR/micropub">Micropub</a></dt>
+        <dt>[[Micropub]]</dt>
         <dd>A form-encoding and JSON-based API for client-to-server interactions (ie. publishing).</dd>
 
-        <dt><a href="http://www.w3.org/TR/webmention">Webmention</a></dt>
+        <dt>[[Webmention]]</dt>
         <dd>A form-encoding-based protocol for <a href="#delivery">delivery</a>.</dd>
         
-        <dt><a href="https://www.w3.org/TR/websub">WebSub</a></dt>
+        <dt>[[WebSub]]</dt>
         <dd>A protocol for <a href="#subscribing">subscription</a> to any resource and <a href="#delivery">delivery</a> of updates about it.</dd>
 
       </dl>
@@ -527,7 +465,7 @@ table.th90 th, table.th90 td {
     <section id="content-representation">
       <h3>Content representation</h3>
 
-      <p><strong>[[ActivityStreams2]]</strong> is the recommended syntax and vocabulary for social data. ActivityStreams 2.0 represents content and interactions as <em>Objects</em> and <em>Activities</em>. The ActivityStreams vocabulary defines a finite set of common Object and Activity types and properties, as well as an extension mechanism for applications which want to expand on or specialise these.</p>
+      <p><strong>ActivityStreams 2.0</strong> is the recommended syntax ([[activitystreams-core]]) and vocabulary ([[activitystreams-vocabulary]]) for social data. ActivityStreams 2.0 represents content and interactions as <em>Objects</em> and <em>Activities</em>. The ActivityStreams vocabulary defines a finite set of common Object and Activity types and properties, as well as an extension mechanism for applications which want to expand on or specialise these.</p>
 
       <p>ActivityStreams 2.0 content is served with the Content-Type <code>application/activity+json</code> or for JSON-LD extended implementations, <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>. Consumers should recognise both of these Content-Types as ActivityStreams 2.0; <span title="after much wringing of hands and gnashing of teeth, the WG decided that">they should be treated as equivalent</span>.</p>
 
@@ -552,7 +490,7 @@ table.th90 th, table.th90 td {
 
         <p><strong>[[LDN]]</strong> notification contents can use any vocabulary, so long as the data is available as JSON-LD. Thus notifications MAY use ActivityStreams 2.0, but don't have to.</p>
       
-        <p><strong>[[Micropub]]</strong> clients which expect to read data (this would usually be clients for <em><a href="#updating">updating</a></em>) are expecting it as JSON in the <a href="http://microformats.org/wiki/microformats2-parsing">parsed microformats2 syntax</a>.</p>
+        <p><strong>[[Micropub]]</strong> clients which expect to read data (this would usually be clients for <em><a href="#updating">updating</a></em>) are expecting it as JSON in the parsed microformats2 syntax ([[microformats2-parsing]]).</p>
 
         <p><strong>[[WebSub]]</strong> is agnostic as to the Content-Type used by publishers; hubs are expected to deliver the new content to subscribers as-is produced by the publisher, at the publisher's <code>topic</code> URL.</p>
 
@@ -579,16 +517,16 @@ table.th90 th, table.th90 td {
         <p><strong>[[Activitypub]]</strong> specifies two streams that MUST be accessible from a profile via the following properties:</p>
 
         <ul>
-          <li><code>inbox</code>: A reference to an [[ActivityStreams2]] collection comprising all the objects received by the actor.</li>
-          <li><code>outbox</code>: An [[ActivityStreams2]] collection comprising all the objects produced by the actor.</li>
+          <li><code>inbox</code>: A reference to an ActivityStreams 2.0 collection comprising all the objects received by the actor.</li>
+          <li><code>outbox</code>: An ActivityStreams 2.0 collection comprising all the objects produced by the actor.</li>
         </ul>
 
         <p>ActivityPub also specifies further properties for accessing additional streams; <code>following</code> and <code>followers</code> are expected, and the rest are optional:</p>
 
         <ul>
-          <li><code>following</code>: An [[ActivityStreams2]] collection of the actors that this actor is following.</li>
-          <li><code>followers</code>: An [[ActivityStreams2]] collection of the actors that follow this actor
-          <li><code>liked</code>: An [[ActivityStreams2]] collection of every <code>object</code> from all of the actor's <code>Like</code> activities (generated automatically by the server).</li>
+          <li><code>following</code>: An ActivityStreams 2.0 collection of the actors that this actor is following.</li>
+          <li><code>followers</code>: An ActivityStreams 2.0 collection of the actors that follow this actor
+          <li><code>liked</code>: An ActivityStreams 2.0 collection of every <code>object</code> from all of the actor's <code>Like</code> activities (generated automatically by the server).</li>
           <li><code>streams</code>: A list of supplementary Collections which may be of interest. </li>
           <li><code>preferredUsername</code></li>
           <li><code>endpoints</code>: A mapping of additional (typically server/domain-wide) endpoints which may be useful either for this actor or someone referencing this actor: 
@@ -612,7 +550,7 @@ table.th90 th, table.th90 td {
           
         <p>The contents of this collection may also be read. While ActivityPub and LDN align for <em>writing</em> to an Inbox, due to irritating but ultimately unavoidable compatibility requirements with AS2 and LDP respectively, they use different vocabularies when Inbox contents are returned for <em>reading</em>. Fortunately for consuming clients to check for both vocabularies or for publishers to publish using both is not a huge implementation hurdle, so bridging is fairly trivial.</p>
         <ul>
-          <li>ActivityPub Inboxes are an [[ActivityStreams2]] <code>OrderedCollection</code>, and link to their contents with the <code>items</code> property.</li>
+          <li>ActivityPub Inboxes are an ActivityStreams 2.0 <code>OrderedCollection</code>, and link to their contents with the <code>items</code> property.</li>
           <li>LDN Inboxes are an [[LDP]] <code>Container</code> (providing an explicit type is optional), and link to their contents with the <code>contains</code> property.</li>
         </ul>
 
@@ -671,19 +609,19 @@ table.th90 th, table.th90 td {
     <section id="creating">
       <h3>Creating</h3>
 
-      <p>The publishing endpoint of <strong>[[Activitypub]]</strong> is the <code>outbox</code>. Clients are assumed to have the URL of a (ideally authenticated) profile as a starting point, and discover the value of the <code>https://www.w3.org/ns/activitystreams#outbox</code> property found at the profile URL (which should be available as JSON). The client then makes an HTTP <code>POST</code> request with an [[ActivityStreams2]] activity or object as a JSON payload with a content type of <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>. The URL of the created resource is generated at the discretion of the server, and returned in the <code>Location</code> HTTP header. This is an appropriate protocol to use when:</p>
+      <p>The publishing endpoint of <strong>[[Activitypub]]</strong> is the <code>outbox</code>. Clients are assumed to have the URL of a (ideally authenticated) profile as a starting point, and discover the value of the <code>https://www.w3.org/ns/activitystreams#outbox</code> property found at the profile URL (which should be available as JSON). The client then makes an HTTP <code>POST</code> request with an ActivityStreams 2.0 activity or object as a JSON payload with a content type of <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>. The URL of the created resource is generated at the discretion of the server, and returned in the <code>Location</code> HTTP header. This is an appropriate protocol to use when:</p>
 
       <ul>
         <li>You want to send/receive a JSON or JSON-LD payload.</li>
-        <li>Your data is described with [[ActivityStreams2]] (optionally extensible via JSON-LD).</li>
+        <li>Your data is described with [[activitystreams-core]] and [[activitystreams-vocabulary]] (optionally extensible via JSON-LD).</li>
         <li>You want servers to carry out a known set of actions upon content creation.</li>
       </ul>
 
       <p>Side-effects of creating content with ActivityPub are for the most part adding things to various different collections collections (likes, follows, etc); but also include requirements about blocking users, and a hook to enable federated servers.</p> 
 
-      <p>The publishing endpoint for <strong>[[Micropub]]</strong> is the <code>micropub</code> endpoint. Clients discover this from a profile URL via a <code>rel="micropub"</code> link (in an HTTP <code>Link</code> header, or an HTML <code>&lt;link&gt;</code> element). Clients make a <code>x-www-form-urlencoded</code> POST request containing the key-value pairs for the attributes of the object being created. The URL of the created resource is generated at the discretion of the server, and returned in the <code>Location</code> HTTP header. Clients and servers must support attributes from the Microformats 2 [[h-entry]] vocabulary. Micropub also defines four reserved attributes (<code>access_token</code>, <code>h</code>, <code>action</code> and <code>url</code>) as well as reserves any attribute prefixed with <code>mp-</code>; these are used as commands to the server. Any additional key names sent outside of these vocabularies <em>may</em> be ignored by the server.</p>
+      <p>The publishing endpoint for <strong>[[Micropub]]</strong> is the <code>micropub</code> endpoint. Clients discover this from a profile URL via a <code>rel="micropub"</code> link (in an HTTP <code>Link</code> header, or an HTML <code>&lt;link&gt;</code> element). Clients make a <code>x-www-form-urlencoded</code> POST request containing the key-value pairs for the attributes of the object being created. The URL of the created resource is generated at the discretion of the server, and returned in the <code>Location</code> HTTP header. Clients and servers must support attributes from the Microformats2 [[h-entry]] vocabulary. Micropub also defines four reserved attributes (<code>access_token</code>, <code>h</code>, <code>action</code> and <code>url</code>) as well as reserves any attribute prefixed with <code>mp-</code>; these are used as commands to the server. Any additional key names sent outside of these vocabularies <em>may</em> be ignored by the server.</p>
 
-      <p>Micropub requests may alternatively be sent as a JSON payload, the syntax of which is derived from the Microformats 2 parsing algorithm.</p>
+      <p>Micropub requests may alternatively be sent as a JSON payload, the syntax of which is derived from [[microformats2-parsing]].</p>
 
       <p>This is an appropriate protocol to use when:</p>
 
@@ -700,7 +638,7 @@ table.th90 th, table.th90 td {
       
       <p>Content is updated when a client sends changes to attributes (additions, removals, replacements) to an existing object.</p>
 
-      <p><strong>[[Activitypub]]</strong> clients send an HTTP <code>POST</code> request to the <code>outbox</code> containing an [[ActivityStreams2]] <code>Update</code> activity. The <code>object</code> of the activity is an existing object, including its <code>id</code>, and the fields to update should be nested. If a partial representation of an object is sent, omitted fields are <em>not</em> deleted by the server. In order to delete specific fields, the client can assign them a <code>null</code> value. </p>
+      <p><strong>[[Activitypub]]</strong> clients send an HTTP <code>POST</code> request to the <code>outbox</code> containing an ActivityStreams 2.0 <code>Update</code> activity. The <code>object</code> of the activity is an existing object, including its <code>id</code>, and the fields to update should be nested. If a partial representation of an object is sent, omitted fields are <em>not</em> deleted by the server. In order to delete specific fields, the client can assign them a <code>null</code> value. </p>
 
       <p>In the case of ActivityPub federated servers, updates should be propagated to the <code>inbox</code>es of recipients of the original objects. However, when a federated server passes an <code>Update</code> activity to another server's <em><code>inbox</code></em>, the recipient must assume this is the <em>complete</em> object to be replaced; partial updates are not performed server-to-server.</p>
 
@@ -719,7 +657,7 @@ table.th90 th, table.th90 td {
       
       <p>Content is deleted when a client sends a request to delete an existing object.</p>
 
-      <p><strong>[[Activitypub]]</strong> clients delete an object by sending an HTTP POST request containing an [[ActivityStreams2]] <code>Delete</code> activity to the <code>outbox</code> of the authenticated user. Servers must either <em>replace</em> the <code>object</code> of this activity with a tombstone and return a <code>410 Gone</code> status code, or return a <code>404 Not Found</code>, from its URL.</p>
+      <p><strong>[[Activitypub]]</strong> clients delete an object by sending an HTTP POST request containing an ActivityStreams 2.0 <code>Delete</code> activity to the <code>outbox</code> of the authenticated user. Servers must either <em>replace</em> the <code>object</code> of this activity with a tombstone and return a <code>410 Gone</code> status code, or return a <code>404 Not Found</code>, from its URL.</p>
 
       <p>An <code>Undo</code> with the <code>object</code> of the previous <code>Delete</code> may be used to restore the object.</p>
 
@@ -825,13 +763,13 @@ table.th90 th, table.th90 td {
       <p><strong>[[Activitypub]]</strong> uses [[LDN]] to send notifications with some specific constraints. These are:</p>
 
       <ul>
-        <li>The notification payload MUST be a single [[ActivityStreams2]] Activity.</li>
+        <li>The notification payload MUST be a single ActivityStreams 2.0 Activity.</li>
         <li>The notification payload MUST be compact JSON-LD.</li>
         <li>The receiver MUST verify the notification by fetching its source from the origin server.</li>
         <li>All notification <code>POST</code> requests are authenticated.</li>
       </ul>
 
-      <p>[[Activitypub]] specifies how to define the <em>target(s)</em> to which a notification is to be sent (a pre-requisite to [[LDN]] sending), via the [[ActivityStreams2]] audience targeting and object linking properties.</p>
+      <p>[[Activitypub]] specifies how to define the <em>target(s)</em> to which a notification is to be sent (a pre-requisite to [[LDN]] sending), via the [[activitystreams-vocabulary]] audience targeting and object linking properties.</p>
 
       <p>[[Activitypub]] also defines side-effects that must be carried out by the server as a result of notification receipt. These include:</p>
 
@@ -990,7 +928,7 @@ table.th90 th, table.th90 td {
 
       <p><strong>Micropub</strong> has a notion of a profile page (URL) that represents a user, but does not specify the format of that page, except for the link to the Micropub endpoint and authorization endpoints for clients to discover.</p>
       
-      <p><strong>Webmention</strong> does not specify any particular profile format, but in practice Webmention implementations typically publish and consume <a href="http://microformats.org/wiki/h-card">h-card</a> profile information to display authors of webmention sources (see <a href="https://www.w3.org/TR/webmention/#webmention-verification-p-4">examples in the Webmention spec</a>).</p>
+      <p><strong>Webmention</strong> does not specify any particular profile format, but in practice Webmention implementations typically publish and consume [[h-card]] profile information to display authors of webmention sources (see <a href="https://www.w3.org/TR/webmention/#webmention-verification-p-4">examples in the Webmention spec</a>).</p>
 
       <section id="relationships">
         <h3>Relationships</h3>
@@ -1026,11 +964,11 @@ table.th90 th, table.th90 td {
       <p>Social Web Working Group Notes:</p>
 
       <ul>
-        <li><strong>[[Post-Type Discovery]]</strong>: specifies an algorithm for determining the type of post by its properties. This may help with bridging between content marked up with microformats2, and explicitly typed vocabularies like ActivityStreams 2.0.</li>
+        <li><strong>[[Post-Type Discovery]]</strong>: specifies an algorithm for determining the type of post by its properties. This may help with bridging between content marked up with [[microformats2]], and explicitly typed vocabularies like ActivityStreams 2.0.</li>
 
         <li><strong>[[IndieAuth]]</strong>: is an identity layer on top of OAuth 2, and the expected auth mechanism for Micropub clients.</li>
         
-        <li><strong>[[JF2]]</strong>: is an alternative JSON syntax for social content, derived from microformats2. It includes individual objects and feeds. If you don't like ActivityStreams 2.0, you might like this instead. At the time of writing it is not referenced by any other Social Web Working Group specifications.</li> 
+        <li><strong>[[JF2]]</strong>: is an alternative JSON syntax for social content, derived from[[microformats2]]. It includes individual objects and feeds. If you don't like ActivityStreams 2.0, you might like this instead. At the time of writing it is not referenced by any other Social Web Working Group specifications.</li> 
       </ul>
 
       <p>External:</p>
@@ -1038,7 +976,7 @@ table.th90 th, table.th90 td {
       <ul>
         <li><strong>[[LDP]]</strong>: was an input to the Social Web Working Group charter. <code>Container</code>s on LDP servers can be used directly as LDN receivers, if you happen to have one lying around. The Web Annotation Protocol is also based on LDP.</li>
 
-        <li><strong>[[Microformats2]]</strong>: is a way to mark up structured information in HTML. Micropub expects the Microformats2 vocabulary, and Webmention receiver implementations often look for Microformats2 markup to fetch more information about a source.</li>
+        <li><strong>[[microformats2]]</strong>: is a way to mark up structured information in HTML. Micropub expects the microformats2 vocabulary, and Webmention receiver implementations often look for microformats2 markup to fetch more information about a source.</li>
 
         <li><strong>[[Web Annotation Protocol]]</strong>: uses ActivityStreams 2.0 Collections and Paging to model sets of annotations. Annotations themselves use the [[Annotation Vocabulary]].</li>
       </ul>
