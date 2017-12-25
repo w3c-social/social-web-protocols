@@ -196,7 +196,7 @@ table.th90 th, table.th90 td {
                     mailto: "amy@rhiaro.co.uk",
                     w3cid: "69000" }
           ],
-          previousMaturity: "ED",
+          previousMaturity: "WD",
           previousPublishDate:  "2017-05-04",
           edDraftURI: "https://w3c-social.github.io/social-web-protocols",
           wg:           "Social Web Working Group",
@@ -964,11 +964,11 @@ table.th90 th, table.th90 td {
       <p>Social Web Working Group Notes:</p>
 
       <ul>
-        <li><strong>[[post-type-discovery]]</strong>: specifies an algorithm for determining the type of post by its properties. This may help with bridging between content marked up with [[microformats2]], and explicitly typed vocabularies like ActivityStreams 2.0.</li>
-
         <li><strong>[[IndieAuth]]</strong>: is an identity layer on top of OAuth 2, and the expected auth mechanism for Micropub clients.</li>
         
         <li><strong>[[JF2]]</strong>: is an alternative JSON syntax for social content, derived from[[microformats2]]. It includes individual objects and feeds. If you don't like ActivityStreams 2.0, you might like this instead. At the time of writing it is not referenced by any other Social Web Working Group specifications.</li> 
+        <li><strong>[[post-type-discovery]]</strong>: specifies an algorithm for determining the type of post by its properties. This may help with bridging between content marked up with [[microformats2]], and explicitly typed vocabularies like ActivityStreams 2.0.</li>
+
       </ul>
 
       <p>External:</p>
@@ -978,7 +978,7 @@ table.th90 th, table.th90 td {
 
         <li><strong>[[microformats2]]</strong>: is a way to mark up structured information in HTML. Micropub expects the microformats2 vocabulary, and Webmention receiver implementations often look for microformats2 markup to fetch more information about a source.</li>
 
-        <li><strong>[[Web Annotation Protocol]]</strong>: uses ActivityStreams 2.0 Collections and Paging to model sets of annotations. Annotations themselves use the [[Annotation Vocabulary]].</li>
+        <li><strong>[[annotation-protocol]]</strong>: uses ActivityStreams 2.0 Collections and Paging to model sets of annotations. Annotations themselves use the [[annotation-vocab]].</li>
       </ul>
 
       <p>Development of related specifications is ongoing in various communities, notably the <a href="https://www.w3.org/wiki/SocialCG">Social Web Community Group</a> and the <a href="https://indieweb.org">IndieWeb</a> community.</p>
